@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}My first shop{% endblock %}
+
+{% block content %}
+
+    {% include 'header.html' %}
+    <h1 class="text-center">Product list</h1>
+    <div class="container-fluid row justify-content-between pt-5">
+
+        {% include "filters.html" %}
+
+        <div class="col">
+            <div class="container-fluid row text-center justify-content">
+
+                {% include "pagination.html" %}
+
+                {% for product in page %}
+                    {% include "product.html" %}
+                {% endfor %}
+
+                {% include "pagination.html" %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
