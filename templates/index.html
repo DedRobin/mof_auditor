@@ -8,6 +8,8 @@
 
     {% if not request.user.is_authenticated %}
         {% include 'login.html' %}
+    {% else %}
+        {% include 'user_page.html' %}
     {% endif %}
 
 {% endblock %}

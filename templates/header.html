@@ -1,7 +1,6 @@
 <nav class="navbar bg-light">
     <div class="container-fluid">
         <div>
-
             {% if request.user.is_authenticate %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar"
@@ -14,8 +13,9 @@
         </div>
 
         {% if request.user.is_authenticated %}
-            <div><a href="{% url 'logout_view' %}">Logout</a></div>
-            <div>{{ request.user }}</div>
+            <div>
+                {% include 'user_dropdown_menu.html' %}
+            </div>
         {% endif %}
 
 
