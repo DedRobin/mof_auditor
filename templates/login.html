@@ -1,0 +1,11 @@
+{% load crispy_forms_filters %}
+
+<div class="container">
+    <h1>Login</h1>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="save btn btn-primary">Login</button>
+        <div class="link"><a href="{% url 'register' %}">Registration</a></div>
+    </form>
+</div>

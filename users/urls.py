@@ -1,7 +1,8 @@
-from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [
-    # path("/",),
+from users.views import register_user, logout_user
 
+urlpatterns = [
+    path("register/", register_user, name="register"),
+    path("logout/", logout_user, name="logout_view"),
 ]

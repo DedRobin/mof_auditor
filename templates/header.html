@@ -1,0 +1,25 @@
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <div>
+
+            {% if request.user.is_authenticate %}
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar"
+                        aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            {% endif %}
+
+            <span class="navbar-brand ps-2">MOF-auditor</span>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <div><a href="{% url 'logout_view' %}">Logout</a></div>
+            <div>{{ request.user }}</div>
+        {% endif %}
+
+
+        {% include 'sidebar.html' %}
+
+    </div>
+</nav>
