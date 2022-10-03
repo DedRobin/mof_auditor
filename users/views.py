@@ -4,16 +4,20 @@ from django.contrib.auth import logout, login, authenticate
 
 from users.forms import RegisterForm, LoginForm
 from users.models import User
+from profiles.models import Profile
 
 
-# def index(request):
-#     return render(request, "index.html")
+def index(request):
+    username = request.user.username
+    if request.user.is_authenticated:
+        return redirect(f"/{username}")
+    else:
+        redirect("login")
 
 
 def login_view(request):
     if request.user.is_authenticated:
-        # return redirect("login_view")
-        return render(request, "index.html")
+        return redirect(f"/{request.user.username}")
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -21,8 +25,7 @@ def login_view(request):
             if user is None:
                 return HttpResponse("BadRequest", status=400)
             login(request, user)
-            user_id = user.id
-            return redirect(f"/{user_id}")
+            return redirect(f"/{user.username}")
     else:
         form = LoginForm()
         return render(request, "index.html", {"form": form})
@@ -30,7 +33,7 @@ def login_view(request):
 
 def register_user(request):
     if request.user.is_authenticated:
-        return redirect("login_view")
+        return redirect(f"/{request.user.username}")
 
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -38,7 +41,11 @@ def register_user(request):
             user = User(username=form.cleaned_data["username"])
             user.set_password(form.cleaned_data["password"])
             user.save()
-            return redirect("login_view")
+            Profile.objects.create(user=user,
+                                   gender=form.cleaned_data["gender"],
+                                   first_name=form.cleaned_data["first_name"],
+                                   last_name=form.cleaned_data["last_name"])
+            return redirect("login")
     else:
         form = RegisterForm()
         return render(request, "register.html", {"form": form})
@@ -46,9 +53,9 @@ def register_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect("login_view")
+    return redirect("login")
 
 
-def get_user_page(request, user_id):
-    user = User.objects.get(id=user_id)
-    return render(request, "index.html", {"user": user.username})
+def user_page(request, username):
+    user = User.objects.filter(username=username)
+    return render(request, "index.html", {"user": user[0].username})
