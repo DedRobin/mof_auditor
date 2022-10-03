@@ -35,7 +35,7 @@ def register_user(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = User(email=form.cleaned_data["email"])
+            user = User(username=form.cleaned_data["username"])
             user.set_password(form.cleaned_data["password"])
             user.save()
             return redirect("login_view")
@@ -51,4 +51,4 @@ def logout_user(request):
 
 def get_user_page(request, user_id):
     user = User.objects.get(id=user_id)
-    return render(request, "index.html", {"user": user.email})
+    return render(request, "index.html", {"user": user.username})

@@ -9,16 +9,16 @@ from django.contrib.auth.models import BaseUserManager
 class UserManager(BaseUserManager):
     def create_user(
             self,
-            email,
+            username,
             password: str = None,
             is_staff: bool = False,
             is_superuser: bool = False,
     ) -> User | None:
-        if email is None:
-            raise ValueError("Users must have an email address")
+        if username is None:
+            raise ValueError("Users must have an username")
 
         user = self.model(
-            email=self.normalize_email(email),
+            username=username,
             is_staff=is_staff,
             is_superuser=is_superuser,
         )
@@ -26,22 +26,21 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_staffuser(self, email: str, password: str):
-        return self.create_user(email=email, password=password, is_staff=True)
+    def create_staffuser(self, username: str, password: str):
+        return self.create_user(username=username, password=password, is_staff=True)
 
-    def create_superuser(self, email: str, password: str):
+    def create_superuser(self, username: str, password: str):
         return self.create_user(
-            email=email, password=password, is_staff=True, is_superuser=True
+            username=username, password=password, is_staff=True, is_superuser=True
         )
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True, db_index=True)
+    username = models.CharField(max_length=150, unique=True, db_index=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
 
-    EMAIL_FIELD = "email"
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "username"
 
     objects = UserManager()

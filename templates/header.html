@@ -1,7 +1,7 @@
 <nav class="navbar bg-light">
     <div class="container-fluid">
         <div>
-            {% if request.user.is_authenticate %}
+            {% if request.user.is_authenticated %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar"
                         aria-controls="offcanvasNavbar">
@@ -17,7 +17,6 @@
                 {% include 'user_dropdown_menu.html' %}
             </div>
         {% endif %}
-
 
         {% include 'sidebar.html' %}
 

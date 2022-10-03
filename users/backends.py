@@ -8,10 +8,10 @@ from users.models import User
 
 class EmailAuthBackend(BaseBackend):
     def authenticate(
-            self, request: HttpRequest, email: str = None, password: str = None
+            self, request: HttpRequest, username: str = None, password: str = None
     ) -> User | None:
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(username=username)
             if user.check_password(password):
                 return user
         except User.DoesNotExist:
