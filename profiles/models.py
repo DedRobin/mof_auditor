@@ -18,8 +18,8 @@ class Profile(models.Model):
         null=True
     )
     gender = models.CharField(max_length=100, choices=GENDER_CHOICE, blank=True, null=True, default="")
-    first_name = models.CharField(max_length=100, blank=True, null=True, default="")
-    last_name = models.CharField(max_length=100, blank=True, null=True, default="")
+    first_name = models.CharField(max_length=255, blank=True, null=True, default="")
+    last_name = models.CharField(max_length=255, blank=True, null=True, default="")
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
