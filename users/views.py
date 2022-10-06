@@ -12,7 +12,7 @@ def index(request):
     if request.user.is_authenticated:
         return redirect(f"/{username}")
     else:
-        redirect("login")
+        return redirect("login")
 
 
 def login_view(request):

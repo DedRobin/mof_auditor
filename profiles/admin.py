@@ -4,7 +4,7 @@ from profiles.models import Profile
 
 
 @admin.register(Profile)
-class AddressAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     list_display = ("user", "gender", "first_name", "last_name", "created_at")
     fields = ("user", "gender", "first_name", "last_name")
     list_filter = ("gender",)
