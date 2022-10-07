@@ -22,5 +22,5 @@ urlpatterns = [
     path("", index, name="index"),
     path("admin/", admin.site.urls),
     path("", include("users.urls")),
-    path("<username>/", user_page, name="user_page"),
+    path("<str:username>/", user_page, name="user_page"),
 ]

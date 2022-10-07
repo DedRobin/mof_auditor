@@ -57,5 +57,6 @@ def logout_user(request):
 
 
 def user_page(request, username):
-    user = User.objects.filter(username=username)
-    return render(request, "index.html", {"user": user[0].username})
+    user = User.objects.get(username=username)
+    user = user.username
+    return render(request, "index.html", {"user": user})

@@ -7,6 +7,6 @@ from accounting.models import Accounting
 class AccountingAdmin(admin.ModelAdmin):
     list_display = ("user", "amount", "type", "accounting_category", "comment", "created_at")
     fields = ("user", "amount", "type", "accounting_category", "comment", "created_at")
-    list_filter = ("type", "accounting_category")
+    list_filter = ("type", "accounting_category__name")
     readonly_fields = ("created_at",)
     search_fields = ("user__email", "amount", "type", "accounting_category", "comment", "created_at")

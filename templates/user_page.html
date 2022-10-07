@@ -1,3 +1,6 @@
 {% block content %}
-    <div>Hello, {{ user }}!</div>
+    <div class="container-xl">Hello, {{ user }}!
+    {% include 'user_balance.html' %}
+    </div>
 {% endblock %}
+
