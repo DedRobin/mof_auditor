@@ -6,13 +6,7 @@ from users.forms import RegisterForm, LoginForm
 from users.models import User
 from profiles.models import Profile
 
-
-def index(request):
-    username = request.user.username
-    if request.user.is_authenticated:
-        return redirect(f"/{username}")
-    else:
-        return redirect("login")
+from django.contrib.auth.decorators import login_required
 
 
 def login_view(request):
@@ -56,7 +50,13 @@ def logout_user(request):
     return redirect("login")
 
 
+@login_required
+def index(request):
+    username = request.user.username
+    return redirect(f"/{username}")
+
+
+@login_required
 def user_page(request, username):
     user = User.objects.get(username=username)
-    user = user.username
     return render(request, "index.html", {"user": user})

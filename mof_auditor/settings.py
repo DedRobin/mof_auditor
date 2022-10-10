@@ -146,5 +146,8 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 # Bootstrap
-CRISPY_ALLOWED_TEMPLATE_PACKS ="bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Basic redirect to URL if user is not authenticated
+LOGIN_URL = "/login"
