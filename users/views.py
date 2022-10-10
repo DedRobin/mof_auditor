@@ -1,17 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.decorators import login_required
 
 from users.forms import RegisterForm, LoginForm
 from users.models import User
+from balance.models import Balance
 from profiles.models import Profile
-
-from django.contrib.auth.decorators import login_required
 
 
 def login_view(request):
     if request.user.is_authenticated:
         return redirect(f"/{request.user.username}")
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -59,4 +60,5 @@ def index(request):
 @login_required
 def user_page(request, username):
     user = User.objects.get(username=username)
-    return render(request, "index.html", {"user": user})
+    user_balances = Balance.objects.filter(users=user)
+    return render(request, "index.html", {"user": user, "user_balances": user_balances})

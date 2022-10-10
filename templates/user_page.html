@@ -1,7 +1,22 @@
 {% block content %}
     <div class="container-xl">
         <div class="fs-1 py-2">Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!</div>
-    {% include 'user_balance.html' %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Total</th>
+                <th scope="col">Currency</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for balance in user_balances %}
+                {% include 'user_balance.html' %}
+            {% endfor %}
+
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 

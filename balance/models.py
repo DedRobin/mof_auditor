@@ -17,7 +17,7 @@ CURRENCY_CHOICE = (
 
 
 class Balance(models.Model):
-    user = models.ManyToManyField(User)
+    users = models.ManyToManyField(User)
     name = models.CharField(max_length=255, blank=True, null=True)
     amount = models.DecimalField(max_digits=19, decimal_places=2)
     type = models.CharField(max_length=255, choices=TYPE_CHOICE)
