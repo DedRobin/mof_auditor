@@ -1,7 +1,7 @@
 from django.db import models
 
 from accounting_category.models import AccountingCategory
-from users.models import User
+from balance.models import Balance
 
 ACCOUNTING_TYPE_CHOICE = (
     ("income", "Income"),
@@ -10,10 +10,12 @@ ACCOUNTING_TYPE_CHOICE = (
 
 
 class Accounting(models.Model):
-    user = models.ForeignKey(
-        User,
+    balance = models.ForeignKey(
+        Balance,
         on_delete=models.CASCADE,
-        related_name="accounting"
+        related_name="accounting",
+        blank=True,
+        null=True
     )
     amount = models.DecimalField(max_digits=19, decimal_places=2)
     type = models.CharField(max_length=255, choices=ACCOUNTING_TYPE_CHOICE)
