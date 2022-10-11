@@ -10,3 +10,4 @@ class BalanceAdmin(admin.ModelAdmin):
     list_filter = ("type", "currency")
     readonly_fields = ("created_at",)
     search_fields = ("users__username", "amount", "type", "currency", "created_at")
+

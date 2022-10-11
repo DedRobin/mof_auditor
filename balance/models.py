@@ -23,3 +23,6 @@ class Balance(models.Model):
     type = models.CharField(max_length=255, choices=TYPE_CHOICE)
     currency = models.CharField(max_length=255, choices=CURRENCY_CHOICE)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    def __str__(self):
+        return f"{self.name})"
