@@ -7,10 +7,32 @@ from permissions.models import Permission
 
 class Group(models.Model):
     name = models.CharField(max_length=255)
-    users = models.ManyToManyField(User)
-    balances = models.ManyToManyField(Balance)
-    permissions = models.ManyToManyField(Permission)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="users",
+        blank=True,
+        null=True
+    )
+    balance = models.ForeignKey(
+        Balance,
+        on_delete=models.CASCADE,
+        related_name="balances",
+        blank=True,
+        null=True
+    )
+    permission = models.ForeignKey(
+        Permission,
+        on_delete=models.CASCADE,
+        related_name="permissions",
+        blank=True,
+        null=True
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        db_index=True,
+        blank=True,
+        null=True)
 
     def __str__(self):
         return self.name

@@ -1,8 +1,8 @@
 from django.db import models
 
 PERMISSION_CHOICE = (
-    ("t_perm_1", "Test permission №1"),
-    ("t_perm_2", "Test permission №2"),
+    ("read", "User can read data"),
+    ("edit", "User can write data"),
 )
 
 
