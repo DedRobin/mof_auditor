@@ -62,3 +62,8 @@ def user_page(request, username):
     user = User.objects.get(username=username)
     user_balances = Balance.objects.filter(users=user)
     return render(request, "index.html", {"user": user, "user_balances": user_balances})
+
+
+def test_view(request):
+    response = Balance.objects.get(id=2).users.all()
+    return render(request, "test.html", {"test": response})
