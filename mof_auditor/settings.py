@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "accounting",
     "accounting_category",
     "balance",
+    "permissions",
+    "groups",
 ]
 
 MIDDLEWARE = [

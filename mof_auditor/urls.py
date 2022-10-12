@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from users.views import index, user_page, test_view
+from users.views import index, user_page#, test_view
 
 urlpatterns = [
     path("", index, name="index"),
@@ -25,5 +25,5 @@ urlpatterns = [
     path("<str:username>/", user_page, name="user_page"),
 
     # Test URls
-    path("test/test/", test_view, name="test_view"),
+    # path("test/test/", test_view, name="test_view"),
 ]
