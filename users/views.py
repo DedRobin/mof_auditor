@@ -27,9 +27,6 @@ def login_view(request):
 
 
 def register_user(request):
-    if request.user.is_authenticated:
-        return redirect(f"/{request.user.username}")
-
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -51,7 +48,7 @@ def logout_user(request):
     return redirect("login")
 
 
-@login_required
+@login_required#(login_url="login/")
 def index(request):
     username = request.user.username
     return redirect(f"/{username}")

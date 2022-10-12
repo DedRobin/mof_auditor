@@ -1,22 +1,29 @@
 {% block content %}
-    <div class="container-xl">
-        <div class="fs-1 py-2">Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!</div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">Total</th>
-                <th scope="col">Currency</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col text-bg-primary">Left content</div>
+            <div class="col-8 text-bg-secondary">
+                <div class="fs-1 py-2">Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Currency</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
 
-            {% for balance in user_balances %}
-                {% include 'user_balance.html' %}
-            {% endfor %}
+                    {% for balance in user_balances %}
+                        {% include 'user_balance.html' %}
+                    {% endfor %}
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col text-bg-success">Right content</div>
+        </div>
     </div>
 {% endblock %}
 
