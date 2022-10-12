@@ -11,3 +11,6 @@ class Group(models.Model):
     balances = models.ManyToManyField(Balance)
     permissions = models.ManyToManyField(Permission)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
