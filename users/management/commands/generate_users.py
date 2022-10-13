@@ -14,7 +14,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         i = 0
-        while i < 50:
+        number = int(input("How much users do you want to create?\nEnter number: "))
+        while i < number:
             random_gender = random.choice(gender_choice)
 
             user = User.objects.create(username=fake.user_name())
@@ -25,4 +26,4 @@ class Command(BaseCommand):
                                    first_name=fake.first_name(),
                                    last_name=fake.last_name())
             i += 1
-        print("Create 50 users.")
+        print(f"Create {number} users.")
