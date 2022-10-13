@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from accounting.models import Accounting
+from accounting.models import Accounting, AccountingCategory
+
+
+@admin.register(AccountingCategory)
+class AccountingCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    fields = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Accounting)
@@ -10,3 +17,4 @@ class AccountingAdmin(admin.ModelAdmin):
     list_filter = ("type", "accounting_category__name")
     readonly_fields = ("created_at",)
     search_fields = ("balance__name", "amount", "type", "accounting_category", "comment", "created_at")
+

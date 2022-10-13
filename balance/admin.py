@@ -10,4 +10,5 @@ class BalanceAdmin(admin.ModelAdmin):
     list_filter = ("type", "currency")
     readonly_fields = ("created_at",)
     search_fields = ("name", "amount", "type", "currency", "created_at")
+    radio_fields = {"type": admin.HORIZONTAL}
 

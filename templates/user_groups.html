@@ -1,0 +1,22 @@
+<p>{{ forloop.counter }}) {{ group.group_id.name }}</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">№</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Type</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+
+    {% for balance in group.balance %}
+        {% include 'user_balances.html' %}
+    {% endfor %}
+
+    </tbody>
+</table>
+
+
+
+

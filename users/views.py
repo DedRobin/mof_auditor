@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from users.forms import RegisterForm, LoginForm
 from users.models import User
-from balance.models import Balance
+from groups.models import Group
 from profiles.models import Profile
 
 
@@ -48,7 +48,7 @@ def logout_user(request):
     return redirect("login")
 
 
-@login_required#(login_url="login/")
+@login_required  # (login_url="login/")
 def index(request):
     username = request.user.username
     return redirect(f"/{username}")
@@ -57,9 +57,8 @@ def index(request):
 @login_required
 def user_page(request, username):
     user = User.objects.get(username=username)
-    #user_balances = Balance.objects.filter(users=user)
-    return render(request, "index.html", {"user": user})#, "user_balances": user_balances})
-
+    # user_groups = Group.objects.filter(user=user)
+    return render(request, "index.html", {"user": user})#, "user_groups": user_groups})
 
 # def test_view(request):
 #     response = Balance.objects.get(id=2).users.all()

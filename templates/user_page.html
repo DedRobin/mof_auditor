@@ -5,22 +5,11 @@
             <div class="col-8 text-bg-secondary">
                 <div class="fs-1 py-2">Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
                 </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Currency</th>
-                    </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
 
-                    {% for balance in user_balances %}
-                        {% include 'user_balance.html' %}
-                    {% endfor %}
+{#                    {% for group in user_groups %}#}
+{#                        {% include 'user_groups.html' %}#}
+{#                    {% endfor %}#}
 
-                    </tbody>
-                </table>
             </div>
             <div class="col text-bg-success">Right content</div>
         </div>
