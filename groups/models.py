@@ -8,6 +8,9 @@ from permissions.models import Permission
 class GroupID(models.Model):
     name = models.CharField(max_length=255, db_index=True)
 
+    def __str__(self):
+        return f"{self.name}(ID={self.id})"
+
 
 class Group(models.Model):
     group_id = models.ForeignKey(
@@ -46,5 +49,4 @@ class Group(models.Model):
     )
 
     def __str__(self):
-        print(type(self.group_id))
-        return str(self.group_id)
+        return f"{self.group_id}"
