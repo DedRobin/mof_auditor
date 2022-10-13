@@ -5,7 +5,7 @@ from groups.models import Group
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("name", "user", "balance", "permission", "created_at")
-    fields = ("name", "user", "balance", "permission")
+    list_display = ("group_id", "user", "balance", "permission", "created_at")
+    fields = ("group_id", "user", "balance", "permission")
     readonly_fields = ("created_at",)
-    search_fields = ("name", "created_at")
+    search_fields = ("group_id", "created_at")

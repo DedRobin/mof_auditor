@@ -5,8 +5,18 @@ from balance.models import Balance
 from permissions.models import Permission
 
 
+class GroupID(models.Model):
+    name = models.CharField(max_length=255, db_index=True)
+
+
 class Group(models.Model):
-    name = models.CharField(max_length=255)
+    group_id = models.ForeignKey(
+        GroupID,
+        on_delete=models.CASCADE,
+        related_name="group_ids",
+        blank=True,
+        null=True
+    )
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -32,7 +42,9 @@ class Group(models.Model):
         auto_now_add=True,
         db_index=True,
         blank=True,
-        null=True)
+        null=True
+    )
 
     def __str__(self):
-        return self.name
+        print(type(self.group_id))
+        return str(self.group_id)

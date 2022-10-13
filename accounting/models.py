@@ -1,12 +1,15 @@
 from django.db import models
 
-from accounting_category.models import AccountingCategory
 from balance.models import Balance
 
 ACCOUNTING_TYPE_CHOICE = (
     ("income", "Income"),
     ("expense", "Expense"),
 )
+
+
+class AccountingCategory(models.Model):
+    name = models.CharField(max_length=255)
 
 
 class Accounting(models.Model):

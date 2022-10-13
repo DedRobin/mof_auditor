@@ -13,9 +13,10 @@ class Command(BaseCommand):
     help = "Generate users"
 
     def handle(self, *args, **options):
-        random_gender = random.choice(gender_choice)
         i = 0
         while i < 50:
+            random_gender = random.choice(gender_choice)
+
             user = User.objects.create(username=fake.user_name())
             user.set_password("password")
             user.save()

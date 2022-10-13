@@ -4,4 +4,4 @@
 ## Author: Pavel Rabekin 
 ## Email: <a>pavelrabekin@gmail.com</a>
 ### Requirements: 
-    Python 3.9.14 , Postgresqlm, Django 4.1.1
+    Python 3.9.15 , Postgresqlm, Django 4.1.1
