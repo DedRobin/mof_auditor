@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("users.urls")),
     path("<str:username>/", user_page, name="user_page"),
+    path("<str:username>/", include("profiles.urls")),
 
     # Test URls
     # path("test/test/", test_view, name="test_view"),
