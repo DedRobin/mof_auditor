@@ -60,6 +60,6 @@ def user_page(request, username):
     user_groups = Group.objects.filter(user=user)
     return render(request, "index.html", {"user": user, "user_groups": user_groups})
 
-    # def test_view(request):
-    #     response = Balance.objects.get(id=2).users.all()
-    #     return render(request, "test.html", {"test": response})
+# def test_view(request):
+#     response = Balance.objects.get(id=2).users.all()
+#     return render(request, "test.html", {"test": response})
