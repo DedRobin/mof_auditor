@@ -39,10 +39,9 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "users",
     "profiles",
-    "accounting",
-    "balance",
-    "permissions",
-    "groups",
+    # "transactions",
+    # "balances",
+    # "groups",
 ]
 
 MIDDLEWARE = [

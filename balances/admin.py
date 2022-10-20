@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from balance.models import Balance
+from balances.models import Balance
 
 
 @admin.register(Balance)

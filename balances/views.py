@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from balance.models import Balance
+from balances.models import Balance
 
 
 def get_balance(request):

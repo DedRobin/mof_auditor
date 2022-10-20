@@ -1,4 +1,4 @@
-<p>{{ forloop.counter }}) {{ group.group_description.name }}</p>
+<p>{{ forloop.counter }})</p>
 <table class="table">
     <thead>
     <tr>
@@ -10,9 +10,9 @@
     </thead>
     <tbody class="table-group-divider">
 
-    {% for balance in group.balance.all %}
-        {% include 'user_balances.html' %}
-    {% endfor %}
+{#    {% for balance in group.balance.all %}#}
+{#        {% include 'user_balances.html' %}#}
+{#    {% endfor %}#}
 
     </tbody>
 </table>
