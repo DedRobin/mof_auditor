@@ -18,25 +18,17 @@ class GroupInformation(models.Model):
 class GroupPermission(models.Model):
     name = models.CharField(max_length=255)
     codename = models.CharField(max_length=255, choices=PERMISSION_CHOICE)
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return f"{self.name}"
 
 
 class Group(models.Model):
-    group_info = models.ForeignKey(
+    group_info = models.OneToOneField(
         GroupInformation,
-        on_delete=models.CASCADE,
-        related_name="groups"
+        on_delete=models.CASCADE
     )
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="groups"
-    )
-    group_permission = models.ForeignKey(
-        GroupPermission,
-        on_delete=models.CASCADE,
-        related_name="groups"
-    )
+    users = models.ManyToManyField(User)
+    group_permissions = models.ManyToManyField(GroupPermission)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)

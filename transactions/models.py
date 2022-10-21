@@ -2,23 +2,13 @@ from django.db import models
 
 from balances.models import Balance
 
-# TRANSACTION_TYPE_CHOICE = (
-#     ("income", "Income"),
-#     ("expense", "Expense"),
-#     ("transfer", "Transfer"),
-#     # ("transfer", "Transfer"),
-# )
+TRANSACTION_TYPE_CHOICE = (
+    ("required", "Required"),
+    ("optional", "Optional"),
+)
 
 
 class TransactionCategoryType(models.Model):
-    name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
-class TransactionType(models.Model):
     name = models.CharField(max_length=255)
     codename = models.CharField(max_length=255)
 
@@ -48,14 +38,9 @@ class Transaction(models.Model):
         blank=True,
         null=True
     )
-    amount = models.DecimalField(max_digits=19, decimal_places=2)
-    type = models.ForeignKey(
-        TransactionType,
-        on_delete=models.CASCADE,
-        related_name="transactions",
-        blank=True,
-        null=True
-    )
+    income = models.DecimalField(max_digits=19, decimal_places=2)
+    expense = models.DecimalField(max_digits=19, decimal_places=2)
+    type = models.CharField(max_length=255, choices=TRANSACTION_TYPE_CHOICE)
     category = models.ForeignKey(
         TransactionCategory,
         on_delete=models.CASCADE,

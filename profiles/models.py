@@ -9,6 +9,11 @@ GENDER_CHOICE = (
 )
 
 
+class ProfileGender(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    codename = models.CharField(max_length=255, blank=True, null=True)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(
         User,
@@ -17,7 +22,7 @@ class Profile(models.Model):
         blank=True,
         null=True
     )
-    gender = models.CharField(max_length=100, choices=GENDER_CHOICE, blank=True, null=True, default="")
+    gender = models.CharField(max_length=255, choices=GENDER_CHOICE)
     first_name = models.CharField(max_length=255, blank=True, null=True, default="")
     last_name = models.CharField(max_length=255, blank=True, null=True, default="")
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
