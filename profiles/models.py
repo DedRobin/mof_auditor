@@ -9,11 +9,6 @@ GENDER_CHOICE = (
 )
 
 
-class ProfileGender(models.Model):
-    name = models.CharField(max_length=255, blank=True, null=True)
-    codename = models.CharField(max_length=255, blank=True, null=True)
-
-
 class Profile(models.Model):
     user = models.OneToOneField(
         User,
