@@ -17,7 +17,7 @@ class Profile(models.Model):
         blank=True,
         null=True
     )
-    gender = models.CharField(max_length=255, choices=GENDER_CHOICE)
+    gender = models.CharField(max_length=255, choices=GENDER_CHOICE, blank=True, null=True)
     first_name = models.CharField(max_length=255, blank=True, null=True, default="")
     last_name = models.CharField(max_length=255, blank=True, null=True, default="")
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
