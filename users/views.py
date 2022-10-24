@@ -54,11 +54,11 @@ def index(request):
     return redirect(f"/{username}")
 
 
-# @login_required
-# def user_page(request, username):
-#     user = User.objects.get(username=username)
-#     user_groups = Group.objects.filter(user=user)
-#     return render(request, "index.html", {"user": user, "user_groups": user_groups})
+@login_required
+def user_page(request, username):
+    user = User.objects.get(username=username)
+    # user_groups = Group.objects.filter(user=user)
+    return render(request, "index.html", {"user": user})#, "user_groups": user_groups})
 
 # def test_view(request):
 #     response = Balance.objects.get(id=2).users.all()
