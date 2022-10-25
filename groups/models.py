@@ -21,8 +21,8 @@ class GroupInformation(models.Model):
 
 class Permission(models.Model):
     name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=255, default="read_only")
-    users = models.ManyToManyField(User, blank=True)
+    codename = models.CharField(max_length=255)
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return f"{self.name}"
