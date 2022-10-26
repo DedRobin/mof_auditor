@@ -8,23 +8,9 @@ TRANSACTION_TYPE_CHOICE = (
 )
 
 
-class TransactionCategoryType(models.Model):
-    name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.name}"
-
-
 class TransactionCategory(models.Model):
     name = models.CharField(max_length=255)
-    type = models.ForeignKey(
-        TransactionCategoryType,
-        on_delete=models.CASCADE,
-        related_name="transaction_categories",
-        blank=True,
-        null=True
-    )
+    type = models.CharField(max_length=255, choices=TRANSACTION_TYPE_CHOICE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -38,9 +24,7 @@ class Transaction(models.Model):
         blank=True,
         null=True
     )
-    income = models.DecimalField(max_digits=19, decimal_places=2)
-    expense = models.DecimalField(max_digits=19, decimal_places=2)
-    type = models.CharField(max_length=255, choices=TRANSACTION_TYPE_CHOICE)
+    amount = models.DecimalField(max_digits=19, decimal_places=5, default=0)
     category = models.ForeignKey(
         TransactionCategory,
         on_delete=models.CASCADE,
