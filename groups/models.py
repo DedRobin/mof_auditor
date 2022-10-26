@@ -27,10 +27,10 @@ class Permission(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-    def get_users(self):
+    def applied_to_users(self):
         queryset = self.users.all()
         if not len(queryset):
-            return "No users"
+            return None
         return ", ".join(user.username for user in queryset)
 
 

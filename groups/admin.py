@@ -18,7 +18,7 @@ class GroupInformationAdmin(admin.ModelAdmin):
 
 @admin.register(Permission)
 class PermissionAdmin(admin.ModelAdmin):
-    list_display = ("name", "codename", "get_users")
+    list_display = ("name", "codename", "applied_to_users")
     fields = ("name", "codename", "users")
     search_fields = ("name", "codename")
 
