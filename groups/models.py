@@ -3,14 +3,6 @@ from django.db import models
 from users.models import User
 
 
-# PERMISSION_CHOICE = (
-#     ("create", "Creating"),
-#     ("read", "Reading"),
-#     ("update", "Updating"),
-#     ("delete", "Deleting"),
-# )
-
-
 class GroupInformation(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -39,9 +31,12 @@ class Group(models.Model):
         GroupInformation,
         on_delete=models.CASCADE
     )
-    users = models.ManyToManyField(User)
-    permissions = models.ManyToManyField(Permission)
+    users = models.ManyToManyField(User, related_name="user_groups")
+    permissions = models.ManyToManyField(Permission, related_name="user_groups")
     created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.group_info.name}"
 
     def get_users(self):
         return ", ".join(user.username for user in self.users.all())

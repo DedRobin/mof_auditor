@@ -10,9 +10,20 @@
     </thead>
     <tbody class="table-group-divider">
 
-{#    {% for balance in group.balance.all %}#}
-{#        {% include 'user_balances.html' %}#}
-{#    {% endfor %}#}
+
+    {% for group in user_groups %}
+        {% for user in group.users.all %}
+            {% for balance in user.balances.all %}
+                <tr>
+                    <th scope="row">{{ balance.name }}</th>
+                    <td></td>
+                    <td>{{ balance.currency }}</td>
+                    <td>{{ balance.type }}</td>
+                </tr>
+
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
 
     </tbody>
 </table>

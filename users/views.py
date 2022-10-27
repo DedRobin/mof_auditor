@@ -57,8 +57,12 @@ def index(request):
 @login_required
 def user_page(request, username):
     user = User.objects.get(username=username)
-    # user_groups = Group.objects.filter(user=user)
-    return render(request, "index.html", {"user": user})#, "user_groups": user_groups})
+    user_groups = user.user_groups.all()
+    for group in user_groups:
+        users = group.users.all()
+        for user in users:
+            balances = user.balances.all()
+    return render(request, "index.html", {"user": user, "user_groups": user_groups})
 
 # def test_view(request):
 #     response = Balance.objects.get(id=2).users.all()
