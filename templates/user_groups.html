@@ -6,12 +6,12 @@
         <th scope="col">Amount</th>
         <th scope="col">Currency</th>
         <th scope="col">Type</th>
+        <th scope="col">Owner</th>
     </tr>
     </thead>
     <tbody class="table-group-divider">
 
 
-    {% for group in user_groups %}
         {% for user in group.users.all %}
             {% for balance in user.balances.all %}
                 <tr>
@@ -19,11 +19,11 @@
                     <td></td>
                     <td>{{ balance.currency }}</td>
                     <td>{{ balance.type }}</td>
+                    <td>{{ balance.owner }}</td>
                 </tr>
 
             {% endfor %}
         {% endfor %}
-    {% endfor %}
 
     </tbody>
 </table>

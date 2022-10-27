@@ -7,11 +7,15 @@
             </div>
 
             <div class="col-8 text-bg-secondary">
-                <div class="fs-1 py-2">Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
+                <div class="fs-1 py-2">
+                    Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
                 </div>
+
                 {% for group in user_groups %}
                     {{ group.group_info.name }}
+
                     {% include 'user_groups.html' %}
+
                 {% endfor %}
 
             </div>
