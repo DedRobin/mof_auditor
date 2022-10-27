@@ -19,7 +19,7 @@ class BalanceCurrency(models.Model):
     codename = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} ({self.codename})"
 
 
 class Balance(models.Model):

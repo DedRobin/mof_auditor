@@ -19,12 +19,13 @@ from django.test import TestCase
 # print(rates["USD"])
 
 import requests
-import json
-params = {
-    "ondate": "2022-10-26",
-}
-response = requests.get("https://www.nbrb.by/api/exrates/rates", params=params)
+
+# response = requests.get("https://www.nbrb.by/api/exrates/rates/RUB?parammode=2")
 # response = response.json()
-print(type(response.json()))
-print(response[65].get(""))
-# print(response[0]['Cur_ID'])
+# print(response.get("Cur_OfficialRate", "Empty"))
+
+response = requests.get("https://www.nbrb.by/api/exrates/rates?periodicity=0")
+response = response.json()
+print(response)
+response = [(i.get('Cur_Name'), i.get('Cur_Abbreviation'),) for i in response]
+print(response)
