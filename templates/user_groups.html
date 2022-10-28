@@ -19,7 +19,7 @@
                     <td></td>
                     <td>{{ balance.currency }}</td>
                     <td>{{ balance.type }}</td>
-                    <td>{{ balance.owner }}</td>
+                    <td>{{ balance.owner.profile.first_name }} {{ balance.owner.profile.last_name }}</td>
                 </tr>
 
             {% endfor %}
