@@ -3,6 +3,7 @@
     <thead>
     <tr>
         <th scope="col">№</th>
+        <th scope="col">Name</th>
         <th scope="col">Amount</th>
         <th scope="col">Currency</th>
         <th scope="col">Type</th>
@@ -15,7 +16,8 @@
         {% for user in group.users.all %}
             {% for balance in user.balances.all %}
                 <tr>
-                    <th scope="row">{{ balance.name }}</th>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ balance.name }}</td>
                     <td></td>
                     <td>{{ balance.currency }}</td>
                     <td>{{ balance.type }}</td>

@@ -24,7 +24,7 @@ class Transaction(models.Model):
         blank=True,
         null=True
     )
-    amount = models.DecimalField(max_digits=19, decimal_places=5, default=0)
+    amount = models.DecimalField(max_digits=19, decimal_places=7, default=0)
     category = models.ForeignKey(
         TransactionCategory,
         on_delete=models.CASCADE,
