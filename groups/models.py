@@ -4,6 +4,13 @@ from users.models import User
 
 
 class GroupInformation(models.Model):
+    owner = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="group_info",
+        blank=True,
+        null=True
+    )
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -38,8 +45,8 @@ class Group(models.Model):
     def __str__(self):
         return f"{self.group_info.name}"
 
-    def get_users(self):
+    def all_users(self):
         return ", ".join(user.username for user in self.users.all())
 
-    def get_permissions(self):
+    def all_permissions(self):
         return ", ".join(permission.name for permission in self.permissions.all())

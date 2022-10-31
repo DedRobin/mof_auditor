@@ -29,6 +29,7 @@ class Balance(models.Model):
         on_delete=models.CASCADE,
         related_name="balances"
     )
+
     type = models.CharField(max_length=255, choices=BALANCE_TYPE_CHOICE)
     currency = models.ForeignKey(
         BalanceCurrency,
@@ -40,3 +41,10 @@ class Balance(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    def total(self):
+        transactions = self.transactions.all()
+        if len(transactions):
+            total = sum(transactions.amount for transactions in transactions)
+            return total
+        return 0

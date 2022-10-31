@@ -11,11 +11,17 @@
                     Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
                 </div>
 
+                <div class="py-2">
+                    <button type="button" class="btn btn-danger">Create new group</button>
+                </div>
+
                 {% for group in user_groups %}
-                    {{ group.group_info.name }}
+                    <div class="py-2">
+                        {{ group.group_info.name }}
 
-                    {% include 'user_groups.html' %}
+                        {% include 'user_groups.html' %}
 
+                    </div>
                 {% endfor %}
 
             </div>

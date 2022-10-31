@@ -26,7 +26,7 @@ class PermissionAdmin(admin.ModelAdmin):
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     # list_display = ("group_id", "user", "balance", "permission", "created_at")
-    list_display = ("group_info", "get_users", "get_permissions", "created_at")
+    list_display = ("group_info", "all_users", "all_permissions", "created_at")
     fields = ("group_info", "users", "permissions")
     readonly_fields = ("created_at",)
     search_fields = ("group_info", "group_info__name", "created_at")
