@@ -12,7 +12,8 @@
                 </div>
 
                 <div class="py-2">
-                    <button type="button" class="btn btn-danger">Create new group</button>
+{#                    <a class="btn btn-danger" href="{% url 'create_group' %}">Create new group</a>#}
+                    <a class="btn btn-danger" href="groups/create/">Create new group</a>
                 </div>
 
                 {% for group in user_groups %}
