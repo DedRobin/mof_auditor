@@ -5,14 +5,15 @@ from profiles.models import Profile
 from profiles.forms import ProfileForm
 
 
-def edit_profile(request, username):
+def edit_profile(request):
+    user = User.objects.get(username=request.user)
+
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
             # user.set_password(form.cleaned_data["password"])
             # user.save()
 
-            user = User.objects.get(username=username)
             user.username = form.cleaned_data["username"]
             user.save()
 
@@ -23,7 +24,6 @@ def edit_profile(request, username):
             profile.save()
 
     else:
-        user = User.objects.get(username=username)
         current_user_data = {
             "username": user.username,
             "first_name": user.profile.first_name,
@@ -32,4 +32,4 @@ def edit_profile(request, username):
         }
         form = ProfileForm(current_user_data)
 
-    return render(request, "edit_profile.html", {"form": form})
+    return render(request, "edit_profile.html", {"form": form, "user": user})

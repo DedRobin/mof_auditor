@@ -36,7 +36,7 @@ class TestViews:
         assert response.status_code == 200
         response = self.client.post("/login/", data=data)
         assert response.status_code == 302
-        assert response.url == f"/{data['username']}"
+        assert response.url == "/"
 
         response = self.client.get("/logout/")
         assert response.status_code == 302

@@ -1,12 +1,11 @@
-<!-- Example split danger button -->
 <div class="btn-group">
-    <button type="button" class="btn btn-primary px-5">{{ request.user }}</button>
+    <a type="button" class="btn btn-primary px-5" href="{% url 'index' %}">{{ user.username }}</a>
     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
             aria-expanded="false">
         <span class="visually-hidden">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="edit/">Edit</a></li>
+        <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
     </ul>

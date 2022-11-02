@@ -10,7 +10,7 @@ from profiles.models import Profile
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect(f"/{request.user.username}")
+        return redirect("index")
 
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -19,7 +19,7 @@ def login_view(request):
             if user is None:
                 return HttpResponse("BadRequest", status=400)
             login(request, user)
-            return redirect(f"/{user.username}")
+            return redirect("index")
     else:
         form = LoginForm()
         return render(request, "index.html", {"form": form})
@@ -47,18 +47,8 @@ def logout_user(request):
     return redirect("login")
 
 
-@login_required  # (login_url="login/")
-def index(request):
-    username = request.user.username
-    return redirect(f"/{username}")
-
-
 @login_required
-def user_page(request, username):
-    user = User.objects.get(username=username)
+def index(request):
+    user = User.objects.get(username=request.user)
     user_groups = user.user_groups.all()
     return render(request, "index.html", {"user": user, "user_groups": user_groups})
-
-# def test_view(request):
-#     response = Balance.objects.get(id=2).users.all()
-#     return render(request, "test.html", {"test": response})

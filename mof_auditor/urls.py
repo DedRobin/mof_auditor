@@ -16,15 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from users.views import index, user_page#, test_view
+from users.views import index#, test_view
 
 urlpatterns = [
     path("", index, name="index"),
     path("admin/", admin.site.urls),
     path("", include("users.urls")),
-    path("<str:username>/", user_page, name="user_page"),
-    path("<str:username>/", include("profiles.urls")),
-    path("<str:username>/", include("groups.urls")),
+    path("profile/", include("profiles.urls")),
+    path("groups/", include("groups.urls")),
 
     # Test URls
     # path("test/test/", test_view, name="test_view"),

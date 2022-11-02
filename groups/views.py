@@ -7,11 +7,11 @@ from groups.forms import CreateGroupForm
 
 
 @login_required
-def create_group(request, username):
+def create_group(request):
     if request.method == "POST":
         form = CreateGroupForm(request.POST)
         if form.is_valid():
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=request.user)
             group_info = GroupInformation.objects.create(
                 name=form.cleaned_data["name"],
                 description=form.cleaned_data["description"]
