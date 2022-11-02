@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 
 from users.forms import RegisterForm, LoginForm
 from users.models import User
-from groups.models import Group
 from profiles.models import Profile
 
 
