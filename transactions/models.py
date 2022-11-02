@@ -4,8 +4,8 @@ from users.models import User
 from balances.models import Balance
 
 TRANSACTION_TYPE_CHOICE = (
-    ("required", "Required"),
-    ("optional", "Optional"),
+    ("income", "Income"),
+    ("expense", "Expense"),
 )
 
 
