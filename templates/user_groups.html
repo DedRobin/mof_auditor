@@ -13,7 +13,7 @@
     <tbody class="table-group-divider">
 
 
-        {% for user in group.users.all %}
+        {% for user in group.invited_users.all %}
             {% for balance in user.balances.all %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>

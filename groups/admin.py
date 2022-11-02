@@ -9,9 +9,9 @@ class GroupInline(admin.TabularInline):
 
 @admin.register(GroupInformation)
 class GroupInformationAdmin(admin.ModelAdmin):
-    list_display = ("name", "description")
-    fields = ("name", "description")
-    search_fields = ("name", "description")
+    list_display = ("owner", "name", "description")
+    fields = ("owner", "name", "description")
+    search_fields = ("owner__username", "name", "description")
 
     inlines = [GroupInline, ]
 
@@ -26,7 +26,7 @@ class PermissionAdmin(admin.ModelAdmin):
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     # list_display = ("group_id", "user", "balance", "permission", "created_at")
-    list_display = ("group_info", "all_users", "all_permissions", "created_at")
-    fields = ("group_info", "users", "permissions")
+    list_display = ("group_info", "all_invited_users", "all_permissions", "created_at")
+    fields = ("group_info", "invited_users", "permissions")
     readonly_fields = ("created_at",)
-    search_fields = ("group_info", "group_info__name", "created_at")
+    search_fields = ("group_info__name", "created_at")
