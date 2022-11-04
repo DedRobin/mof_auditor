@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_bootstrap5",
-    "users",
-    "profiles",
-    "transactions",
-    "balances",
-    "groups",
+    "apps.users",
+    "apps.profiles",
+    "apps.transactions",
+    "apps.balances",
+    "apps.groups",
 ]
 
 MIDDLEWARE = [
@@ -142,7 +142,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = (
-    "users.backends.EmailAuthBackend",
+    "apps.users.backends.EmailAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
 # Bootstrap

@@ -1,6 +1,6 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
-from users.models import User
+from apps.users.models import User
 
 
 class UserFactory(DjangoModelFactory):
