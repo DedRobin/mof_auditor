@@ -20,11 +20,7 @@ class Permission(models.Model):
 
 class GroupInformation(models.Model):
     owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="group_info",
-        blank=True,
-        null=True
+        User, on_delete=models.CASCADE, related_name="group_info", blank=True, null=True
     )
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -34,13 +30,12 @@ class GroupInformation(models.Model):
 
 
 class Group(models.Model):
-    group_info = models.OneToOneField(
-        GroupInformation,
-        on_delete=models.CASCADE
-    )
+    group_info = models.OneToOneField(GroupInformation, on_delete=models.CASCADE)
     invited_users = models.ManyToManyField(User, related_name="user_groups")
     permissions = models.ManyToManyField(Permission, related_name="user_groups")
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True, db_index=True, blank=True, null=True
+    )
 
     def __str__(self):
         return f"{self.group_info.name}"

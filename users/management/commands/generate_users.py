@@ -21,9 +21,11 @@ class Command(BaseCommand):
             user = User.objects.create(username=fake.user_name())
             user.set_password("password")
             user.save()
-            Profile.objects.create(user=user,
-                                   gender=random_gender,
-                                   first_name=fake.first_name(),
-                                   last_name=fake.last_name())
+            Profile.objects.create(
+                user=user,
+                gender=random_gender,
+                first_name=fake.first_name(),
+                last_name=fake.last_name(),
+            )
             i += 1
         print(f"Create {number} users.")

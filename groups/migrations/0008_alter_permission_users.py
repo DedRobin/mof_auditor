@@ -8,13 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('groups', '0007_alter_permission_users'),
+        ("groups", "0007_alter_permission_users"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='permission',
-            name='users',
+            model_name="permission",
+            name="users",
             field=models.ManyToManyField(blank=True, to=settings.AUTH_USER_MODEL),
         ),
     ]

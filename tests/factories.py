@@ -10,6 +10,7 @@ class UserFactory(DjangoModelFactory):
     username = factory.Faker("word")
     password = factory.Faker("md5")
 
+
 #
 # class PostFactory(DjangoModelFactory):
 #     class Meta:

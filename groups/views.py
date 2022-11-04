@@ -14,11 +14,9 @@ def create_group(request):
             user = User.objects.get(username=request.user)
             group_info = GroupInformation.objects.create(
                 name=form.cleaned_data["name"],
-                description=form.cleaned_data["description"]
+                description=form.cleaned_data["description"],
             )
-            group = Group.objects.create(
-                group_info=group_info
-            )
+            group = Group.objects.create(group_info=group_info)
             group.users.add(user)
             return redirect("index")
     else:

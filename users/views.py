@@ -32,10 +32,12 @@ def register_user(request):
             user = User(username=form.cleaned_data["username"])
             user.set_password(form.cleaned_data["password"])
             user.save()
-            Profile.objects.create(user=user,
-                                   gender=form.cleaned_data["gender"],
-                                   first_name=form.cleaned_data["first_name"],
-                                   last_name=form.cleaned_data["last_name"])
+            Profile.objects.create(
+                user=user,
+                gender=form.cleaned_data["gender"],
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+            )
             return redirect("login")
     else:
         form = RegisterForm()

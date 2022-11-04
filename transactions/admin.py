@@ -12,7 +12,14 @@ class TransactionCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ("balance", "amount", "category", "comment", "who_made", "created_at")
+    list_display = (
+        "balance",
+        "amount",
+        "category",
+        "comment",
+        "who_made",
+        "created_at",
+    )
     fields = ("balance", "amount", "category", "comment", "who_made")
     list_filter = ("category__name", "balance__name")
     readonly_fields = ("created_at",)

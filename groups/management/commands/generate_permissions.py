@@ -14,8 +14,5 @@ class Command(BaseCommand):
             ("All users | All groups | Can delete the data", "all_all_delete"),
         )
         for name, codename in default_permissions:
-            Permission.objects.create(
-                name=name,
-                codename=codename
-            )
+            Permission.objects.create(name=name, codename=codename)
         print("Create default permissions.")

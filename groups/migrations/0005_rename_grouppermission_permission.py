@@ -8,12 +8,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('groups', '0004_rename_permission_grouppermission_and_more'),
+        ("groups", "0004_rename_permission_grouppermission_and_more"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='GroupPermission',
-            new_name='Permission',
+            old_name="GroupPermission",
+            new_name="Permission",
         ),
     ]

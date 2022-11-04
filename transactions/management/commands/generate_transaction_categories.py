@@ -21,14 +21,11 @@ class Command(BaseCommand):
             ("Clothes", "expense"),
             ("Health", "expense"),
             ("Credits", "expense"),
-            ("Saving", "expense")
+            ("Saving", "expense"),
         )
 
         TransactionCategory.objects.all().delete()
 
         for name, type_category in default_transaction_categories:
-            TransactionCategory.objects.create(
-                name=name,
-                type=type_category
-            )
+            TransactionCategory.objects.create(name=name, type=type_category)
         print("Create default transaction categories.")

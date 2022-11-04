@@ -9,4 +9,10 @@ class ProfileAdmin(admin.ModelAdmin):
     fields = ("user", "gender", "first_name", "last_name")
     list_filter = ("gender",)
     readonly_fields = ("created_at",)
-    search_fields = ("user__username", "first_name", "last_name", "gender", "created_at")
+    search_fields = (
+        "user__username",
+        "first_name",
+        "last_name",
+        "gender",
+        "created_at",
+    )

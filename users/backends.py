@@ -8,7 +8,7 @@ from users.models import User
 
 class EmailAuthBackend(BaseBackend):
     def authenticate(
-            self, request: HttpRequest, username: str = None, password: str = None
+        self, request: HttpRequest, username: str = None, password: str = None
     ) -> User | None:
         try:
             user = User.objects.get(username=username)

@@ -8,11 +8,11 @@ from django.contrib.auth.models import BaseUserManager
 
 class UserManager(BaseUserManager):
     def create_user(
-            self,
-            username,
-            password: str = None,
-            is_staff: bool = False,
-            is_superuser: bool = False,
+        self,
+        username,
+        password: str = None,
+        is_staff: bool = False,
+        is_superuser: bool = False,
     ) -> User | None:
         if username is None:
             raise ValueError("Users must have an username")
@@ -39,7 +39,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True, db_index=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True, db_index=True, blank=True, null=True
+    )
 
     USERNAME_FIELD = "username"
 

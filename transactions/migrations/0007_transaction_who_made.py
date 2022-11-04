@@ -9,13 +9,19 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('transactions', '0006_alter_transaction_amount'),
+        ("transactions", "0006_alter_transaction_amount"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='transaction',
-            name='who_made',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='transactions', to=settings.AUTH_USER_MODEL),
+            model_name="transaction",
+            name="who_made",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="transactions",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -11,7 +11,9 @@ TRANSACTION_TYPE_CHOICE = (
 
 class TransactionCategory(models.Model):
     name = models.CharField(max_length=255)
-    type = models.CharField(max_length=255, choices=TRANSACTION_TYPE_CHOICE, blank=True, null=True)
+    type = models.CharField(
+        max_length=255, choices=TRANSACTION_TYPE_CHOICE, blank=True, null=True
+    )
 
     def __str__(self):
         return f"{self.name}"
@@ -23,7 +25,7 @@ class Transaction(models.Model):
         on_delete=models.CASCADE,
         related_name="transactions",
         blank=True,
-        null=True
+        null=True,
     )
     amount = models.DecimalField(max_digits=19, decimal_places=7, default=0)
     category = models.ForeignKey(
@@ -31,7 +33,7 @@ class Transaction(models.Model):
         on_delete=models.CASCADE,
         related_name="transactions",
         blank=True,
-        null=True
+        null=True,
     )
     comment = models.TextField(blank=True, null=True)
     who_made = models.ForeignKey(
@@ -39,6 +41,6 @@ class Transaction(models.Model):
         on_delete=models.CASCADE,
         related_name="transactions",
         blank=True,
-        null=True
+        null=True,
     )
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)

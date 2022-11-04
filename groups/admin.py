@@ -13,7 +13,9 @@ class GroupInformationAdmin(admin.ModelAdmin):
     fields = ("owner", "name", "description")
     search_fields = ("owner__username", "name", "description")
 
-    inlines = [GroupInline, ]
+    inlines = [
+        GroupInline,
+    ]
 
 
 @admin.register(Permission)

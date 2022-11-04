@@ -27,5 +27,11 @@ import requests
 response = requests.get("https://www.nbrb.by/api/exrates/rates?periodicity=0")
 response = response.json()
 print(response)
-response = [(i.get('Cur_Name'), i.get('Cur_Abbreviation'),) for i in response]
+response = [
+    (
+        i.get("Cur_Name"),
+        i.get("Cur_Abbreviation"),
+    )
+    for i in response
+]
 print(response)

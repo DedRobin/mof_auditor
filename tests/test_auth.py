@@ -8,7 +8,6 @@ from tests.factories import *
 
 @pytest.mark.django_db
 class TestViews:
-
     def setup_method(self):
         self.client = Client()
         self.user = UserFactory()

@@ -11,8 +11,13 @@ class Command(BaseCommand):
         BalanceCurrency.objects.all().delete()
         response = requests.get("https://www.nbrb.by/api/exrates/rates?periodicity=0")
         response = response.json()
-        currencies = [{"name": currency.get("Cur_Name"), "codename": currency.get("Cur_Abbreviation")} for currency in
-                      response]
+        currencies = [
+            {
+                "name": currency.get("Cur_Name"),
+                "codename": currency.get("Cur_Abbreviation"),
+            }
+            for currency in response
+        ]
         for currency in currencies:
             name = currency.get("name")
             codename = currency.get("codename")
