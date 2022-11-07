@@ -17,6 +17,4 @@ class UserAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at",)
     search_fields = ("username", "is_staff", "is_superuser")
 
-    inlines = [
-        ProfileInline, BalanceInline
-    ]
+    inlines = [ProfileInline, BalanceInline]
