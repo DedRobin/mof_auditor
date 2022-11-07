@@ -31,7 +31,7 @@ class GroupInformation(models.Model):
 
 class Group(models.Model):
     group_info = models.OneToOneField(GroupInformation, on_delete=models.CASCADE)
-    pub_id = models.CharField(max_length=255, blank=True, null=True)
+    pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     invited_users = models.ManyToManyField(User, related_name="user_groups")
     permissions = models.ManyToManyField(Permission, related_name="user_groups")
     created_at = models.DateTimeField(

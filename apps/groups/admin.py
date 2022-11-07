@@ -36,6 +36,7 @@ class GroupAdmin(admin.ModelAdmin):
     )
     fields = (
         "group_info",
+        "pub_id",
         "invited_users",
         "permissions")
     readonly_fields = (
