@@ -12,20 +12,28 @@
     </thead>
     <tbody class="table-group-divider">
 
+    {% for user in group.invited_users.all %}
+        {% for balance in user.balances.all %}
 
-        {% for user in group.invited_users.all %}
-            {% for balance in user.balances.all %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ balance.name }}</td>
-                    <td>{{ balance.total }}</td>
-                    <td>{{ balance.currency }}</td>
-                    <td>{{ balance.type }}</td>
-                    <td>{{ balance.owner.profile.first_name }} {{ balance.owner.profile.last_name }}</td>
-                </tr>
+            {% if group in balance.groups.all %}
+                {% if not balance.private %}
+                    {% if user in group.invited_users.all %}
 
-            {% endfor %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ balance.name }}</td>
+                            <td>{{ balance.total }}</td>
+                            <td>{{ balance.currency }}</td>
+                            <td>{{ balance.type }}</td>
+                            <td>{{ balance.owner.profile.first_name }} {{ balance.owner.profile.last_name }}</td>
+                        </tr>
+
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
         {% endfor %}
+    {% endfor %}
 
     </tbody>
 </table>

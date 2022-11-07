@@ -25,7 +25,7 @@ class Balance(models.Model):
         BalanceCurrency, related_name="balances", on_delete=models.CASCADE
     )
     private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
-    groups = models.ManyToManyField(Group, related_name="balances")
+    groups = models.ManyToManyField(Group, related_name="balances", blank=True)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):

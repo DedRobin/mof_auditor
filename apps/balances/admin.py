@@ -19,8 +19,8 @@ class BalanceCurrencyAdmin(admin.ModelAdmin):
 class BalanceAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "total",
         "owner",
+        "total",
         "type",
         "currency",
         "private",
@@ -45,9 +45,8 @@ class BalanceAdmin(admin.ModelAdmin):
         "owner__username",
         "name",
         "type",
-        "currency",
+        "currency__name",
         "private",
-        "created_at",
     )
     radio_fields = {"type": admin.VERTICAL, "private": admin.VERTICAL}
 
