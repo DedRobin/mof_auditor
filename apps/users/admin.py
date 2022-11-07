@@ -1,11 +1,8 @@
 from django.contrib import admin
 
 from apps.users.models import User
-from apps.profiles.models import Profile
-
-
-class ProfileInline(admin.TabularInline):
-    model = Profile
+from apps.profiles.admin import ProfileInline
+from apps.balances.admin import BalanceInline
 
 
 @admin.register(User)
@@ -25,5 +22,5 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ("username", "is_staff", "is_superuser")
 
     inlines = [
-        ProfileInline,
+        ProfileInline, BalanceInline
     ]

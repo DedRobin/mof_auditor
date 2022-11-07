@@ -3,6 +3,10 @@ from django.contrib import admin
 from apps.transactions.models import Transaction, TransactionCategory
 
 
+class TransactionInline(admin.TabularInline):
+    model = Transaction
+
+
 @admin.register(TransactionCategory)
 class TransactionCategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "type")

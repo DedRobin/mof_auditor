@@ -40,15 +40,3 @@ class TestViews:
         response = self.client.get("/logout/")
         assert response.status_code == 302
         assert response.url == "/login/"
-
-    # def test_login(self):
-    #     response = self.client.get("/")
-    #     assert response.status_code == 302
-    #     assert response.url == f"/login?next=/"
-
-    # def test_get_posts(self):
-    #     ProductFactory.create_batch(10)
-
-    # response = self.client.get("/shop/products/")
-    # assert response.status_code == 200
-    # assert response.content.count("product_card") == 10

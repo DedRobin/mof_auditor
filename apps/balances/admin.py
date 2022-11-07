@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from apps.balances.models import Balance, BalanceCurrency
-from apps.transactions.models import Transaction
+from apps.transactions.admin import TransactionInline
 
 
-class TransactionInline(admin.TabularInline):
-    model = Transaction
+class BalanceInline(admin.TabularInline):
+    model = Balance
 
 
 @admin.register(BalanceCurrency)
