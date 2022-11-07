@@ -36,11 +36,4 @@ class Transaction(models.Model):
         null=True,
     )
     comment = models.TextField(blank=True, null=True)
-    who_made = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="transactions",
-        blank=True,
-        null=True,
-    )
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
