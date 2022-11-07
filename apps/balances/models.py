@@ -39,4 +39,4 @@ class Balance(models.Model):
         return 0
 
     def all_groups(self):
-        return ", ".join(group.name for group in self.groups.all())
+        return ", ".join(group.group_info.name for group in self.groups.all())
