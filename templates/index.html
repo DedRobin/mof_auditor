@@ -4,7 +4,6 @@
 
 {% block content %}
 
-    {% include 'header.html' %}
 
     {% if not request.user.is_authenticated %}
         {% include 'login.html' %}
