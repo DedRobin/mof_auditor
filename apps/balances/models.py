@@ -17,6 +17,7 @@ class BalanceCurrency(models.Model):
 
 
 class Balance(models.Model):
+    pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="balances")
 

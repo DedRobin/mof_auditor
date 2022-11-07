@@ -20,6 +20,7 @@ class BalanceAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "owner",
+        "pub_id",
         "total",
         "type",
         "currency",
@@ -30,6 +31,7 @@ class BalanceAdmin(admin.ModelAdmin):
     fields = (
         "name",
         "owner",
+        "pub_id",
         "type",
         "currency",
         "private",
@@ -44,6 +46,7 @@ class BalanceAdmin(admin.ModelAdmin):
     search_fields = (
         "owner__username",
         "name",
+        "pub_id",
         "type",
         "currency__name",
         "private",
