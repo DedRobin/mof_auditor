@@ -25,8 +25,16 @@ class BalanceAdmin(admin.ModelAdmin):
         "currency",
         "private",
         "created_at",
+        "all_groups",
     )
-    fields = ("name", "owner", "type", "currency", "private")
+    fields = (
+        "name",
+        "owner",
+        "type",
+        "currency",
+        "private",
+        "groups",
+    )
     list_filter = (
         "type",
         "currency",

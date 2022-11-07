@@ -12,10 +12,6 @@ class UserAdmin(admin.ModelAdmin):
         "username",
         "is_staff",
         "is_superuser",
-        (
-            "groups",
-            "user_permissions",
-        ),
     )
     list_filter = ("is_staff", "is_superuser")
     readonly_fields = ("created_at",)

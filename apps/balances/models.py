@@ -1,6 +1,7 @@
 from django.db import models
 
 from apps.users.models import User
+from apps.groups.models import Group
 
 BALANCE_TYPE_CHOICE = (("cash", "Cash"), ("card", "Card"), ("bank", "Bank account"))
 
@@ -24,6 +25,7 @@ class Balance(models.Model):
         BalanceCurrency, related_name="balances", on_delete=models.CASCADE
     )
     private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
+    groups = models.ManyToManyField(Group, related_name="balances")
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
@@ -35,3 +37,6 @@ class Balance(models.Model):
             total = sum(transactions.amount for transactions in transactions)
             return total
         return 0
+
+    def all_groups(self):
+        return ", ".join(group.name for group in self.groups.all())
