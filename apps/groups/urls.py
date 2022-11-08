@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
-from apps.groups.views import create_group
+from apps.groups.views import create_group, edit_group
 
 urlpatterns = [
     path("create/", create_group, name="create_group"),
+    path("<str:pub_id>/settings/", edit_group, name="create_group"),
 ]
