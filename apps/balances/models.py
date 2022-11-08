@@ -1,3 +1,4 @@
+import ulid
 from django.db import models
 
 from apps.users.models import User
@@ -31,6 +32,11 @@ class Balance(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, **kwargs):
+        if not self.pub_id:
+            self.pub_id = ulid.new()
+        super().save(*kwargs)
 
     def total(self):
         transactions = self.transactions.all()

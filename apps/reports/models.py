@@ -4,9 +4,7 @@ from apps.balances.models import Balance
 
 class Report(models.Model):
     balance = models.ForeignKey(
-        Balance,
-        on_delete=models.CASCADE,
-        related_name="reports"
+        Balance, on_delete=models.CASCADE, related_name="reports"
     )
     date_from = models.DateTimeField()
     date_to = models.DateTimeField()

@@ -1,3 +1,4 @@
+import ulid
 from django.db import models
 
 from apps.users.models import User
@@ -40,6 +41,11 @@ class Group(models.Model):
 
     def __str__(self):
         return f"{self.group_info.name}"
+
+    def save(self, **kwargs):
+        if not self.pub_id:
+            self.pub_id = ulid.new()
+        super().save(*kwargs)
 
     def all_invited_users(self):
         return ", ".join(user.username for user in self.invited_users.all())

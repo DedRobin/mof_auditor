@@ -17,8 +17,7 @@ class ReportAdmin(admin.ModelAdmin):
         "date_to",
         "total",
     )
-    readonly_fields = (
-        "created_at",)
+    readonly_fields = ("created_at",)
 
     search_fields = (
         "balance__name",
