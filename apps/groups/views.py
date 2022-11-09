@@ -1,9 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group, Permission
-from apps.groups.forms import CreateGroupForm, EditGroupForm
+from apps.groups.forms import CreateGroupForm, EditGroupForm, EditGroupInformationForm
 
 
 @login_required
@@ -30,11 +31,7 @@ def create_group(request):
 @login_required
 def edit_group(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
-    invited_users = group.invited_users.all()
-    data = {
-        "name": group.group_info.name,
-        "description": group.group_info.description,
-    }
-    form = EditGroupForm(data)
-    if form.is_valid():
-        return render(request, "edit_group.html", {"form": form})
+    group_info = group.group_info
+    group_form = EditGroupForm(instance=group)
+    group_info_form = EditGroupInformationForm(instance=group_info)
+    return render(request, "edit_group.html", {"group_form": group_form, "group_info_form": group_info_form })

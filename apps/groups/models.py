@@ -5,9 +5,15 @@ from apps.users.models import User
 
 
 class Permission(models.Model):
-    name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=255)
-    users = models.ManyToManyField(User)
+    name = models.CharField(
+        max_length=255
+    )
+    codename = models.CharField(
+        max_length=255
+    )
+    users = models.ManyToManyField(
+        User
+    )
 
     def __str__(self):
         return f"{self.name}"
@@ -21,7 +27,10 @@ class Permission(models.Model):
 
 class GroupInformation(models.Model):
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="group_info", blank=True, null=True
+        User,
+        on_delete=models.CASCADE,
+        related_name="group_info",
+        blank=True, null=True
     )
     name = models.CharField(
         max_length=255,

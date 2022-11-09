@@ -1,7 +1,6 @@
 from django import forms
-from django.db.models import QuerySet
 
-from apps.groups.models import Group
+from apps.groups.models import Group, GroupInformation
 
 
 class CreateGroupForm(forms.Form):
@@ -9,10 +8,24 @@ class CreateGroupForm(forms.Form):
     description = forms.CharField(max_length=255)
 
 
-class EditGroupForm(forms.Form):
-    name = forms.CharField(max_length=255)
-    description = forms.CharField()
-    # invited_users = forms.ModelMultipleChoiceField(
-    #         widget=forms.CheckboxSelectMultiple,
-    #         queryset=None
-    #     )
+class EditGroupInformationForm(forms.ModelForm):
+    class Meta:
+        model = GroupInformation
+        fields = (
+            "name",
+            "description",
+        )
+
+
+class EditGroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        edit_only = True
+        fields = (
+            "invited_users",
+            "permissions",
+        )
+        widgets = {
+            "invited_users": forms.CheckboxSelectMultiple(),
+            "permissions": forms.CheckboxSelectMultiple(),
+        }

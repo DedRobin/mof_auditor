@@ -10,7 +10,8 @@
         <h1>Edit Group</h1>
         <form method="POST" class="post-form">
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ group_info_form|crispy }}
+            {{ group_form|crispy }}
             <button type="submit" class="save btn btn-primary">Apply changes</button>
         </form>
     </div>

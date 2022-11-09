@@ -1,6 +1,7 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 from apps.users.models import User
+from apps.groups.models import Group, GroupInformation
 
 
 class UserFactory(DjangoModelFactory):
@@ -11,14 +12,21 @@ class UserFactory(DjangoModelFactory):
     password = factory.Faker("md5")
 
 
-#
-# class PostFactory(DjangoModelFactory):
-#     class Meta:
-#         model = Post
-#
-#     title = factory.Faker('word')
-#     slug = factory.Faker('word')
-#     text = factory.Faker('sentence')
+class GroupInformationFactory(DjangoModelFactory):
+    class Meta:
+        model = GroupInformation
+
+    owner = UserFactory()
+    slug = factory.Faker('word')
+    text = factory.Faker('sentence')
+
+class GroupFactory(DjangoModelFactory):
+    class Meta:
+        model = Group
+
+    title = factory.Faker('word')
+    slug = factory.Faker('word')
+    text = factory.Faker('sentence')
 #
 #
 # class ProductFactory(DjangoModelFactory):
