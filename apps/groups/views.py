@@ -20,7 +20,7 @@ def create_group(request):
             group = Group.objects.create(
                 group_info=group_info,
             )
-            group.users.add(user)
+            group.invited_users.add(user)
             return redirect("index")
     else:
         form = CreateGroupForm()
