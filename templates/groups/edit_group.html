@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Edit group{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Edit Group</h1>
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            {{ group_info_form|crispy }}
+
+            {% include 'groups/permission_form_for_invited_users.html' %}
+
+            <button type="submit" class="save btn btn-primary">Apply changes</button>
+        </form>
+    </div>
+
+{% endblock %}

@@ -25,7 +25,7 @@ def create_group(request):
             return redirect("index")
     else:
         form = CreateGroupForm()
-        return render(request, "create_group.html", {"form": form})
+        return render(request, "groups/create_group.html", {"form": form})
 
 
 @login_required
@@ -42,7 +42,7 @@ def edit_group(request, pub_id):
             group.invited_users.remove(kick_user)
 
     group_info_form = EditGroupInformationForm(instance=group_info)
-    return render(request, "edit_group.html", {
+    return render(request, "groups/edit_group.html", {
         "group_info_form": group_info_form,
         "invited_users": invited_users,
         "permissions": permissions,
