@@ -15,17 +15,3 @@ class EditGroupInformationForm(forms.ModelForm):
             "name",
             "description",
         )
-
-
-class EditGroupForm(forms.ModelForm):
-    class Meta:
-        model = Group
-        edit_only = True
-        fields = (
-            "invited_users",
-            "permissions",
-        )
-        widgets = {
-            "invited_users": forms.CheckboxSelectMultiple(),
-            "permissions": forms.CheckboxSelectMultiple(),
-        }

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group, Permission
-from apps.groups.forms import CreateGroupForm, EditGroupForm, EditGroupInformationForm
+from apps.groups.forms import CreateGroupForm, EditGroupInformationForm
 
 
 @login_required
@@ -25,13 +25,26 @@ def create_group(request):
             return redirect("index")
     else:
         form = CreateGroupForm()
-        return render(request, "create_group_page.html", {"form": form})
+        return render(request, "create_group.html", {"form": form})
 
 
 @login_required
 def edit_group(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_info = group.group_info
-    group_form = EditGroupForm(instance=group)
+    permissions = group.permissions.all()
+    invited_users = group.invited_users.all()
+
+    if request.method == "POST":
+        if request.POST.get("invited_user") is not None:
+            invited_user = request.POST.get("invited_user")
+            kick_user = User.objects.get(username=invited_user)
+            group.invited_users.remove(kick_user)
+
     group_info_form = EditGroupInformationForm(instance=group_info)
-    return render(request, "edit_group.html", {"group_form": group_form, "group_info_form": group_info_form })
+    return render(request, "edit_group.html", {
+        "group_info_form": group_info_form,
+        "invited_users": invited_users,
+        "permissions": permissions,
+    }
+                  )

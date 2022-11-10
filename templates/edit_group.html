@@ -11,7 +11,24 @@
         <form method="POST" class="post-form">
             {% csrf_token %}
             {{ group_info_form|crispy }}
-            {{ group_form|crispy }}
+
+            <label for="id_name" class="form-label">Invited users</label>
+            {% for user in invited_users %}
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="invited_user" value="{{ user.username }}"
+                               placeholder=""
+                               aria-label="Recipient's username" aria-describedby="button-addon2 {{ user.username }}">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2 {{ user.username }}">
+                            Permissions
+                        </button>
+                        <button class="btn btn-outline-danger" type="submit" id="button-addon2 {{ user.username }}">Kick
+                        </button>
+                    </div>
+                </form>
+            {% endfor %}
+
             <button type="submit" class="save btn btn-primary">Apply changes</button>
         </form>
     </div>
