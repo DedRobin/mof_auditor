@@ -20,4 +20,17 @@ class EditGroupInformationForm(forms.ModelForm):
             "description",
         )
 
-
+# class EditGroupForm(forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         qs = kwargs.pop('invited_users')
+#         super(EditGroupForm, self).__init__(*args, **kwargs)
+#         self.fields['invited_users'].queryset = qs
+#
+#     class Meta:
+#         model = Group
+#         invited_users = forms.ModelMultipleChoiceField(
+#             queryset=None,
+#         )
+#         fields = (
+#             "invited_users",
+#         )
