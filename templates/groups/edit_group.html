@@ -12,10 +12,12 @@
             {% csrf_token %}
             {{ group_info_form|crispy }}
 
-            {% include 'groups/permission_form_for_invited_users.html' %}
 
             <button type="submit" class="save btn btn-primary">Apply changes</button>
         </form>
+
+        {% include 'groups/permission_form_for_invited_users.html' %}
+
     </div>
 
 {% endblock %}

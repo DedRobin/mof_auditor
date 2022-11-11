@@ -18,10 +18,7 @@ class TestViews:
     def test_create_group(self):
         self.client.force_login(self.user)
 
-        data = {
-            "name": "some name",
-            "description": "some description"
-        }
+        data = {"name": "some name", "description": "some description"}
         response = self.client.post("/groups/create/", data=data)
         assert response.status_code == 302
         assert response.url == "/"

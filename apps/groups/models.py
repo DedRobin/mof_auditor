@@ -5,15 +5,9 @@ from apps.users.models import User
 
 
 class Permission(models.Model):
-    name = models.CharField(
-        max_length=255
-    )
-    codename = models.CharField(
-        max_length=255
-    )
-    users = models.ManyToManyField(
-        User
-    )
+    name = models.CharField(max_length=255)
+    codename = models.CharField(max_length=255)
+    users = models.ManyToManyField(User)
 
     def __str__(self):
         return f"{self.name}"
@@ -27,10 +21,7 @@ class Permission(models.Model):
 
 class GroupInformation(models.Model):
     owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="group_info",
-        blank=True, null=True
+        User, on_delete=models.CASCADE, related_name="group_info", blank=True, null=True
     )
     name = models.CharField(
         max_length=255,
@@ -44,43 +35,32 @@ class GroupInformation(models.Model):
 
 
 class Group(models.Model):
-    group_info = models.OneToOneField(
-        GroupInformation,
-        on_delete=models.CASCADE
-    )
-    pub_id = models.CharField(
-        max_length=255,
-        unique=True,
-        blank=True,
-        null=True
-    )
-    invited_users = models.ManyToManyField(
-        User,
-        related_name="user_groups",
-        blank=True
-    )
+    group_info = models.OneToOneField(GroupInformation, on_delete=models.CASCADE)
+    pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    invited_users = models.ManyToManyField(User, related_name="user_groups", blank=True)
     permissions = models.ManyToManyField(
-        Permission,
-        related_name="user_groups",
-        blank=True
+        Permission, related_name="user_groups", blank=True
     )
     created_at = models.DateTimeField(
-        auto_now_add=True,
-        db_index=True,
-        blank=True,
-        null=True
+        auto_now_add=True, db_index=True, blank=True, null=True
     )
 
     def __str__(self):
         return f"{self.group_info.name}"
 
     def save(self, **kwargs):
+        """Generates a public ID when the instance is saved"""
+
         if not self.pub_id:
             self.pub_id = ulid.new()
         super().save(**kwargs)
 
     def all_invited_users(self):
+        """Method for displaying all invited users"""
+
         return ", ".join(user.username for user in self.invited_users.all())
 
     def all_permissions(self):
+        """Method for displaying all permissions"""
+
         return ", ".join(permission.name for permission in self.permissions.all())

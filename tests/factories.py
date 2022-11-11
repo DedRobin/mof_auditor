@@ -17,16 +17,19 @@ class GroupInformationFactory(DjangoModelFactory):
         model = GroupInformation
 
     owner = UserFactory()
-    slug = factory.Faker('word')
-    text = factory.Faker('sentence')
+    slug = factory.Faker("word")
+    text = factory.Faker("sentence")
+
 
 class GroupFactory(DjangoModelFactory):
     class Meta:
         model = Group
 
-    title = factory.Faker('word')
-    slug = factory.Faker('word')
-    text = factory.Faker('sentence')
+    title = factory.Faker("word")
+    slug = factory.Faker("word")
+    text = factory.Faker("sentence")
+
+
 #
 #
 # class ProductFactory(DjangoModelFactory):
