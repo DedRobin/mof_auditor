@@ -35,11 +35,25 @@ class GroupInformation(models.Model):
 
 
 class Group(models.Model):
-    group_info = models.OneToOneField(GroupInformation, on_delete=models.CASCADE)
-    pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
-    invited_users = models.ManyToManyField(User, related_name="user_groups", blank=True)
+    group_info = models.OneToOneField(
+        GroupInformation,
+        on_delete=models.CASCADE
+    )
+    pub_id = models.CharField(
+        max_length=255,
+        unique=True,
+        blank=True,
+        null=True
+    )
+    invited_users = models.ManyToManyField(
+        User,
+        related_name="user_groups",
+        blank=True
+    )
     permissions = models.ManyToManyField(
-        Permission, related_name="user_groups", blank=True
+        Permission,
+        related_name="user_groups",
+        blank=True
     )
     created_at = models.DateTimeField(
         auto_now_add=True, db_index=True, blank=True, null=True
@@ -56,11 +70,11 @@ class Group(models.Model):
         super().save(**kwargs)
 
     def all_invited_users(self):
-        """Method for displaying all invited users"""
+        """Method for displaying all invited users in admin"""
 
         return ", ".join(user.username for user in self.invited_users.all())
 
     def all_permissions(self):
-        """Method for displaying all permissions"""
+        """Method for displaying all permissions in admin"""
 
         return ", ".join(permission.name for permission in self.permissions.all())

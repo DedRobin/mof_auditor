@@ -1,16 +1,15 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group, Permission
-from apps.groups.forms import CreateGroupForm, EditGroupInformationForm
+from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 
 
 @login_required
 def create_group(request):
     if request.method == "POST":
-        form = CreateGroupForm(request.POST)
+        form = CreateGroupInformationForm(request.POST)
         if form.is_valid():
             user = User.objects.get(username=request.user)
             group_info = GroupInformation.objects.create(
@@ -24,7 +23,7 @@ def create_group(request):
             group.invited_users.add(user)
             return redirect("index")
     else:
-        form = CreateGroupForm()
+        form = CreateGroupInformationForm()
         return render(request, "groups/create_group.html", {"form": form})
 
 
