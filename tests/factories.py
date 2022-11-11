@@ -1,7 +1,7 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 from apps.users.models import User
-from apps.groups.models import Group, GroupInformation
+from apps.groups.models import Group, GroupInformation, Permission
 
 
 class UserFactory(DjangoModelFactory):
@@ -12,22 +12,32 @@ class UserFactory(DjangoModelFactory):
     password = factory.Faker("md5")
 
 
+class PermissionFactory(DjangoModelFactory):
+    class Meta:
+        model = Permission
+
+    name = factory.Faker("word")
+    codename = factory.Faker("word")
+    users = factory.SubFactory(UserFactory)
+
+
 class GroupInformationFactory(DjangoModelFactory):
     class Meta:
         model = GroupInformation
 
-    owner = UserFactory()
-    slug = factory.Faker("word")
-    text = factory.Faker("sentence")
+    owner = factory.SubFactory(UserFactory)
+    name = factory.Faker("word")
+    description = factory.Faker("sentence")
 
 
 class GroupFactory(DjangoModelFactory):
     class Meta:
         model = Group
 
-    title = factory.Faker("word")
-    slug = factory.Faker("word")
-    text = factory.Faker("sentence")
+    group_info = factory.SubFactory(GroupInformationFactory)
+    pub_id = factory.Faker("md5")
+    invited_users = factory.SubFactory(UserFactory)
+    permissions = factory.SubFactory(PermissionFactory)
 
 
 #

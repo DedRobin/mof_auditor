@@ -17,8 +17,9 @@ class TestViews:
 
     def test_create_group(self):
         self.client.force_login(self.user)
-
+        group = GroupFactory()
+        print(group.name)
         data = {"name": "some name", "description": "some description"}
-        response = self.client.post("/groups/create/", data=data)
+        response = self.client.post(f"/groups/create/", data=data)
         assert response.status_code == 302
         assert response.url == "/"

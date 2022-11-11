@@ -2,7 +2,7 @@ import pytest
 
 from django.test.client import Client
 from faker import Faker
-
+from tests.factories import GroupInformationFactory
 from tests.factories import *
 
 
@@ -17,7 +17,6 @@ class TestViews:
 
     def test_create_group(self):
         self.client.force_login(self.user)
-
         data = {"name": "some name", "description": "some description"}
         response = self.client.post("/groups/create/", data=data)
         assert response.status_code == 302
