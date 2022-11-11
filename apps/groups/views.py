@@ -30,13 +30,11 @@ def create_group(request):
 @login_required
 def edit_group(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
+    group_info = group.group_info
     permissions = group.permissions.all()
     invited_users = group.invited_users.all()
-    group_data = {
-        "name": group.group_info.name,
-        "description": group.group_info.description,
-    }
-    group_info_form = EditGroupInformationForm(group_data)
+
+    group_info_form = EditGroupInformationForm(instance=group_info)
 
     if request.method == "POST":
         if request.POST.get("invited_user") is not None:
