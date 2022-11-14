@@ -36,11 +36,22 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=150, unique=True, db_index=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+    username = models.CharField(
+        max_length=150,
+        unique=True,
+        db_index=True
+    )
+    is_staff = models.BooleanField(
+        default=False,
+    )
+    is_superuser = models.BooleanField(
+        default=False,
+    )
     created_at = models.DateTimeField(
-        auto_now_add=True, db_index=True, blank=True, null=True
+        auto_now_add=True,
+        db_index=True,
+        blank=True,
+        null=True,
     )
 
     USERNAME_FIELD = "username"

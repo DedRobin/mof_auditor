@@ -43,17 +43,17 @@ class Group(models.Model):
         max_length=255,
         unique=True,
         blank=True,
-        null=True
+        null=True,
     )
     invited_users = models.ManyToManyField(
         User,
         related_name="user_groups",
-        blank=True
+        blank=True,
     )
     permissions = models.ManyToManyField(
         Permission,
         related_name="user_groups",
-        blank=True
+        blank=True,
     )
     created_at = models.DateTimeField(
         auto_now_add=True, db_index=True, blank=True, null=True
