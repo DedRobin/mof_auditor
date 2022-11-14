@@ -6,28 +6,28 @@
                 Left content
             </div>
 
-            <div class="col-8 text-bg-secondary">
+            <div class="col-8">
                 <div class="fs-1 py-2">
                     Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
                 </div>
 
                 <div class="py-2">
                     {#                    <a class="btn btn-danger" href="{% url 'create_group' %}">Create new group</a>#}
-                    <a class="btn btn-danger" href="groups/create/">Create new group</a>
+                    <a class="btn btn-danger" href="groups/create/">To create new group</a>
+                    <a class="btn btn-secondary" href="#">To invite</a>
                 </div>
 
                 {% for group in user_groups %}
                     <div class="d-flex flex-row justify-content-between py-2">
-                        <div>{{ forloop.counter }}) {{ group.group_info.name }}</div>
+                        <h1 class="display-6">{{ forloop.counter }}) {{ group.group_info.name }}</h1>
                         <div class="material-symbols-rounded">
                             <a class="setting-setting" href="groups/{{ group.pub_id }}/settings/">settings</a>
                         </div>
                     </div>
-                        {% include 'user_groups.html' %}
+                    {% include 'user_groups.html' %}
 
 
                 {% endfor %}
-
             </div>
 
             <div class="col text-bg-success">

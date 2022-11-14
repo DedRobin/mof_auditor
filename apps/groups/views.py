@@ -1,8 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
-from apps.groups.models import GroupInformation, Group, Permission
+from apps.groups.models import GroupInformation, Group, Permission, Invitation
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 
 
@@ -67,3 +68,14 @@ def edit_group(request, pub_id):
             "permissions": permissions,
         },
     )
+
+
+def invitation_list(request):
+    invitations = Invitation.objects.all()
+    data = {"invitations": invitations}
+
+    if request.method == "POST":
+        if request.POST.get("to_delete"):
+            group_pub_id = request.POST.get("group_pub_id")
+            # Invitation.objects.get(to_a_group__pub_id=group_pub_id).delete()
+    return render(request, "groups/invitations.html", data)
