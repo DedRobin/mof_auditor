@@ -70,12 +70,20 @@ def edit_group(request, pub_id):
     )
 
 
+@login_required
 def invitation_list(request):
-    invitations = Invitation.objects.all()
-    data = {"invitations": invitations}
+    """Gets all invitations for current user"""
 
     if request.method == "POST":
-        if request.POST.get("to_delete"):
-            group_pub_id = request.POST.get("group_pub_id")
-            # Invitation.objects.get(to_a_group__pub_id=group_pub_id).delete()
+        if request.POST.get("to_delete") == "True":
+            # If user refused invitation then it is removed
+
+            invitation_pub_id = request.POST.get("invitation_pub_id")
+            invitation = Invitation.objects.get(pub_id=invitation_pub_id)
+            invitation.delete()
+
+    invitations = Invitation.objects.filter(to_who__username=request.user.username)
+    invitations = invitations.exclude(from_who__username=request.user.username)
+    data = {"invitations": invitations}
+
     return render(request, "groups/invitations.html", data)
