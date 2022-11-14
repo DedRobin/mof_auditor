@@ -29,6 +29,8 @@ def create_group(request):
 
 @login_required
 def edit_group(request, pub_id):
+    """Updates data for single group"""
+
     group = Group.objects.get(pub_id=pub_id)
     group_info = group.group_info
     permissions = group.permissions.all()
@@ -45,10 +47,17 @@ def edit_group(request, pub_id):
             group.invited_users.remove(user)
 
         group_info_form = EditGroupInformationForm(request.POST)
+
         if group_info_form.is_valid():
-            group.group_info.name = group_info_form.cleaned_data["name"]
-            group.group_info.description = group_info_form.cleaned_data["description"]
+            # Update data for group
+
+            new_name = group_info_form.cleaned_data["name"]
+            new_description = group_info_form.cleaned_data["description"]
+
+            group.group_info.name = new_name
+            group.group_info.description = new_description
             group.group_info.save()
+
     return render(
         request,
         "groups/edit_group.html",
