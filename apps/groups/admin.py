@@ -56,7 +56,7 @@ class InvitationAdmin(admin.ModelAdmin):
     )
     search_fields = (
         "pub_id",
-        "to_a_group__name",
+        "to_a_group__group_info__name",
         "from_who__username",
         "to_who__username",
     )
