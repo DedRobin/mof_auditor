@@ -35,6 +35,7 @@
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-primary me-3">Apply</button>
                                 <input type="hidden" name="invitation_pub_id" value="{{ invitation.pub_id }}">
+                                <input type="hidden" name="to_accept" value="True">
                             </form>
                             <form method="POST">
                                 {% csrf_token %}

@@ -74,13 +74,24 @@ def edit_group(request, pub_id):
 def invitation_list(request):
     """Gets all invitations for current user"""
 
+    current_user = User.objects.get(username=request.user.username)
+
     if request.method == "POST":
-        if request.POST.get("to_delete") == "True":
+        invitation_pub_id = request.POST.get("invitation_pub_id")
+        invitation = Invitation.objects.get(pub_id=invitation_pub_id)
+
+        if request.POST.get("to_accept") == "True":
+            # Adds current user in invited group if invitation is accepted
+
+            invited_group = invitation.to_a_group
+            invited_group.invited_users.add(current_user)
+
+        elif request.POST.get("to_delete") == "True":
             # If user refused invitation then it is removed
 
-            invitation_pub_id = request.POST.get("invitation_pub_id")
-            invitation = Invitation.objects.get(pub_id=invitation_pub_id)
             invitation.delete()
+
+    # All invitations are displayed but not the current user
 
     invitations = Invitation.objects.filter(to_who__username=request.user.username)
     invitations = invitations.exclude(from_who__username=request.user.username)
