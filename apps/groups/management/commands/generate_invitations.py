@@ -17,10 +17,12 @@ class Command(BaseCommand):
 
         i = 0
         while i < 10:
+            random_group = random.choice(groups)
+            owner = random_group.group_info.owner
             Invitation.objects.create(
-                from_who=random.choice(users),
+                from_who=owner,
                 to_who=admin,
-                to_a_group=random.choice(groups)
+                to_a_group=random_group,
             )
             i += 1
         print("Create invitations.")
