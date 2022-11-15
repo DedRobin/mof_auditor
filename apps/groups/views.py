@@ -82,9 +82,11 @@ def invitation_list(request):
 
         if request.POST.get("to_accept") == "True":
             # Adds current user in invited group if invitation is accepted
+            # Then it is deleted
 
             invited_group = invitation.to_a_group
             invited_group.invited_users.add(current_user)
+            invitation.delete()
 
         elif request.POST.get("to_delete") == "True":
             # If user refused invitation then it is removed
