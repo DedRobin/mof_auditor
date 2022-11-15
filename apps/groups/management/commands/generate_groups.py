@@ -14,6 +14,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         Group.objects.all().delete()
+
         users = User.objects.all()
 
         i = 0
@@ -28,8 +29,10 @@ class Command(BaseCommand):
                 group_info=group_info,
             )
             for _ in range(5):
+                checked_users = []
                 invited_user = random.choice(copy_users)
                 group.invited_users.add(invited_user)
-                copy_users = copy_users.exclude(username=invited_user.username)
+                checked_users.append(invited_user.username)
+                copy_users = copy_users.exclude(username__in=checked_users)
             i += 1
         print("Create groups")
