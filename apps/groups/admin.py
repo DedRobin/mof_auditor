@@ -34,7 +34,7 @@ class GroupAdmin(admin.ModelAdmin):
         "all_permissions",
         "created_at",
     )
-    fields = ("group_info", "pub_id", "invited_users", "permissions")
+    fields = ("group_info", "invited_users", "permissions")
     readonly_fields = ("created_at",)
     search_fields = ("group_info__name", "created_at", "pub_id")
 
