@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Settings for group "{{ group_name }}"{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Settings for group "{{ group_name }}"</h1>
+
+
+        <div class="list-group list-group-numbered">
+            <a href="editing/" class="list-group-item list-group-item-action" aria-current="true">Editing</a>
+            <a href="privacy/" class="list-group-item list-group-item-action">Privacy</a>
+        </div>
+
+
+        {#        {% include 'groups/permission_form_for_invited_users.html' %}#}
+
+    </div>
+
+{% endblock %}

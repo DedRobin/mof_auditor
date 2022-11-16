@@ -1,5 +1,7 @@
-<hr>
-<label for="id_name" class="form-label">Invited users</label>
+
+<label for="id_name" class="form-label">Invited users</label><br>
+<button type="button" class="btn btn-primary mb-3">+ To invite</button>
+
 {% for user in invited_users %}
     <form method="POST" class="post-form">
         {% csrf_token %}

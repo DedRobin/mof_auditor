@@ -29,13 +29,18 @@ def create_group(request):
 
 
 @login_required
+def group_settings(request, pub_id):
+    group = Group.objects.get(pub_id=pub_id)
+    group_name = group.group_info.name
+    return render(request, "groups/settings.html", {"group_name": group_name})
+
+
+@login_required
 def edit_group(request, pub_id):
     """Updates data for single group"""
 
     group = Group.objects.get(pub_id=pub_id)
     group_info = group.group_info
-    permissions = group.permissions.all()
-    invited_users = group.invited_users.all()
 
     group_info_form = EditGroupInformationForm(instance=group_info)
 
@@ -59,15 +64,27 @@ def edit_group(request, pub_id):
             group.group_info.description = new_description
             group.group_info.save()
 
+    data = {
+        "group_info_form": group_info_form,
+        "group_name": group_info.name,
+    }
     return render(
         request,
-        "groups/edit_group.html",
-        {
-            "group_info_form": group_info_form,
-            "invited_users": invited_users,
-            "permissions": permissions,
-        },
+        "groups/editing.html",
+        data,
     )
+
+
+@login_required
+def group_privacy(request, pub_id):
+    group = Group.objects.get(pub_id=pub_id)
+    group_name = group.group_info.name
+    invited_users = group.invited_users.all()
+    data = {
+        "group_name": group_name,
+        "invited_users": invited_users,
+    }
+    return render(request, "groups/privacy.html", data)
 
 
 @login_required

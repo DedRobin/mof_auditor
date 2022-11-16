@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Settings for group "{{ group_name }}"/Privacy{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Settings for group "{{ group_name }}"/Privacy</h1>
+
+        {% include 'groups/permission_form_for_invited_users.html' %}
+
+    </div>
+
+{% endblock %}

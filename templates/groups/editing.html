@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Settings for group "{{ group_name }}"/Editing{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Settings for group "{{ group_name }}"/Editing</h1>
+
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            {{ group_info_form|crispy }}
+            <button type="submit" class="save btn btn-primary">Apply changes</button>
+        </form>
+    </div>
+
+{% endblock %}
