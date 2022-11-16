@@ -76,7 +76,7 @@ def edit_group(request, pub_id):
 
 
 @login_required
-def group_privacy(request, pub_id):
+def group_members(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
     invited_users = group.invited_users.all()
@@ -84,7 +84,7 @@ def group_privacy(request, pub_id):
         "group_name": group_name,
         "invited_users": invited_users,
     }
-    return render(request, "groups/privacy.html", data)
+    return render(request, "groups/members.html", data)
 
 
 @login_required
