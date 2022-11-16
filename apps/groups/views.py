@@ -74,7 +74,8 @@ def edit_group(request, pub_id):
 def invitation_list(request):
     """Gets all invitations for current user"""
 
-    current_user = User.objects.get(username=request.user.username)
+    username = request.user.username
+    current_user = User.objects.get(username=username)
 
     if request.method == "POST":
         invitation_pub_id = request.POST.get("invitation_pub_id")
@@ -95,8 +96,7 @@ def invitation_list(request):
 
     # All invitations are displayed but not the current user
 
-    invitations = Invitation.objects.filter(to_who__username=request.user.username)
-    invitations = invitations.exclude(from_who__username=request.user.username)
+    invitations = Invitation.objects.filter(to_who__username=username).exclude(from_who__username=username)
     data = {"invitations": invitations}
 
     return render(request, "groups/invitations.html", data)
