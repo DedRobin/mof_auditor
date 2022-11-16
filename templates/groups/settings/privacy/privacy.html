@@ -2,34 +2,14 @@
 
 {% load crispy_forms_filters %}
 
-{% block title %}Settings for group "{{ group_name }}"/Privacy{% endblock %}
+{% block title %}Privacy{% endblock %}
 
 {% block content %}
 
     <div class="container">
         <h1>Settings for group "{{ group_name }}"/Privacy</h1>
 
-
-        <ul class="list-group container-fluid">
-            <li>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" readonly="readonly"
-                           aria-label="Recipient's username"
-                           aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-                </div>
-            </li>
-            <li>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" readonly="readonly"
-                           aria-label="Recipient's username"
-                           aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-                </div>
-            </li>
-
-        </ul>
-
+        {% include 'groups/settings/privacy/privacy_form.html' %}
 
     </div>
 
