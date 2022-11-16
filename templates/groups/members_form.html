@@ -1,5 +1,4 @@
-
-<label for="id_name" class="form-label">Invited users</label><br>
+<label for="id_name" class="form-label">Members</label><br>
 <button type="button" class="btn btn-primary mb-3">+ To invite</button>
 
 {% for user in invited_users %}
@@ -9,9 +8,6 @@
             <input type="text" class="form-control" name="invited_user" value="{{ user.username }}"
                    placeholder=""
                    aria-label="Recipient's username" aria-describedby="button-addon2 {{ user.username }}">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2 {{ user.username }}">
-                Permissions
-            </button>
             <button class="btn btn-outline-danger" type="submit" id="button-addon2 {{ user.username }}">Kick
             </button>
         </div>
