@@ -32,7 +32,7 @@ def create_group(request):
 def group_settings(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
-    return render(request, "groups/settings.html", {"group_name": group_name})
+    return render(request, "groups/settings/settings.html", {"group_name": group_name})
 
 
 @login_required
@@ -70,7 +70,7 @@ def edit_group(request, pub_id):
     }
     return render(
         request,
-        "groups/editing.html",
+        "groups/settings/editing/editing.html",
         data,
     )
 
@@ -84,7 +84,17 @@ def group_members(request, pub_id):
         "group_name": group_name,
         "invited_users": invited_users,
     }
-    return render(request, "groups/members.html", data)
+    return render(request, "groups/settings/members/members.html", data)
+
+
+@login_required
+def group_privacy(request, pub_id):
+    group = Group.objects.get(pub_id=pub_id)
+    group_name = group.group_info.name
+    data = {
+        "group_name": group_name,
+    }
+    return render(request, "groups/settings/privacy/privacy.html", data)
 
 
 @login_required
