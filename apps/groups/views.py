@@ -89,11 +89,28 @@ def group_members(request, pub_id):
 
 @login_required
 def group_privacy(request, pub_id):
+    """Gets privacy settings for each group member"""
+
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
+    invited_users = group.invited_users.all().order_by("profile__first_name")
     data = {
         "group_name": group_name,
+        "invited_users": invited_users,
     }
+    permissions = []
+    if request.method == "POST":
+        if request.POST.getlist("invited_users"):
+            ticked_users = request.POST.getlist("invited_users")
+            for user in ticked_users:
+                permissions.append(
+                    Permission(
+                        name=f"{user} | Can read the data",
+                        codename=f"{user}_read"
+                    )
+                )
+            Permission.objects.bulk_create(permissions)
+            print("Good!")
     return render(request, "groups/settings/privacy/privacy.html", data)
 
 
