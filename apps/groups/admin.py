@@ -20,9 +20,9 @@ class GroupInformationAdmin(admin.ModelAdmin):
 
 @admin.register(Permission)
 class PermissionAdmin(admin.ModelAdmin):
-    list_display = ("permission_type", "users")
-    fields = ("permission_type", "users")
-    search_fields = ("permission_type", "users__username")
+    list_display = ("permission_type", "user")
+    fields = ("permission_type", "user")
+    search_fields = ("permission_type", "user__username")
 
 
 @admin.register(Group)

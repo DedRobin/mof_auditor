@@ -18,7 +18,7 @@ class Permission(models.Model):
         blank=True,
         null=True,
     )
-    users = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="group_permissions",
