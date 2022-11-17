@@ -2,8 +2,7 @@ from django.core.management.base import BaseCommand
 
 from apps.users.models import User
 from apps.groups.models import Permission
-
-PERMISSION_LIST = ["read", "create", "update", "delete"]
+from apps.groups.models import PERMISSION_LIST
 
 
 class Command(BaseCommand):
@@ -13,13 +12,13 @@ class Command(BaseCommand):
         Permission.objects.all().delete()
         permissions = []
 
-        users = User.objects.values("username").all()
+        users = User.objects.all()
         for user in users:
             for permission in PERMISSION_LIST:
                 permissions.append(
                     Permission.objects.create(
-                        name=f"{user.get('username')} | Can {permission} the data",
-                        codename=f"{user.get('username')}_{permission}"
+                        permission_type=permission[0],
+                        user=user,
                     )
                 )
         Permission.objects.bulk_create(permissions)
