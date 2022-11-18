@@ -13,6 +13,7 @@ PERMISSION_LIST = (
 class PermissionType(models.Model):
     name = models.CharField(
         max_length=255,
+        unique=True,
         choices=PERMISSION_LIST,
     )
 
@@ -37,5 +38,10 @@ class Permission(models.Model):
         null=True,
     )
 
+    def all_types(self):
+        """Method for displaying all permissions in admin"""
+
+        return ", ".join(p_type.name for p_type in self.types.all())
+
     def __str__(self):
-        return self.types
+        return f"{self.user.username} | {self.group.group_info.name} | {self.all_types()}"
