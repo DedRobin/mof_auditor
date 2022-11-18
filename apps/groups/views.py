@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
-from apps.groups.models import GroupInformation, Group, Permission, Invitation
+from apps.groups.models import GroupInformation, Group, Invitation
+from apps.permissions.models import Permission
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 
 
@@ -94,23 +95,25 @@ def group_privacy(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
     invited_users = group.invited_users.all().order_by("profile__first_name")
+    permissions = group.permissions.filter(user__in=invited_users)
     data = {
         "group_name": group_name,
         "invited_users": invited_users,
+        "permissions": permissions,
     }
     permissions = []
-    if request.method == "POST":
-        if request.POST.getlist("invited_users"):
-            ticked_users = request.POST.getlist("invited_users")
-            for user in ticked_users:
-                permissions.append(
-                    Permission(
-                        name=f"{user} | Can read the data",
-                        codename=f"{user}_read"
-                    )
-                )
-            Permission.objects.bulk_create(permissions)
-            print("Good!")
+    # if request.method == "POST":
+    #     if request.POST.getlist("invited_users"):
+    #         ticked_users = request.POST.getlist("invited_users")
+    #         for user in ticked_users:
+    #             permissions.append(
+    #                 Permission(
+    #                     name=f"{user} | Can read the data",
+    #                     codename=f"{user}_read"
+    #                 )
+    #             )
+    #         Permission.objects.bulk_create(permissions)
+    #         print("Good!")
     return render(request, "groups/settings/privacy/privacy.html", data)
 
 

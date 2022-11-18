@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "apps.balances",
     "apps.groups",
     "apps.reports",
+    "apps.permissions",
 ]
 
 MIDDLEWARE = [

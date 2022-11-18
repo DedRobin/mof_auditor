@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.groups.models import Group, GroupInformation, Permission, Invitation
+from apps.groups.models import Group, GroupInformation, Invitation
 
 
 class GroupInline(admin.TabularInline):
@@ -18,25 +18,24 @@ class GroupInformationAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(Permission)
-class PermissionAdmin(admin.ModelAdmin):
-    list_display = ("permission_type", "user")
-    fields = ("permission_type", "user")
-    search_fields = ("permission_type", "user__username")
-
-
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
         "group_info",
         "pub_id",
         "all_invited_users",
-        "all_permissions",
         "created_at",
     )
-    fields = ("group_info", "invited_users", "permissions")
+    fields = (
+        "group_info",
+        "invited_users",
+    )
     readonly_fields = ("created_at",)
-    search_fields = ("group_info__name", "created_at", "pub_id")
+    search_fields = (
+        "group_info__name",
+        "created_at",
+        "pub_id",
+    )
 
 
 @admin.register(Invitation)

@@ -3,32 +3,6 @@ from django.db import models
 
 from apps.users.models import User
 
-PERMISSION_LIST = (
-    ("read", "Read"),
-    ("create", "Create"),
-    ("update", "Update"),
-    ("delete", "Delete")
-)
-
-
-class Permission(models.Model):
-    permission_type = models.CharField(
-        max_length=255,
-        choices=PERMISSION_LIST,
-        blank=True,
-        null=True,
-    )
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="group_permissions",
-        blank=True,
-        null=True,
-    )
-
-    def __str__(self):
-        return f"{self.permission_type}"
-
 
 class GroupInformation(models.Model):
     owner = models.ForeignKey(
@@ -61,11 +35,6 @@ class Group(models.Model):
         related_name="user_groups",
         blank=True,
     )
-    permissions = models.ManyToManyField(
-        Permission,
-        related_name="user_groups",
-        blank=True,
-    )
     created_at = models.DateTimeField(
         auto_now_add=True, db_index=True, blank=True, null=True
     )
@@ -84,11 +53,6 @@ class Group(models.Model):
         """Method for displaying all invited users in admin"""
 
         return ", ".join(user.username for user in self.invited_users.all())
-
-    def all_permissions(self):
-        """Method for displaying all permissions in admin"""
-
-        return ", ".join(permission.name for permission in self.permissions.all())
 
 
 class Invitation(models.Model):
