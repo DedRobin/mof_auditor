@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -95,7 +94,9 @@ def group_privacy(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
     invited_users = group.invited_users.all().order_by("profile__first_name")
-    permissions = group.permissions.filter(user__in=invited_users)
+    # permissions = Permission.objects.filter(user__in=invited_users, group=group)
+    permissions = group.permissions.all()
+
     data = {
         "group_name": group_name,
         "invited_users": invited_users,

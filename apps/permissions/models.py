@@ -28,12 +28,14 @@ class Permission(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        related_name="permissions",
         blank=True,
         null=True,
     )
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE,
+        related_name="permissions",
         blank=True,
         null=True,
     )

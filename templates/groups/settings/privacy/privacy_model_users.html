@@ -2,15 +2,20 @@
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="user-{{ forloop.counter }}"
                name="invited_users" value="{{ invited_user.username }}"
-{#                {% if checked %}#}
-{#               checked#}
-{#                {% endif %}#}
+                {% for permission in permissions %}
+                    {% if invited_user == permission.user %}
+                        {% for type in permission.types.all %}
+                            {% if type.name == "read" %}
+               checked
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
         >
         <label class="form-check-label" for="user-{{ forloop.counter }}">
             {{ invited_user.profile.first_name }}
             {{ invited_user.profile.last_name }}
             ({{ invited_user.username }})
         </label>
-    {{ permissions }}
     </div>
 {% endfor %}
