@@ -1,0 +1,36 @@
+<h2 class="mt-5">Outgoing</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">№</th>
+        <th scope="col">From who</th>
+        <th scope="col">To a group</th>
+        <th scope="col">X</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for outgoing_invitation in outgoing_invitations %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                {{ outgoing_invitation.from_who.profile.first_name }}
+                {{ outgoing_invitation.from_who.profile.last_name }}
+                ({{ outgoing_invitation.from_who }})
+            </td>
+            <td>{{ outgoing_invitation.to_a_group }}</td>
+            <td>
+                <div class="d-flex flex-row">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Refuse</button>
+                        <input type="hidden" name="outgoing_invitation_pub_id" value="{{ outgoing_invitation.pub_id }}">
+                        <input type="hidden" name="to_delete" value="True">
+                    </form>
+                </div>
+            </td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+</table>

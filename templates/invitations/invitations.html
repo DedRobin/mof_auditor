@@ -9,49 +9,10 @@
     <div class="container">
         <h1>Invitations</h1>
         <a class="btn btn-primary" href="{% url 'send_invitation' %}">+ To invite</a>
-        <h2 class="mt-5">Incoming</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">From who</th>
-                <th scope="col">To a group</th>
-                <th scope="col">Accepting</th>
-            </tr>
-            </thead>
-            <tbody>
 
-            {% for invitation in invitations %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>
-                        {{ invitation.from_who.profile.first_name }}
-                        {{ invitation.from_who.profile.last_name }}
-                        ({{ invitation.from_who }})
-                    </td>
-                    <td>{{ invitation.to_a_group }}</td>
-                    <td>
-                        <div class="d-flex flex-row">
-                            <form method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary me-3">Apply</button>
-                                <input type="hidden" name="invitation_pub_id" value="{{ invitation.pub_id }}">
-                                <input type="hidden" name="to_accept" value="True">
-                            </form>
-                            <form method="POST">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Refuse</button>
-                                <input type="hidden" name="invitation_pub_id" value="{{ invitation.pub_id }}">
-                                <input type="hidden" name="to_delete" value="True">
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+        {% include 'invitations/incoming.html' %}
 
-            {% endfor %}
-            </tbody>
-        </table>
-
+        {% include 'invitations/outgoing.html' %}
 
     </div>
 {% endblock %}

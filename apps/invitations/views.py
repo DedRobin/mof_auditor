@@ -18,35 +18,46 @@ def invitation_list(request):
     current_user = User.objects.get(username=username)
 
     if request.method == "POST":
-        invitation_pub_id = request.POST.get("invitation_pub_id")
-        invitation = Invitation.objects.get(pub_id=invitation_pub_id)
+        if request.POST.get("incoming_invitation_pub_id"):
+            # For incoming invitations
 
-        if request.POST.get("to_accept") == "True":
-            # Adds current user in invited group if invitation is accepted
-            # Then it is deleted
+            invitation_pub_id = request.POST.get("incoming_invitation_pub_id")
+            invitation = Invitation.objects.get(pub_id=invitation_pub_id)
 
-            invited_group = invitation.to_a_group
-            invited_group.invited_users.add(current_user)
-            invitation.delete()
+            if request.POST.get("to_accept") == "True":
+                # Adds current user in invited group if invitation is accepted
+                # Then it is deleted
 
-            # Adds read-only permission for current user
-            readonly_permission = PermissionType.objects.get(name="read")
-            permission_by_default = Permission.objects.create(
-                user=current_user,
-                group=invited_group
-            )
-            permission_by_default.types.add(readonly_permission)
+                invited_group = invitation.to_a_group
+                invited_group.invited_users.add(current_user)
+                invitation.delete()
 
-        elif request.POST.get("to_delete") == "True":
-            # If user refused invitation then it is removed
+                # Adds read-only permission for current user
+                readonly_permission = PermissionType.objects.get(name="read")
+                permission_by_default = Permission.objects.create(
+                    user=current_user,
+                    group=invited_group
+                )
+                permission_by_default.types.add(readonly_permission)
 
+            elif request.POST.get("to_delete") == "True":
+                # If user refused invitation then it is removed
+
+                invitation.delete()
+        elif request.POST.get("outgoing_invitation_pub_id"):
+            # For outgoing invitations (only remove)
+
+            invitation_pub_id = request.POST.get("outgoing_invitation_pub_id")
+            invitation = Invitation.objects.get(pub_id=invitation_pub_id)
             invitation.delete()
 
     # All invitations are displayed but not the current user
 
-    invitations = Invitation.objects.filter(to_who__username=username).exclude(from_who__username=username)
+    incoming_invitations = Invitation.objects.filter(to_who__username=username).exclude(from_who__username=username)
+    outgoing_invitations = Invitation.objects.filter(from_who__username=username)
     data = {
-        "invitations": invitations
+        "incoming_invitations": incoming_invitations,
+        "outgoing_invitations": outgoing_invitations,
     }
 
     return render(request, "invitations/invitations.html", data)

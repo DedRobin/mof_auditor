@@ -1,0 +1,42 @@
+<h2 class="mt-5">Incoming</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">№</th>
+        <th scope="col">From who</th>
+        <th scope="col">To a group</th>
+        <th scope="col">Accepting</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for incoming_invitation in incoming_invitations %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                {{ incoming_invitation.from_who.profile.first_name }}
+                {{ incoming_invitation.from_who.profile.last_name }}
+                ({{ incoming_invitation.from_who }})
+            </td>
+            <td>{{ incoming_invitation.to_a_group }}</td>
+            <td>
+                <div class="d-flex flex-row">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary me-3">Apply</button>
+                        <input type="hidden" name="incoming_invitation_pub_id" value="{{ incoming_invitation.pub_id }}">
+                        <input type="hidden" name="to_accept" value="True">
+                    </form>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Refuse</button>
+                        <input type="hidden" name="incoming_invitation_pub_id" value="{{ incoming_invitation.pub_id }}">
+                        <input type="hidden" name="to_delete" value="True">
+                    </form>
+                </div>
+            </td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
