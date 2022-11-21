@@ -13,11 +13,14 @@ class Command(BaseCommand):
         Invitation.objects.all().delete()
 
         admin = User.objects.get(username="dedrobin")
-        users = User.objects.exclude(username="dedrobin")
-        groups = Group.objects.exclude(group_info__owner=admin)
-
+        checked_users = [admin]
+        groups = Group.objects.exclude(group_info__owner__in=checked_users)
+        if not groups:
+            print("Groups not found. Create it.")
+            return None
         i = 0
         while i < 10:
+            groups = Group.objects.exclude(group_info__owner__in=checked_users)
             random_group = random.choice(groups)
             owner = random_group.group_info.owner
             if admin not in random_group.invited_users.all():
@@ -26,5 +29,6 @@ class Command(BaseCommand):
                     to_who=admin,
                     to_a_group=random_group,
                 )
+            checked_users.append(owner)
             i += 1
         print("Create invitations.")
