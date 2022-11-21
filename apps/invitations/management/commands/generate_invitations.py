@@ -10,6 +10,7 @@ class Command(BaseCommand):
     help = "Generate invitations"
 
     def handle(self, *args, **options):
+        """Generates a unique invitation from each user"""
         Invitation.objects.all().delete()
 
         admin = User.objects.get(username="dedrobin")
