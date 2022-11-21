@@ -14,6 +14,7 @@ class PermissionType(models.Model):
     name = models.CharField(
         max_length=255,
         unique=True,
+        db_index=True,
         choices=PERMISSION_LIST,
     )
 
@@ -24,6 +25,7 @@ class PermissionType(models.Model):
 class Permission(models.Model):
     types = models.ManyToManyField(
         PermissionType,
+        blank=True,
     )
     user = models.ForeignKey(
         User,
