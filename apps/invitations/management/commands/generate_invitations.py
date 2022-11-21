@@ -11,6 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Generates a unique invitation from each user"""
+
         Invitation.objects.all().delete()
 
         admin = User.objects.get(username="dedrobin")
@@ -20,16 +21,15 @@ class Command(BaseCommand):
             print("Groups not found. Create it.")
             return None
         i = 0
-        while i < 10:
+        while i < len(groups):
             groups = Group.objects.exclude(group_info__owner__in=checked_users)
             random_group = random.choice(groups)
             owner = random_group.group_info.owner
-            if admin not in random_group.invited_users.all():
-                Invitation.objects.create(
-                    from_who=owner,
-                    to_who=admin,
-                    to_a_group=random_group,
-                )
+            Invitation.objects.create(
+                from_who=owner,
+                to_who=admin,
+                to_a_group=random_group,
+            )
             checked_users.append(owner)
             i += 1
         print("Create invitations.")
