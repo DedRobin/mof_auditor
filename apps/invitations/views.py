@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
 from apps.permissions.models import Permission, PermissionType
 from apps.invitations.models import Invitation
+from apps.invitations.forms import SendInvitationForm
+
+from django import forms
+from apps.groups.models import Group
 
 
 @login_required
@@ -45,4 +49,32 @@ def invitation_list(request):
         "invitations": invitations
     }
 
-    return render(request, "groups/invitations.html", data)
+    return render(request, "invitations/invitations.html", data)
+
+
+@login_required
+def send_invitation(request):
+    """Sends invitation some user"""
+
+    username = request.user.username
+    current_user = User.objects.get(username=username)
+
+    form = SendInvitationForm()
+    form.fields["to_a_group"] = forms.ModelChoiceField(Group.objects.filter(group_info__owner=current_user))
+
+    if request.method == "POST":
+        form = SendInvitationForm(request.POST)
+        if form.is_valid():
+            to_who = User.objects.get(username=form.data["to_who"])
+            to_a_group = Group.objects.get(pk=form.data["to_a_group"])
+            Invitation.objects.create(
+                from_who=current_user,
+                to_who=to_who,
+                to_a_group=to_a_group,
+            )
+            return redirect("invitation_list")
+
+    data = {
+        "form": form,
+    }
+    return render(request, "invitations/send_invitation.html", data)
