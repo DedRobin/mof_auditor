@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.groups.models import Group, GroupInformation, Invitation
+from apps.groups.models import Group, GroupInformation
 
 
 class GroupInline(admin.TabularInline):
@@ -35,26 +35,4 @@ class GroupAdmin(admin.ModelAdmin):
         "group_info__name",
         "created_at",
         "pub_id",
-    )
-
-
-@admin.register(Invitation)
-class InvitationAdmin(admin.ModelAdmin):
-    list_display = (
-        "pub_id",
-        "to_a_group",
-        "from_who",
-        "to_who",
-        "created_at",
-    )
-    fields = (
-        "to_a_group",
-        "from_who",
-        "to_who",
-    )
-    search_fields = (
-        "pub_id",
-        "to_a_group__group_info__name",
-        "from_who__username",
-        "to_who__username",
     )

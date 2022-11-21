@@ -24,6 +24,7 @@ urlpatterns = [
     path("", include("apps.users.urls")),
     path("profile/", include("apps.profiles.urls")),
     path("groups/", include("apps.groups.urls")),
+    path("invitations/", include("apps.invitations.urls")),
     # Test URls
     # path("test/test/", test_view, name="test_view"),
 ]

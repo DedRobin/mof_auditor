@@ -2,7 +2,8 @@ import random
 from django.core.management.base import BaseCommand
 
 from apps.users.models import User
-from apps.groups.models import Invitation, Group
+from apps.groups.models import Group
+from apps.invitations.models import Invitation
 
 
 class Command(BaseCommand):

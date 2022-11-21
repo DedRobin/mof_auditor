@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "apps.groups",
     "apps.reports",
     "apps.permissions",
+    "apps.invitations",
 ]
 
 MIDDLEWARE = [
