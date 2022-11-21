@@ -1,11 +1,11 @@
 {% for invited_user in invited_users %}
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="user-{{ forloop.counter }}"
-               name="invited_users" value="{{ invited_user.username }}"
+               name="invited_users_{{ permission_type_name }}" value="{{ invited_user.username }}"
                 {% for permission in permissions %}
                     {% if invited_user == permission.user %}
                         {% for type in permission.types.all %}
-                            {% if type.name == "read" %}
+                            {% if type.name == permission_type_name %}
                checked
                             {% endif %}
                         {% endfor %}

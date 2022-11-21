@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from apps.permissions.models import PERMISSION_LIST
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group, Invitation
-from apps.permissions.models import Permission
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
+from apps.permissions.models import Permission, PermissionType
+from apps.permissions.services import get_users_and_permission_type
 
 
 @login_required
@@ -90,31 +92,37 @@ def group_members(request, pub_id):
 @login_required
 def group_privacy(request, pub_id):
     """Gets privacy settings for each group member"""
+    permission_list = [permission[0] for permission in PERMISSION_LIST]
 
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
     invited_users = group.invited_users.all().order_by("profile__first_name")
-    # permissions = Permission.objects.filter(user__in=invited_users, group=group)
     permissions = group.permissions.all()
 
     data = {
         "group_name": group_name,
         "invited_users": invited_users,
         "permissions": permissions,
+        "permission_list": permission_list,
     }
-    permissions = []
-    # if request.method == "POST":
-    #     if request.POST.getlist("invited_users"):
-    #         ticked_users = request.POST.getlist("invited_users")
-    #         for user in ticked_users:
-    #             permissions.append(
-    #                 Permission(
-    #                     name=f"{user} | Can read the data",
-    #                     codename=f"{user}_read"
-    #                 )
-    #             )
-    #         Permission.objects.bulk_create(permissions)
-    #         print("Good!")
+
+    if request.method == "POST":
+        users, permission_name = get_users_and_permission_type(permission_query_dict=request.POST)
+
+        # if permission_name:
+        permission_type = PermissionType.objects.get(name=permission_name)
+        # permission_type = PermissionType.objects.all()
+        # if uers:
+        per1 = Permission.objects.filter(user__username__in=users, group=group)
+        per2 = Permission.objects.exclude(user__username__in=users, group=group)
+
+        for p in per1:
+            p.types.add(permission_type)
+        for p in per2:
+            p.types.remove(permission_type)
+        # else:
+        #
+        #     print()
     return render(request, "groups/settings/privacy/privacy.html", data)
 
 

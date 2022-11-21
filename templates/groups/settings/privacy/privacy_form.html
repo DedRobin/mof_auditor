@@ -1,15 +1,20 @@
 <div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
-            data-bs-target="#privacy-modal">
-        <div class="d-flex w-100 justify-content-between">
-            <div class="d-flex flex-column">
-                <h5 class="mb-1">Members who are allowed to READ data</h5>
-                <p class="mb-1">Members</p>
+    {% for permission_type_name in permission_list %}
+
+        <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                data-bs-target="#privacy-modal-{{ permission_type_name }}">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="d-flex flex-column">
+                    <h5 class="mb-1">Members who are allowed to {{ permission_type_name }} data</h5>
+                    <p class="mb-1">Members</p>
+                </div>
+                <div class="badge bg-secondary col-1 text-center fs-5">4</div>
             </div>
-            <div class="badge bg-secondary col-1 text-center fs-5">4</div>
-        </div>
-    </button>
+        </button>
+
+        {% include 'groups/settings/privacy/privacy_modal.html' %}
+
+    {% endfor %}
 </div>
 
-{% include 'groups/settings/privacy/privacy_modal.html' %}
 
