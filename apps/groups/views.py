@@ -95,6 +95,19 @@ def group_privacy(request, pub_id):
     permission_list = [permission[0] for permission in PERMISSION_LIST]
 
     group = Group.objects.get(pub_id=pub_id)
+
+    if request.method == "POST":
+        users, permission_name = get_users_and_permission_type(permission_query_dict=request.POST)
+
+        permission_type = PermissionType.objects.get(name=permission_name)
+        per1 = Permission.objects.filter(user__username__in=users, group=group)
+        per2 = Permission.objects.exclude(user__username__in=users, group=group)
+
+        for p in per1:
+            p.types.add(permission_type)
+        for p in per2:
+            p.types.remove(permission_type)
+
     group_name = group.group_info.name
     invited_users = group.invited_users.all().order_by("profile__first_name")
     permissions = group.permissions.all()
@@ -106,23 +119,6 @@ def group_privacy(request, pub_id):
         "permission_list": permission_list,
     }
 
-    if request.method == "POST":
-        users, permission_name = get_users_and_permission_type(permission_query_dict=request.POST)
-
-        # if permission_name:
-        permission_type = PermissionType.objects.get(name=permission_name)
-        # permission_type = PermissionType.objects.all()
-        # if uers:
-        per1 = Permission.objects.filter(user__username__in=users, group=group)
-        per2 = Permission.objects.exclude(user__username__in=users, group=group)
-
-        for p in per1:
-            p.types.add(permission_type)
-        for p in per2:
-            p.types.remove(permission_type)
-        # else:
-        #
-        #     print()
     return render(request, "groups/settings/privacy/privacy.html", data)
 
 
@@ -144,6 +140,14 @@ def invitation_list(request):
             invited_group = invitation.to_a_group
             invited_group.invited_users.add(current_user)
             invitation.delete()
+
+            # Adds read-only permission for current user
+            is_readonly = PermissionType.objects.get(name="read")
+            permission_by_default = Permission.objects.create(
+                user=current_user,
+                group=invited_group
+            )
+            permission_by_default.types.add(is_readonly)
 
         elif request.POST.get("to_delete") == "True":
             # If user refused invitation then it is removed

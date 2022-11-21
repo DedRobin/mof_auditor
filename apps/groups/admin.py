@@ -48,7 +48,6 @@ class InvitationAdmin(admin.ModelAdmin):
         "created_at",
     )
     fields = (
-        "pub_id",
         "to_a_group",
         "from_who",
         "to_who",

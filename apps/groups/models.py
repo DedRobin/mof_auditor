@@ -16,7 +16,7 @@ class GroupInformation(models.Model):
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} (Owner: {self.owner})"
 
 
 class Group(models.Model):
@@ -40,7 +40,7 @@ class Group(models.Model):
     )
 
     def __str__(self):
-        return f"{self.group_info.name}"
+        return f"{self.group_info.name} (Owner: {self.group_info.owner})"
 
     def save(self, **kwargs):
         """Generates a public ID when the instance is saved"""
