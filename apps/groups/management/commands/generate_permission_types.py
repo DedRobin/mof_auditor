@@ -14,4 +14,4 @@ class Command(BaseCommand):
             PermissionType.objects.create(
                 name=permission_type[0],
             )
-        print("Create user permissions.")
+        print("Create user permission types.")
