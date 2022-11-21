@@ -26,12 +26,12 @@ def invitation_list(request):
             invitation.delete()
 
             # Adds read-only permission for current user
-            is_readonly = PermissionType.objects.get(name="read")
+            readonly_permission = PermissionType.objects.get(name="read")
             permission_by_default = Permission.objects.create(
                 user=current_user,
                 group=invited_group
             )
-            permission_by_default.types.add(is_readonly)
+            permission_by_default.types.add(readonly_permission)
 
         elif request.POST.get("to_delete") == "True":
             # If user refused invitation then it is removed
@@ -41,6 +41,8 @@ def invitation_list(request):
     # All invitations are displayed but not the current user
 
     invitations = Invitation.objects.filter(to_who__username=username).exclude(from_who__username=username)
-    data = {"invitations": invitations}
+    data = {
+        "invitations": invitations
+    }
 
     return render(request, "groups/invitations.html", data)
