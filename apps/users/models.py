@@ -36,11 +36,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(
-        max_length=150,
-        unique=True,
-        db_index=True
-    )
+    username = models.CharField(max_length=150, unique=True, db_index=True)
     is_staff = models.BooleanField(
         default=False,
     )

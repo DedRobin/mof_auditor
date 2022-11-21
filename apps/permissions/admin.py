@@ -4,15 +4,9 @@ from apps.permissions.models import Permission, PermissionType
 
 @admin.register(PermissionType)
 class PermissionTypeAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-    )
-    fields = (
-        "name",
-    )
-    search_fields = (
-        "name",
-    )
+    list_display = ("name",)
+    fields = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Permission)
@@ -26,7 +20,6 @@ class PermissionAdmin(admin.ModelAdmin):
         "user",
         "group",
         "types",
-
     )
     search_fields = (
         "user__username",

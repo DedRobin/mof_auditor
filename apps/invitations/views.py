@@ -35,8 +35,7 @@ def invitation_list(request):
                 # Adds read-only permission for current user
                 readonly_permission = PermissionType.objects.get(name="read")
                 permission_by_default = Permission.objects.create(
-                    user=current_user,
-                    group=invited_group
+                    user=current_user, group=invited_group
                 )
                 permission_by_default.types.add(readonly_permission)
 
@@ -53,7 +52,9 @@ def invitation_list(request):
 
     # All invitations are displayed but not the current user
 
-    incoming_invitations = Invitation.objects.filter(to_who__username=username).exclude(from_who__username=username)
+    incoming_invitations = Invitation.objects.filter(to_who__username=username).exclude(
+        from_who__username=username
+    )
     outgoing_invitations = Invitation.objects.filter(from_who__username=username)
     data = {
         "incoming_invitations": incoming_invitations,
@@ -71,7 +72,9 @@ def send_invitation(request):
     current_user = User.objects.get(username=username)
 
     form = SendInvitationForm()
-    form.fields["to_a_group"] = forms.ModelChoiceField(Group.objects.filter(group_info__owner=current_user))
+    form.fields["to_a_group"] = forms.ModelChoiceField(
+        Group.objects.filter(group_info__owner=current_user)
+    )
 
     if request.method == "POST":
         form = SendInvitationForm(request.POST)

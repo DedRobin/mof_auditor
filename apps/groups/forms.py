@@ -19,4 +19,3 @@ class EditGroupInformationForm(forms.ModelForm):
             "name",
             "description",
         )
-

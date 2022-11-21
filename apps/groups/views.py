@@ -97,7 +97,9 @@ def group_privacy(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
 
     if request.method == "POST":
-        users, permission_name = get_users_and_permission_type(permission_query_dict=request.POST)
+        users, permission_name = get_users_and_permission_type(
+            permission_query_dict=request.POST
+        )
 
         permission_type = PermissionType.objects.get(name=permission_name)
         per1 = Permission.objects.filter(user__username__in=users, group=group)

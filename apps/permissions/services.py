@@ -2,8 +2,7 @@ from django.http.request import QueryDict
 from typing import Tuple
 
 
-def get_users_and_permission_type(
-        permission_query_dict: QueryDict) -> Tuple[list, str]:
+def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[list, str]:
     permission_query_dict = permission_query_dict
     users = []
     permission_type = "read"

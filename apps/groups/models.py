@@ -20,10 +20,7 @@ class GroupInformation(models.Model):
 
 
 class Group(models.Model):
-    group_info = models.OneToOneField(
-        GroupInformation,
-        on_delete=models.CASCADE
-    )
+    group_info = models.OneToOneField(GroupInformation, on_delete=models.CASCADE)
     pub_id = models.CharField(
         max_length=255,
         unique=True,
@@ -53,4 +50,3 @@ class Group(models.Model):
         """Method for displaying all invited users in admin"""
 
         return ", ".join(user.username for user in self.invited_users.all())
-

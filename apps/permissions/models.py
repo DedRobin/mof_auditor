@@ -6,7 +6,7 @@ PERMISSION_LIST = (
     ("read", "Read"),
     ("create", "Create"),
     ("update", "Update"),
-    ("delete", "Delete")
+    ("delete", "Delete"),
 )
 
 
@@ -48,4 +48,6 @@ class Permission(models.Model):
         return ", ".join(p_type.name for p_type in self.types.all())
 
     def __str__(self):
-        return f"{self.user.username} | {self.group.group_info.name} | {self.all_types()}"
+        return (
+            f"{self.user.username} | {self.group.group_info.name} | {self.all_types()}"
+        )

@@ -1,11 +1,12 @@
 from django.urls import path
 
-from apps.groups.views import \
-    create_group, \
-    edit_group, \
-    group_settings, \
-    group_members, \
-    group_privacy
+from apps.groups.views import (
+    create_group,
+    edit_group,
+    group_settings,
+    group_members,
+    group_privacy,
+)
 
 urlpatterns = [
     path("create/", create_group, name="create_group"),

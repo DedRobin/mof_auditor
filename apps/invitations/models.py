@@ -22,7 +22,7 @@ class Invitation(models.Model):
     to_who = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="invitation_to"
+        related_name="invitation_to",
     )
     to_a_group = models.ForeignKey(
         Group,
