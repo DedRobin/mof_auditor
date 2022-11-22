@@ -1,3 +1,4 @@
+import os
 import requests
 from django.core.management.base import BaseCommand
 
@@ -9,19 +10,24 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         BalanceCurrency.objects.all().delete()
-        response = requests.get("https://www.nbrb.by/api/exrates/rates?periodicity=0")
-        response = response.json()
-        currencies = [
-            {
-                "name": currency.get("Cur_Name"),
-                "codename": currency.get("Cur_Abbreviation"),
-            }
-            for currency in response
-        ]
-        for currency in currencies:
-            name = currency.get("name")
-            codename = currency.get("codename")
-            BalanceCurrency.objects.create(name=name, codename=codename)
-        BalanceCurrency.objects.create(name="Белорусский рубль", codename="BYN")
 
-        print(f"Update currencies.")
+        url = "https://api.apilayer.com/exchangerates_data/symbols"
+
+        payload = {}
+        headers = {
+            "apikey": os.environ.get("API_LAYER_KEY")
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+
+        result = response.json()
+        currencies = []
+        for codename, name in result.get("symbols").items():
+            currencies.append(
+                BalanceCurrency(
+                    name=name,
+                    codename=codename
+                )
+            )
+        BalanceCurrency.objects.bulk_create(currencies)
+        print("Received current currencies")
