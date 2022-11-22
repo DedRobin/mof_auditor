@@ -10,35 +10,35 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("groups", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ("groups", "0002_initial"),
+        ("invitations", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="groupinformation",
-            name="owner",
+            model_name="invitation",
+            name="from_who",
             field=models.ForeignKey(
-                blank=True,
-                null=True,
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name="group_info",
+                related_name="invitation_from",
                 to=settings.AUTH_USER_MODEL,
             ),
         ),
         migrations.AddField(
-            model_name="group",
-            name="group_info",
-            field=models.OneToOneField(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="groups.groupinformation",
+            model_name="invitation",
+            name="to_a_group",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="groups.group"
             ),
         ),
         migrations.AddField(
-            model_name="group",
-            name="invited_users",
-            field=models.ManyToManyField(
-                blank=True, related_name="user_groups", to=settings.AUTH_USER_MODEL
+            model_name="invitation",
+            name="to_who",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="invitation_to",
+                to=settings.AUTH_USER_MODEL,
             ),
         ),
     ]
