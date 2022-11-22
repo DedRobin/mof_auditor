@@ -1,5 +1,5 @@
 <label for="id_name" class="form-label">Members</label><br>
-<button type="button" class="btn btn-primary mb-3">+ To invite</button>
+<a class="btn btn-primary mb-3" href="{% url 'send_invitation' %}">+ To invite</a>
 
 {% for user in invited_users %}
     <form method="POST" class="post-form">

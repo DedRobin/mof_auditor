@@ -2,7 +2,6 @@ from django.core.management.base import BaseCommand
 
 from apps.permissions.models import Permission, PermissionType
 from apps.groups.models import Group
-from apps.users.models import User
 
 
 class Command(BaseCommand):
@@ -11,7 +10,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Permission.objects.all().delete()
 
-        users = User.objects.all()
         groups = Group.objects.all()
         permission_types = PermissionType.objects.all()
         for group in groups:

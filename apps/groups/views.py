@@ -102,13 +102,13 @@ def group_privacy(request, pub_id):
         )
 
         permission_type = PermissionType.objects.get(name=permission_name)
-        per1 = Permission.objects.filter(user__username__in=users, group=group)
-        per2 = Permission.objects.exclude(user__username__in=users, group=group)
+        permissions_for_add = Permission.objects.filter(user__username__in=users, group=group)
+        permissions_for_delete = Permission.objects.filter(group=group).exclude(user__username__in=users)
 
-        for p in per1:
-            p.types.add(permission_type)
-        for p in per2:
-            p.types.remove(permission_type)
+        for p_for_add in permissions_for_add:
+            p_for_add.types.add(permission_type)
+        for p_for_del in permissions_for_delete:
+            p_for_del.types.remove(permission_type)
 
     group_name = group.group_info.name
     invited_users = group.invited_users.all().order_by("profile__first_name")
@@ -119,6 +119,7 @@ def group_privacy(request, pub_id):
         "invited_users": invited_users,
         "permissions": permissions,
         "permission_list": permission_list,
+        "member_number": 4,
     }
 
     return render(request, "groups/settings/privacy/privacy.html", data)
