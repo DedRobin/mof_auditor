@@ -31,7 +31,6 @@ class BalanceAdmin(admin.ModelAdmin):
     fields = (
         "name",
         "owner",
-        "pub_id",
         "type",
         "currency",
         "private",
