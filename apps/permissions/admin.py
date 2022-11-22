@@ -21,6 +21,9 @@ class PermissionAdmin(admin.ModelAdmin):
         "group",
         "types",
     )
+    list_filter = (
+        "group",
+    )
     search_fields = (
         "user__username",
         "group__group_info__name",

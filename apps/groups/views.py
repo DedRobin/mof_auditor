@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from apps.permissions.models import PERMISSION_LIST
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 from apps.permissions.models import Permission, PermissionType
-from apps.permissions.services import get_users_and_permission_type
+from apps.groups.services import get_users_and_permission_type
 
 
 @login_required
@@ -92,7 +91,6 @@ def group_members(request, pub_id):
 @login_required
 def group_privacy(request, pub_id):
     """Gets privacy settings for each group member"""
-    permission_list = [permission[0] for permission in PERMISSION_LIST]
 
     group = Group.objects.get(pub_id=pub_id)
 
@@ -110,6 +108,9 @@ def group_privacy(request, pub_id):
         for p_for_del in permissions_for_delete:
             p_for_del.types.remove(permission_type)
 
+    permission_types = PermissionType.objects.all()
+    permission_list = [permission_type for permission_type in permission_types]
+
     group_name = group.group_info.name
     invited_users = group.invited_users.all().order_by("profile__first_name")
     permissions = group.permissions.all()
@@ -119,7 +120,6 @@ def group_privacy(request, pub_id):
         "invited_users": invited_users,
         "permissions": permissions,
         "permission_list": permission_list,
-        "member_number": 4,
     }
 
     return render(request, "groups/settings/privacy/privacy.html", data)
