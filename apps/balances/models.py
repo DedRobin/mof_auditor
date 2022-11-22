@@ -10,8 +10,25 @@ BALANCE_PRIVATE_CHOICE = ((False, "Public"), (True, "Private"))
 
 
 class BalanceCurrency(models.Model):
-    name = models.CharField(max_length=255)
-    codename = models.CharField(max_length=255)
+    currency_id = models.IntegerField(
+        unique=True,
+        db_index=True,
+        blank=True,
+        null=True,
+    )
+    name = models.CharField(
+        max_length=255,
+    )
+    codename = models.CharField(
+        max_length=255,
+        unique=True,
+    )
+    official_rate = models.DecimalField(
+        max_digits=19,
+        decimal_places=7,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return f"{self.name} ({self.codename})"
