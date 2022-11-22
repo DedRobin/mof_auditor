@@ -24,14 +24,16 @@ class Command(BaseCommand):
         # Create balances
         for user in users:
             for _ in range(2):
-                balances.append(Balance(
-                    pub_id=ulid.new(),
-                    name=fake.word(),
-                    owner=user,
-                    currency=random.choice(currencies),
-                    type=random.choice(BALANCE_TYPE_CHOICE)[0],
-                    private=False
-                ))
+                balances.append(
+                    Balance(
+                        pub_id=ulid.new(),
+                        name=fake.word(),
+                        owner=user,
+                        currency=random.choice(currencies),
+                        type=random.choice(BALANCE_TYPE_CHOICE)[0],
+                        private=False
+                    )
+                )
 
         Balance.objects.bulk_create(balances)
 
