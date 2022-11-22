@@ -21,25 +21,32 @@ class Command(BaseCommand):
         currencies = BalanceCurrency.objects.all()
         balances = []
 
+        # Create balances
         for user in users:
-            for _ in range(3):
-                balances.append(
-                    Balance(
-                        pub_id=ulid.new(),
-                        name=fake.word(),
-                        owner=user,
-                        currency=random.choice(currencies),
-                        type=random.choice(BALANCE_TYPE_CHOICE)[0],
-                        private=False
-                    )
-                )
+            for _ in range(2):
+                balances.append(Balance(
+                    pub_id=ulid.new(),
+                    name=fake.word(),
+                    owner=user,
+                    currency=random.choice(currencies),
+                    type=random.choice(BALANCE_TYPE_CHOICE)[0],
+                    private=False
+                ))
+
         Balance.objects.bulk_create(balances)
 
+        # Add each balance in some group
         balances = Balance.objects.all()
+        for balance in balances:
+            for _ in range(2):
+                user_groups = balance.owner.user_groups.all()
+                balance.groups.add(random.choice(user_groups))
+
+        # Create transactions
         transaction_cat = TransactionCategory.objects.all()
         transactions = []
         for balance in balances:
-            for _ in range(3):
+            for _ in range(5):
                 random_transaction_cat = random.choice(transaction_cat)
                 if random_transaction_cat.type == "income":
                     amount = Decimal(str(random.uniform(0.00001, 999.99999)))
