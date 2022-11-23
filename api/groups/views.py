@@ -17,8 +17,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            raise NotAuthenticated
         return Group.objects.filter(group_info__owner__username=self.request.user).order_by("-created_at")
 
     def create(self, request, *args, **kwargs):

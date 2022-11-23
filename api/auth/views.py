@@ -26,7 +26,6 @@ class RegisterView(CreateAPIView):
 
 class LoginView(CreateAPIView):
     serializer_class = LoginSerializer
-    permission_classes = []
 
     def get(self, request):
         return Response(status=status.HTTP_200_OK)
@@ -46,7 +45,6 @@ class LoginView(CreateAPIView):
 
 class LogoutView(RetrieveAPIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = []
 
     def get(self, request, *args, **kwargs):
         request.user.auth_token.delete()
