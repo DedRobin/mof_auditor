@@ -22,7 +22,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("api.urls", namespace="api")),
     path("", index, name="index"),
-    path("", include("apps.users.urls")),
+    path("auth/", include("apps.users.urls")),
     path("profile/", include("apps.profiles.urls")),
     path("groups/", include("apps.groups.urls")),
     path("invitations/", include("apps.invitations.urls")),
