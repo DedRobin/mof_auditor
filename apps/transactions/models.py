@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from apps.users.models import User
 from apps.balances.models import Balance
@@ -33,8 +34,8 @@ class Transaction(models.Model):
         null=True,
     )
     amount = models.DecimalField(
-        max_digits=19,
-        decimal_places=7,
+        max_digits=settings.MAX_DIGITS,
+        decimal_places=settings.DECIMAL_PLACES,
         default=0,
     )
     category = models.ForeignKey(

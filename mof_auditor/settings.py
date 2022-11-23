@@ -154,3 +154,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Basic redirect to URL if user is not authenticated
 LOGIN_URL = "/login"
+
+# Transaction display settings
+MAX_DIGITS = 19
+DECIMAL_PLACES = 7
