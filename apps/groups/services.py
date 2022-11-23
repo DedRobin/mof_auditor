@@ -1,5 +1,9 @@
+from collections import OrderedDict
 from django.http.request import QueryDict
+from rest_framework.request import Request
 from typing import Tuple
+
+from apps.groups.models import GroupInformation, Group
 
 
 def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[list, str]:
@@ -24,3 +28,14 @@ def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[lis
         permission_type = "delete"
 
     return users, permission_type
+
+
+def create_group(request: Request, validated_data: OrderedDict) -> None:
+    group_info = GroupInformation.objects.create(
+        owner=request.user,
+        name=validated_data["group_info"]["name"],
+        description=validated_data["group_info"]["description"],
+    )
+    Group.objects.create(
+        group_info=group_info,
+    )
