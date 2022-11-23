@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from apps.users.forms import RegisterForm, LoginForm
 from apps.users.models import User
 from apps.profiles.models import Profile
+from apps.balances.forms import CurrencyConvertForm
 
 
 def login_view(request):
@@ -41,7 +42,7 @@ def register_user(request):
             return redirect("login")
     else:
         form = RegisterForm()
-        return render(request, "register.html", {"form": form})
+        return render(request, "profile/register.html", {"form": form})
 
 
 def logout_user(request):
@@ -53,4 +54,10 @@ def logout_user(request):
 def index(request):
     user = User.objects.get(username=request.user)
     user_groups = user.user_groups.all()
-    return render(request, "index.html", {"user": user, "user_groups": user_groups})
+    form = CurrencyConvertForm()
+    data = {
+        "user": user,
+        "user_groups": user_groups,
+        "form": form,
+    }
+    return render(request, "index.html", data)

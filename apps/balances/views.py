@@ -1,2 +1,1 @@
-def get_balance(request):
-    pass
+from django.shortcuts import render
