@@ -6,7 +6,7 @@
 
 
     {% if not request.user.is_authenticated %}
-        {% include 'login.html' %}
+        {% include 'profile/login.html' %}
     {% else %}
         {% include 'user_page.html' %}
     {% endif %}

@@ -32,4 +32,4 @@ def edit_profile(request):
         }
         form = ProfileForm(current_user_data)
 
-    return render(request, "edit_profile.html", {"form": form, "user": user})
+    return render(request, "profile/edit_profile.html", {"form": form, "user": user})
