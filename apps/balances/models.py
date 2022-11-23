@@ -21,6 +21,9 @@ class BalanceCurrency(models.Model):
     def __str__(self):
         return f"{self.name} ({self.codename})"
 
+    def get_codename(self):
+        return self.codename
+
 
 class Balance(models.Model):
     pub_id = models.CharField(

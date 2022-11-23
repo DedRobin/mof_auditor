@@ -1,7 +1,6 @@
 {% load crispy_forms_filters %}
 
-<form method="POST">
-    {% csrf_token %}
+<form method="GET" class=" position-fixed start-10">
     {{ form|crispy }}
-    <button type="button" class="btn btn-primary">Convert</button>
+    <button type="submit" class="btn btn-primary">Convert</button>
 </form>

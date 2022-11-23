@@ -3,10 +3,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 
+from apps.balances.models import BalanceCurrency
 from apps.users.forms import RegisterForm, LoginForm
 from apps.users.models import User
 from apps.profiles.models import Profile
 from apps.balances.forms import CurrencyConvertForm
+from apps.balances.services import get_currency_convert_result
 
 
 def login_view(request):
@@ -54,7 +56,29 @@ def logout_user(request):
 def index(request):
     user = User.objects.get(username=request.user)
     user_groups = user.user_groups.all()
-    form = CurrencyConvertForm()
+    if request.GET:
+        form = CurrencyConvertForm(request.GET)
+        if form.is_valid():
+            from_amount = form.cleaned_data["from_amount"]
+            from_currency = form.cleaned_data["from_currency"]
+            to_currency = form.cleaned_data["to_currency"]
+
+            convert_result = get_currency_convert_result(
+                from_amount=from_amount,
+                from_currency=from_currency.codename,
+                to_currency=to_currency.codename
+            )
+
+            form_data = {
+                "from_amount": from_amount,
+                "from_currency": from_currency,
+                "to_currency": to_currency,
+                "result": convert_result,
+            }
+            form = CurrencyConvertForm(form_data)
+    else:
+        form = CurrencyConvertForm()
+
     data = {
         "user": user,
         "user_groups": user_groups,
