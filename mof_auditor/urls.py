@@ -19,8 +19,9 @@ from django.urls import path, include
 from apps.users.views import index  # , test_view
 
 urlpatterns = [
-    path("", index, name="index"),
     path("admin/", admin.site.urls),
+    path("api/", include("api.urls", namespace="api")),
+    path("", index, name="index"),
     path("", include("apps.users.urls")),
     path("profile/", include("apps.profiles.urls")),
     path("groups/", include("apps.groups.urls")),
