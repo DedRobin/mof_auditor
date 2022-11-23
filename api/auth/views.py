@@ -23,32 +23,33 @@ class RegisterView(CreateAPIView):
         create_user_and_profile(**serializer.validated_data)
         return Response(status=status.HTTP_201_CREATED)
 
-# class LoginView(CreateAPIView):
-#     serializer_class = LoginSerializer
-#     permission_classes = []
-#
-#     def get(self, request):
-#         return Response(status=status.HTTP_200_OK)
-#
-#     def post(self, request, *args, **kwargs):
-#         user = authenticate(
-#             request,
-#             username=request.data["username"],
-#             password=request.data["password"],
-#         )
-#         if user is None:
-#             return Response(status=status.HTTP_404_NOT_FOUND)
-#         token = Token.objects.get_or_create(user=user)[0].key
-#         login(request, user)
-#         return Response(status=status.HTTP_200_OK, data={"token": token})
-#
-#
-# class LogoutView(RetrieveAPIView):
-#     authentication_classes = [SessionAuthentication, BasicAuthentication]
-#     permission_classes = []
-#
-#     def get(self, request, *args, **kwargs):
-#         # request.user.auth_token.delete()
-#         Token.objects.get_or_create(user=request.user)[0].delete()
-#         logout(request)
-#         return Response("User Logged out successfully")
+
+class LoginView(CreateAPIView):
+    serializer_class = LoginSerializer
+    permission_classes = []
+
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        user = authenticate(
+            request,
+            username=request.data["username"],
+            password=request.data["password"],
+        )
+        if user is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        token = Token.objects.get_or_create(user=user)[0].key
+        login(request, user)
+        return Response(status=status.HTTP_200_OK, data={"token": token})
+
+
+class LogoutView(RetrieveAPIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        request.user.auth_token.delete()
+        Token.objects.get_or_create(user=request.user)[0].delete()
+        logout(request)
+        return Response("User logged out successfully")
