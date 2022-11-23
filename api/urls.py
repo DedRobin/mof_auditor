@@ -1,16 +1,14 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from api.auth.views import RegisterView, LoginView, LogoutView
+# from api.groups.views import GroupViewSet
 
 app_name = "api"
 
 router = routers.DefaultRouter()
-# router.register(r"posts", PostViewSet, basename="pk")
+# router.register(r"groups", GroupViewSet, basename="pk")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("auth/register/", RegisterView.as_view(), name="api_register"),
-    path("auth/login/", LoginView.as_view(), name="api_login"),
-    path("auth/logout/", LogoutView.as_view(), name="api_logout"),
+    path("auth/", include("api.auth.urls")),
 ]
