@@ -16,6 +16,10 @@ class InvitedUserSerializer(UsernameSerializer):
 
 
 class GroupSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    pub_id = serializers.CharField(
+        max_length=255,
+    )
     group_info = GroupInfoSerializer()
     invited_users = InvitedUserSerializer(
         many=True,

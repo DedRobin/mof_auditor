@@ -20,8 +20,8 @@ class ProfileSerializer(serializers.Serializer):
 
 
 class RegisterSerializer(UserSerializer, ProfileSerializer):
-    pass
+    ...
 
 
 class LoginSerializer(UserSerializer):
-    pass
+    ...
