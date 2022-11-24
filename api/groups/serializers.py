@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
 from api.auth.serializers import UsernameSerializer, ProfileSerializer
-from apps.profiles.models import GENDER_CHOICE
 
 
 class GroupInfoSerializer(serializers.Serializer):
+    owner = UsernameSerializer()
     name = serializers.CharField(
         max_length=255,
     )
@@ -17,4 +17,7 @@ class InvitedUserSerializer(UsernameSerializer):
 
 class GroupSerializer(serializers.Serializer):
     group_info = GroupInfoSerializer()
-    invited_users = InvitedUserSerializer(many=True, required=False)
+    invited_users = InvitedUserSerializer(
+        many=True,
+        required=False
+    )
