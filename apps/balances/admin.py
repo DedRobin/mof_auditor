@@ -38,7 +38,6 @@ class BalanceAdmin(admin.ModelAdmin):
     )
     list_filter = (
         "type",
-        "currency",
         "private",
     )
     readonly_fields = ("created_at",)
@@ -48,6 +47,7 @@ class BalanceAdmin(admin.ModelAdmin):
         "pub_id",
         "type",
         "currency__name",
+        "currency__codename",
         "private",
     )
     radio_fields = {"type": admin.VERTICAL, "private": admin.VERTICAL}

@@ -2,6 +2,10 @@ import requests
 import os
 
 from decimal import Decimal
+from collections import OrderedDict
+from rest_framework.request import Request
+
+from apps.balances.models import Balance
 
 
 def get_currency_convert_result(
@@ -20,3 +24,13 @@ def get_currency_convert_result(
     response = response.json()
 
     return response.get("result")
+
+
+def create_balance(request: Request, validated_data: OrderedDict) -> None:
+    Balance.objects.create(
+        name=validated_data["name"],
+        owner=request.user,
+        type=validated_data["type"],
+        currency=validated_data["currency"],
+        private=validated_data["private"],
+    )

@@ -66,9 +66,11 @@ class Balance(models.Model):
         return f"{self.name}"
 
     def save(self, **kwargs):
+        """Generates a public ID when the instance is saved"""
+
         if not self.pub_id:
             self.pub_id = ulid.new()
-        super().save(*kwargs)
+        super().save(**kwargs)
 
     def total(self):
         transactions = self.transactions.all()
