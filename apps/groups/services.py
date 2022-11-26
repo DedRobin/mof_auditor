@@ -36,6 +36,20 @@ def create_group(request: Request, validated_data: OrderedDict) -> None:
         name=validated_data["group_info"]["name"],
         description=validated_data["group_info"]["description"],
     )
-    Group.objects.create(
+    group = Group.objects.create(
         group_info=group_info,
     )
+    group.invited_users.set(validated_data["invited_users"])
+
+
+def update_group(group_id: int, validated_data: OrderedDict) -> None:
+    group = Group.objects.get(pk=group_id)
+    group_info = group.group_info
+
+    # Updates group information
+    group_info.name = validated_data["group_info"]["name"]
+    group_info.description = validated_data["group_info"]["description"]
+    group_info.save()
+
+    # Updates invited users
+    group.invited_users.set(validated_data["invited_users"])
