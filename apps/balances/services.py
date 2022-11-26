@@ -34,3 +34,23 @@ def create_balance(request: Request, validated_data: OrderedDict) -> None:
         currency=validated_data["currency"],
         private=validated_data["private"],
     )
+
+
+def update_balance(balance_id: int, validated_data: OrderedDict) -> None:
+    balance = Balance.objects.filter(pk=balance_id)
+    balance.update(
+        name=validated_data["name"],
+        type=validated_data["type"],
+        currency=validated_data["currency"],
+        private=validated_data["private"],
+    )
+
+
+def update_balance(balance_id: int, validated_data: OrderedDict) -> None:
+    balance = Balance.objects.filter(pk=balance_id)
+    balance.update(
+        name=validated_data["name"],
+        type=validated_data["type"],
+        currency=validated_data["currency"],
+        private=validated_data["private"],
+    )
