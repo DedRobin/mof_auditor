@@ -79,5 +79,5 @@ class Balance(models.Model):
             return total
         return 0
 
-    def all_groups(self):
+    def for_groups(self):
         return ", ".join(group.group_info.name for group in self.groups.all())
