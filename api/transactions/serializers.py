@@ -4,9 +4,11 @@ from apps.transactions.models import TransactionCategory
 
 
 class TransactionSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     amount = serializers.IntegerField()
     category = serializers.PrimaryKeyRelatedField(
         queryset=TransactionCategory.objects.all()
     )
     comment = serializers.CharField(required=False)
     created_at = serializers.DateTimeField(read_only=True)
+    lookup_field = ()

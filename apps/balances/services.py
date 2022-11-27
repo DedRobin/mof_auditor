@@ -25,7 +25,7 @@ def get_currency_convert_result(
     return response.get("result")
 
 
-def create_balance(request: Request, validated_data: OrderedDict) -> None:
+def create_balance_API(request: Request, validated_data: OrderedDict) -> None:
     balance = Balance.objects.create(
         name=validated_data["name"],
         owner=request.user,
@@ -36,7 +36,7 @@ def create_balance(request: Request, validated_data: OrderedDict) -> None:
     balance.groups.set(validated_data["groups"])
 
 
-def update_balance(balance_id: int, validated_data: OrderedDict) -> None:
+def update_balance_API(balance_id: int, validated_data: OrderedDict) -> None:
     balance = Balance.objects.filter(pk=balance_id)
     balance.update(
         name=validated_data["name"],

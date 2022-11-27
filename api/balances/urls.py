@@ -1,11 +1,15 @@
-from django.urls import path
+from django.urls import include, path
 from api.balances.views import BalanceViewSet
 
 actions_for_list = {"get": "list", "post": "create"}
-actions_for_value = {"get": "retrieve", "put": "update", "delete": "destroy"}
+actions_for_one_note = {"get": "retrieve", "put": "update", "delete": "destroy"}
 
 urlpatterns = [
     path("", BalanceViewSet.as_view(actions_for_list), name="balances"),
-    path("<int:pk>/", BalanceViewSet.as_view(actions_for_value),
-         name="RUD_particular_balances"),
+    path(
+        "<int:pk>/",
+        BalanceViewSet.as_view(actions_for_one_note),
+        name="RUD_particular_balance",
+    ),
+    path("<int:pk>/transactions/", include("api.transactions.urls")),
 ]
