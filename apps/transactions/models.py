@@ -11,14 +11,9 @@ TRANSACTION_TYPE_CHOICE = (
 
 
 class TransactionCategory(models.Model):
-    name = models.CharField(
-        max_length=255
-    )
+    name = models.CharField(max_length=255)
     type = models.CharField(
-        max_length=255,
-        choices=TRANSACTION_TYPE_CHOICE,
-        blank=True,
-        null=True
+        max_length=255, choices=TRANSACTION_TYPE_CHOICE, blank=True, null=True
     )
 
     def __str__(self):
@@ -45,11 +40,5 @@ class Transaction(models.Model):
         blank=True,
         null=True,
     )
-    comment = models.TextField(
-        blank=True,
-        null=True
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        db_index=True
-    )
+    comment = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)

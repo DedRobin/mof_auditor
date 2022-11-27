@@ -10,16 +10,12 @@ class CurrencyConvertForm(forms.Form):
         decimal_places=settings.DECIMAL_PLACES,
     )
     from_currency = forms.ModelChoiceField(
-        queryset=BalanceCurrency.objects.order_by("name"),
-        required=True
+        queryset=BalanceCurrency.objects.order_by("name"), required=True
     )
     to_currency = forms.ModelChoiceField(
         queryset=BalanceCurrency.objects.order_by("name"),
         required=True,
     )
     result = forms.CharField(
-        required=False,
-        widget=forms.TextInput(
-            attrs={'readonly': 'readonly'}
-        )
+        required=False, widget=forms.TextInput(attrs={"readonly": "readonly"})
     )

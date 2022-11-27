@@ -3,12 +3,12 @@ from apps.profiles.models import Profile
 
 
 def create_user_and_profile(
-        username: str,
-        password: str,
-        gender: str = None,
-        email: str = None,
-        first_name: str = None,
-        last_name: str = None,
+    username: str,
+    password: str,
+    gender: str = None,
+    email: str = None,
+    first_name: str = None,
+    last_name: str = None,
 ):
     user = User(
         username=username,
@@ -21,5 +21,5 @@ def create_user_and_profile(
         gender=gender,
         email=email,
         first_name=first_name,
-        last_name=last_name
+        last_name=last_name,
     )

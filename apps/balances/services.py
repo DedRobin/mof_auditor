@@ -9,17 +9,14 @@ from apps.balances.models import Balance
 
 
 def get_currency_convert_result(
-        from_amount: Decimal,
-        from_currency: str,
-        to_currency: str) -> Decimal:
-    url = "https://api.apilayer.com/exchangerates_data/convert?to={0}&from={1}&amount={2}".format(to_currency,
-                                                                                                  from_currency,
-                                                                                                  from_amount)
+    from_amount: Decimal, from_currency: str, to_currency: str
+) -> Decimal:
+    url = "https://api.apilayer.com/exchangerates_data/convert?to={0}&from={1}&amount={2}".format(
+        to_currency, from_currency, from_amount
+    )
 
     payload = {}
-    headers = {
-        "apikey": os.environ.get("API_LAYER_KEY")
-    }
+    headers = {"apikey": os.environ.get("API_LAYER_KEY")}
 
     response = requests.request("GET", url, headers=headers, data=payload)
 

@@ -5,7 +5,11 @@ from django.core.management.base import BaseCommand
 from faker import Faker
 
 from apps.balances.models import Balance, BalanceCurrency, BALANCE_TYPE_CHOICE
-from apps.transactions.models import Transaction, TransactionCategory, TRANSACTION_TYPE_CHOICE
+from apps.transactions.models import (
+    Transaction,
+    TransactionCategory,
+    TRANSACTION_TYPE_CHOICE,
+)
 from apps.users.models import User
 
 fake = Faker()
@@ -31,7 +35,7 @@ class Command(BaseCommand):
                         owner=user,
                         currency=random.choice(currencies),
                         type=random.choice(BALANCE_TYPE_CHOICE)[0],
-                        private=False
+                        private=False,
                     )
                 )
 

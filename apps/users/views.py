@@ -66,7 +66,7 @@ def index(request):
             convert_result = get_currency_convert_result(
                 from_amount=from_amount,
                 from_currency=from_currency.codename,
-                to_currency=to_currency.codename
+                to_currency=to_currency.codename,
             )
 
             form_data = {

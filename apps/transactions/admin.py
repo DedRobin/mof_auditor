@@ -26,4 +26,11 @@ class TransactionAdmin(admin.ModelAdmin):
     fields = ("balance", "amount", "category", "comment")
     list_filter = ("category__name", "balance__name")
     readonly_fields = ("created_at",)
-    search_fields = ("balance__name", "amount", "category", "comment", "created_at")
+    search_fields = (
+        "balance__name",
+        "amount",
+        "category__name",
+        "category__type",
+        "comment",
+        "created_at",
+    )

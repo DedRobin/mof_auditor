@@ -7,7 +7,7 @@ from apps.groups.models import Group
 
 class CustomGroupSerializer(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
-        request = self.context.get('request', None)
+        request = self.context.get("request", None)
         queryset = super(CustomGroupSerializer, self).get_queryset()
         if not request or not queryset:
             return None
@@ -15,9 +15,7 @@ class CustomGroupSerializer(serializers.PrimaryKeyRelatedField):
 
 
 class BalanceSerializer(serializers.Serializer):
-    id = serializers.IntegerField(
-        read_only=True
-    )
+    id = serializers.IntegerField(read_only=True)
     pub_id = serializers.StringRelatedField()
     name = serializers.CharField(
         max_length=255,
@@ -31,9 +29,7 @@ class BalanceSerializer(serializers.Serializer):
         queryset=BalanceCurrency.objects.all(),
     )
     private = serializers.BooleanField()
-    total = serializers.IntegerField()
+    total = serializers.IntegerField(read_only=True)
     groups = CustomGroupSerializer(
-        queryset=Group.objects.all(),
-        many=True,
-        required=False
+        queryset=Group.objects.all(), many=True, required=False
     )

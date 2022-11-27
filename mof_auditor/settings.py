@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "rest_framework",
     "rest_framework.authtoken",
-
     # apps
     "apps.users",
     "apps.profiles",

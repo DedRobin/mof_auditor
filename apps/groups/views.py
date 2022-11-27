@@ -100,8 +100,12 @@ def group_privacy(request, pub_id):
         )
 
         permission_type = PermissionType.objects.get(name=permission_name)
-        permissions_for_add = Permission.objects.filter(user__username__in=users, group=group)
-        permissions_for_delete = Permission.objects.filter(group=group).exclude(user__username__in=users)
+        permissions_for_add = Permission.objects.filter(
+            user__username__in=users, group=group
+        )
+        permissions_for_delete = Permission.objects.filter(group=group).exclude(
+            user__username__in=users
+        )
 
         for p_for_add in permissions_for_add:
             p_for_add.types.add(permission_type)

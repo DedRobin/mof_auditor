@@ -1,21 +1,12 @@
 from rest_framework import serializers
 
-from apps.transactions.models import TRANSACTION_TYPE_CHOICE
-
-
-class TransactionCategorySerializer(serializers.Serializer):
-    name = serializers.CharField(
-        max_length=255
-    )
-    type = serializers.ChoiceField(
-        choices=TRANSACTION_TYPE_CHOICE
-    )
+from apps.transactions.models import TransactionCategory
 
 
 class TransactionSerializer(serializers.Serializer):
     amount = serializers.IntegerField()
-    category = TransactionCategorySerializer()
-    comment = serializers.CharField()
-    created_at = serializers.DateTimeField(
-        read_only=True
+    category = serializers.PrimaryKeyRelatedField(
+        queryset=TransactionCategory.objects.all()
     )
+    comment = serializers.CharField(required=False)
+    created_at = serializers.DateTimeField(read_only=True)

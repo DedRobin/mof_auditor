@@ -23,44 +23,17 @@ class BalanceCurrency(models.Model):
 
 
 class Balance(models.Model):
-    pub_id = models.CharField(
-        max_length=255,
-        unique=True,
-        blank=True,
-        null=True
-    )
-    name = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True
-    )
-    owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="balances"
-    )
+    pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="balances")
 
-    type = models.CharField(
-        max_length=255,
-        choices=BALANCE_TYPE_CHOICE
-    )
+    type = models.CharField(max_length=255, choices=BALANCE_TYPE_CHOICE)
     currency = models.ForeignKey(
-        BalanceCurrency,
-        related_name="balances",
-        on_delete=models.CASCADE
+        BalanceCurrency, related_name="balances", on_delete=models.CASCADE
     )
-    private = models.BooleanField(
-        choices=BALANCE_PRIVATE_CHOICE
-    )
-    groups = models.ManyToManyField(
-        Group,
-        related_name="balances",
-        blank=True
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        db_index=True
-    )
+    private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
+    groups = models.ManyToManyField(Group, related_name="balances", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
         return f"{self.name}"
