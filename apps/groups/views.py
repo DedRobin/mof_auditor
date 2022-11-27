@@ -38,7 +38,7 @@ def group_settings(request, pub_id):
 
 @login_required
 def edit_group(request, pub_id):
-    """Updates data for single group"""
+    """Updates data for particular group"""
 
     group = Group.objects.get(pub_id=pub_id)
     group_info = group.group_info

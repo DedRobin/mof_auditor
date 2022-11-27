@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from api.balances.serializers import BalanceSerializer
-from api.groups.serializers import GroupSerializer
 from apps.balances.models import Balance
 from apps.balances.services import create_balance, update_balance
 from apps.groups.services import Group
