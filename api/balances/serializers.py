@@ -31,7 +31,9 @@ class BalanceSerializer(serializers.Serializer):
         queryset=BalanceCurrency.objects.all(),
     )
     private = serializers.BooleanField()
+    total = serializers.IntegerField()
     groups = CustomGroupSerializer(
         queryset=Group.objects.all(),
         many=True,
+        required=False
     )
