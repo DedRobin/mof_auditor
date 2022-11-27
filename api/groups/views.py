@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from apps.groups.models import Group
 from api.groups.serializers import GroupSerializer
-from apps.groups.services import create_group, update_group
+from apps.groups.services import create_group_API, update_group_API
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -20,7 +20,7 @@ class GroupViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        create_group(request=request, validated_data=serializer.validated_data)
+        create_group_API(request=request, validated_data=serializer.validated_data)
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -29,7 +29,7 @@ class GroupViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         group_id = kwargs.get("pk", None)
 
-        update_group(group_id=group_id, validated_data=serializer.validated_data)
+        update_group_API(group_id=group_id, validated_data=serializer.validated_data)
 
         return Response(status=status.HTTP_200_OK)
 
