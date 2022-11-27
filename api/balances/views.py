@@ -19,60 +19,63 @@ class BalanceViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Balance.objects.filter(owner=self.request.user).order_by("-created_at")
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        create_balance(request=request, validated_data=serializer.validated_data)
-
-        return Response(status=status.HTTP_201_CREATED)
-
-    def update(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        balance_id = kwargs.get("pk", None)
-
-        update_balance(balance_id=balance_id, validated_data=serializer.validated_data)
-
+    def get(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
-
-    def destroy(self, request, *args, **kwargs):
-        balance_id = kwargs.get("pk", None)
-
-        Balance.objects.get(pk=balance_id).delete()
-
-        return Response(status=status.HTTP_200_OK)
-
-    # @action(methods=['get'], detail=True)
-    # def groups(self, request, pk):
-    #     groups = Group.objects.filter(group_info__owner=request.user, balances=pk)
-    #     groups = {"results": [{"name": g.group_info.name} for g in groups]}
-    #     return Response(status=status.HTTP_200_OK, data=groups)
-
-    @action(methods=["get"], detail=True, permission_classes=[IsAuthenticated])
-    def transactions(self, request, pk):
-        self.serializer_class = TransactionSerializer
-        transactions = Transaction.objects.filter(balance=pk)
-
-        page = self.paginate_queryset(transactions)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(transactions, many=True)
-        return Response(status=status.HTTP_200_OK, data=serializer.data)
-
-    @transactions.mapping.post
-    def extra_create_transaction(self, request, pk=None):
-        balance = Balance.objects.get(pk=pk)
-        amount = request.data["amount"]
-        category = TransactionCategory.objects.get(pk=request.data["category"])
-        comment = request.data["comment"]
-
-        Transaction.objects.create(
-            balance=balance,
-            amount=amount,
-            category=category,
-            comment=comment,
-        )
-        return Response(status=status.HTTP_201_CREATED)
+    #
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #
+    #     create_balance(request=request, validated_data=serializer.validated_data)
+    #
+    #     return Response(status=status.HTTP_201_CREATED)
+    #
+    # def update(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     balance_id = kwargs.get("pk", None)
+    #
+    #     update_balance(balance_id=balance_id, validated_data=serializer.validated_data)
+    #
+    #     return Response(status=status.HTTP_200_OK)
+    #
+    # def destroy(self, request, *args, **kwargs):
+    #     balance_id = kwargs.get("pk", None)
+    #
+    #     Balance.objects.get(pk=balance_id).delete()
+    #
+    #     return Response(status=status.HTTP_200_OK)
+    # #
+    # # @action(methods=['get'], detail=True)
+    # # def groups(self, request, pk):
+    # #     groups = Group.objects.filter(group_info__owner=request.user, balances=pk)
+    # #     groups = {"results": [{"name": g.group_info.name} for g in groups]}
+    # #     return Response(status=status.HTTP_200_OK, data=groups)
+    #
+    # @action(methods=["get"], detail=True, permission_classes=[IsAuthenticated])
+    # def transactions(self, request, pk):
+    #     self.serializer_class = TransactionSerializer
+    #     transactions = Transaction.objects.filter(balance=pk)
+    #
+    #     page = self.paginate_queryset(transactions)
+    #     if page is not None:
+    #         serializer = self.get_serializer(page, many=True)
+    #         return self.get_paginated_response(serializer.data)
+    #
+    #     serializer = self.get_serializer(transactions, many=True)
+    #     return Response(status=status.HTTP_200_OK, data=serializer.data)
+    #
+    # @transactions.mapping.post
+    # def extra_create_transaction(self, request, pk=None):
+    #     balance = Balance.objects.get(pk=pk)
+    #     amount = request.data["amount"]
+    #     category = TransactionCategory.objects.get(pk=request.data["category"])
+    #     comment = request.data["comment"]
+    #
+    #     Transaction.objects.create(
+    #         balance=balance,
+    #         amount=amount,
+    #         category=category,
+    #         comment=comment,
+    #     )
+    #     return Response(status=status.HTTP_201_CREATED)
