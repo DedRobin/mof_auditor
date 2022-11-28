@@ -20,3 +20,12 @@ class GroupSerializer(serializers.Serializer):
     invited_users = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.order_by("username"), many=True, required=False
     )
+
+
+class CustomGroupSerializer(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        request = self.context.get("request", None)
+        queryset = super(CustomGroupSerializer, self).get_queryset()
+        if not request or not queryset:
+            return None
+        return queryset.filter(group_info__owner=request.user)

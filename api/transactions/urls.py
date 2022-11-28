@@ -9,6 +9,6 @@ urlpatterns = [
     path(
         "<int:transaction_id>/",
         TransactionViewSet.as_view(actions_for_one_note),
-        name="RUD_particular_transaction",
+        name="particular_transaction",
     ),
 ]

@@ -3,7 +3,6 @@ from rest_framework import serializers
 from api.profiles.serializers import ProfileSerializer
 
 
-
 class UsernameSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
 

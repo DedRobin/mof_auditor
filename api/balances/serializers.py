@@ -3,15 +3,7 @@ from rest_framework import serializers
 from apps.balances.models import BALANCE_TYPE_CHOICE
 from apps.balances.models import BalanceCurrency
 from apps.groups.models import Group
-
-
-class CustomGroupSerializer(serializers.PrimaryKeyRelatedField):
-    def get_queryset(self):
-        request = self.context.get("request", None)
-        queryset = super(CustomGroupSerializer, self).get_queryset()
-        if not request or not queryset:
-            return None
-        return queryset.filter(group_info__owner=request.user)
+from api.groups.serializers import CustomGroupSerializer
 
 
 class BalanceSerializer(serializers.Serializer):
