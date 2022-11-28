@@ -11,5 +11,5 @@ urlpatterns = [
         GroupViewSet.as_view(actions_for_one_note),
         name="particular_group",
     ),
-    # path("<int:pk>/transactions/", include("api.transactions.urls")),
+    path("<int:pk>/invited_users/", include("api.users.urls")),
 ]
