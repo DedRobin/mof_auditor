@@ -8,27 +8,43 @@ from apps.transactions.models import Transaction
 
 def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> QuerySet:
     # Query param
-    amount = query_param.get("amount")
-    amount_sign = query_param.get("amount_sign")
-    category_type = query_param.get("category_type")
-    category_name = query_param.get("category_name")
+    cat_type = query_param.get("cat_type")
+    cat_name = query_param.get("cat_name")
+    balance = query_param.get("balance")
+    from_amount = query_param.get("from_amount")
+    to_amount = query_param.get("to_amount")
+    category = query_param.get("category")
+    comment = query_param.get("comment")
+    from_date = query_param.get("from_date")
+    to_date = query_param.get("to_date")
 
-    if category_type:
-        if category_type == "income":
-            queryset = queryset.filter(amount__gt=0)
-        elif category_type == "expense":
+    if cat_type:
+        if cat_type == "income":
+            queryset = queryset.filter(amount__gte=0)
+        elif cat_type == "expense":
             queryset = queryset.filter(amount__lte=0)
-    if amount:
-        if amount_sign == "gt":
-            queryset = queryset.filter(amount__gt=amount)
-        elif amount_sign == "gte":
-            queryset = queryset.filter(amount__gte=amount)
-        elif amount_sign == "lt":
-            queryset = queryset.filter(amount__lt=amount)
-        elif amount_sign == "lte":
-            queryset = queryset.filter(amount__lte=amount)
-    if category_name:
-        queryset = queryset.filter(category__name__contains=category_name)
+    if cat_name:
+        queryset = queryset.filter(category__name=cat_name)
+    if balance:
+        queryset = queryset.filter(balance__name=balance)
+    if from_amount or to_amount:
+        if from_amount:
+            queryset = queryset.filter(amount__gte=from_amount)
+        if to_amount:
+            queryset = queryset.filter(amount__lte=to_amount)
+        elif from_amount and to_amount:
+            queryset = queryset.filter(amount__gte=from_amount, amount__lte=to_amount)
+    if comment:
+        queryset = queryset.filter(comment__contains=comment)
+    if from_date or to_date:
+        if from_date and not to_date:
+            queryset = queryset.filter(created_at__gte=from_date)
+        elif not from_date and to_date:
+            queryset = queryset.filter(created_at__lte=to_date)
+        elif from_date and to_date:
+            queryset = queryset.filter(
+                created_at__gte=from_date, created_at__lte=to_date
+            )
     return queryset
 
 

@@ -44,4 +44,6 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     def __str__(self):
-        return f"Amount={self.amount}, Category={self.category.name}({self.category.type})"
+        return (
+            f"Amount={self.amount}, Category={self.category.name}({self.category.type})"
+        )

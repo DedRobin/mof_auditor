@@ -52,10 +52,10 @@ class Command(BaseCommand):
         transaction_cat = TransactionCategory.objects.all()
         transactions = []
         for balance in balances:
-            for _ in range(5):
+            for _ in range(10):
                 random_transaction_cat = random.choice(transaction_cat)
                 if random_transaction_cat.type == "income":
-                    amount = Decimal(str(random.uniform(0.00001, 999.99999)))
+                    amount = Decimal(str(random.uniform(0.00000, 999.99999)))
                 else:
                     amount = Decimal(str(random.uniform(-999.99999, -0.00001)))
 
@@ -63,7 +63,7 @@ class Command(BaseCommand):
                     Transaction(
                         balance=balance,
                         amount=amount,
-                        category=random.choice(transaction_cat),
+                        category=random_transaction_cat,
                         comment=fake.sentence(),
                     )
                 )

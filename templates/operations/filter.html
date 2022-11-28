@@ -1,0 +1,7 @@
+{% load crispy_forms_filters %}
+
+<form method="GET">
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Apply</button>
+    <a class="btn btn-danger" href="{% url 'operation_list' %}">Reset</a>
+</form>

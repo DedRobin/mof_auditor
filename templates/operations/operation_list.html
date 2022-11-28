@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Operations{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col">
+                {% include 'operations/filter.html' %}
+            </div>
+
+            <div class="col-8">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">№</th>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Category name</th>
+                        <th scope="col">Category type</th>
+                        <th scope="col">comment</th>
+                        <th scope="col">created_at</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ transaction.balance.name }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td>{{ transaction.category.name }}</td>
+                            {% if transaction.category.type == "income" %}
+                                <td class="text-success">{{ transaction.category.type }}</td>
+                            {% else %}
+                                <td class="text-danger">{{ transaction.category.type }}</td>
+                            {% endif %}
+                            <td>{{ transaction.comment }}</td>
+                            <td>{{ transaction.created_at }}</td>
+                        </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+            <div class="col">
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+

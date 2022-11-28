@@ -4,7 +4,11 @@ from rest_framework.response import Response
 from apps.transactions.models import Transaction
 
 from api.transactions.serializers import TransactionSerializer
-from apps.transactions.services import create_transaction_API, update_transaction_API, get_sorted_transactions
+from apps.transactions.services import (
+    create_transaction_API,
+    update_transaction_API,
+    get_sorted_transactions,
+)
 
 
 class TransactionViewSet(viewsets.ModelViewSet):
@@ -20,7 +24,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
         )
         query_param = self.request.query_params
 
-        transactions = get_sorted_transactions(queryset=transactions, query_param=query_param)
+        transactions = get_sorted_transactions(
+            queryset=transactions, query_param=query_param
+        )
 
         if transaction_id:
             transaction = Transaction.objects.filter(pk=transaction_id)

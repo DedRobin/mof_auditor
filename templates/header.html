@@ -10,6 +10,10 @@
             {% endif %}
 
             <span class="navbar-brand ps-2">MOF-AUDITOR</span>
+
+            <span class="fs-5">
+                    Good to see you, {{ user.profile.first_name }} {{ user.profile.last_name }}!
+                </span>
         </div>
 
         {% if request.user.is_authenticated %}

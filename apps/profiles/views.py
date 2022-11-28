@@ -11,9 +11,6 @@ def edit_profile(request):
     if request.method == "POST":
         form = ProfileForm(request.POST)
         if form.is_valid():
-            # user.set_password(form.cleaned_data["password"])
-            # user.save()
-
             user.username = form.cleaned_data["username"]
             user.save()
 
