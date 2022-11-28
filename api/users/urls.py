@@ -11,6 +11,10 @@ actions_for_one_note = {
 
 urlpatterns = [
     path("", UserViewSet.as_view(actions_for_list), name="invited_users"),
-    path("<int:user_id>/", UserViewSet.as_view(actions_for_one_note), name="specific_invited_user"),
+    path(
+        "<int:user_id>/",
+        UserViewSet.as_view(actions_for_one_note),
+        name="specific_invited_user",
+    ),
     path("<int:user_id>/permissions/", include("api.permissions.urls")),
 ]

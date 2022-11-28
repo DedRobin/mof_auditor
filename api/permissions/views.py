@@ -4,45 +4,33 @@ from rest_framework.response import Response
 
 from apps.permissions.models import Permission
 from api.permissions.serializers import PermissionSerializer
-from apps.groups.services import create_group_API, update_group_API
-from apps.permissions.services import create_permission_API
+from apps.permissions.services import update_permission_API
 
 
 class PermissionsViewSet(viewsets.ModelViewSet):
     serializer_class = PermissionSerializer
     permission_classes = [IsAuthenticated]
+    lookup_url_kwarg = "permission_id"
 
     def get_queryset(self):
-        return Permission.objects.filter(user=self.request.user)
+        group_id = self.kwargs.get("pk")
+        user_id = self.kwargs.get("user_id")
+        permission_id = self.kwargs.get("permission_id")
+        permissions = Permission.objects.filter(user=user_id, group=group_id)
+        if permission_id:
+            permission = Permission.objects.filter(pk=permission_id)
+            return permission
+        return permissions
 
     def get(self):
         return Response(status=status.HTTP_200_OK)
 
-    def create(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        permission_id = kwargs.get("permission_id")
 
-        create_permission_API(
-            permission_id=kwargs.get("pk"), validated_data=serializer.validated_data
+        update_permission_API(
+            permission_id=permission_id, validated_data=serializer.validated_data
         )
-
-        return Response(status=status.HTTP_201_CREATED)
-
-    # def update(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     transaction_id = kwargs.get("transaction_id")
-    #
-    #     update_transaction_API(
-    #         transaction_id=transaction_id,
-    #         validated_data=serializer.validated_data,
-    #     )
-    #
-    #     return Response(status=status.HTTP_200_OK)
-    #
-    # def destroy(self, request, *args, **kwargs):
-    #     transaction_id = kwargs.get("transaction_id")
-    #
-    #     Transaction.objects.get(pk=transaction_id).delete()
-    #
-    #     return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)

@@ -22,6 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get(self, request, *args, **kwargs):
         return Response(status=status.HTTP_200_OK)
+
     #
     # def create(self, request, *args, **kwargs):
     #     serializer = self.get_serializer(data=request.data)

@@ -11,5 +11,4 @@ urlpatterns = [
     path("balances/", include("api.balances.urls")),
     path("groups/", include("api.groups.urls")),
     path("profile/", include("api.profiles.urls")),
-    path("permissions/", include("api.permissions.urls")),
 ]

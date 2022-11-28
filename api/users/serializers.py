@@ -5,7 +5,7 @@ from api.profiles.serializers import ProfileSerializer
 
 class UserProfileSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    username = serializers.CharField(max_length=255, read_only=True)
+    username = serializers.CharField(max_length=255)
     profile = ProfileSerializer(read_only=True)
 
 
