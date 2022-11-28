@@ -15,7 +15,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         balance_id = self.kwargs.get("pk")
         transaction_id = self.kwargs.get("transaction_id")
-        transaction = Transaction.objects.filter(balance=balance_id).order_by(
+        transaction = Transaction.objects.filter(balance_id=balance_id).order_by(
             "-created_at"
         )
         if transaction_id:

@@ -17,7 +17,7 @@ class TransactionCategory(models.Model):
     )
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.type.capitalize()} --> {self.name}"
 
 
 class Transaction(models.Model):
