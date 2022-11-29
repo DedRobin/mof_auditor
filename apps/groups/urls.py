@@ -6,6 +6,7 @@ from apps.groups.views import (
     group_settings,
     group_members,
     group_privacy,
+    delete_group,
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("<str:pub_id>/settings/editing/", edit_group, name="group_editing"),
     path("<str:pub_id>/settings/privacy/", group_privacy, name="group_privacy"),
     path("<str:pub_id>/settings/members/", group_members, name="group_members"),
+    path("<str:pub_id>/settings/delete/", delete_group, name="delete_group"),
 ]

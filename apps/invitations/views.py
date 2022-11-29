@@ -86,7 +86,11 @@ def send_invitation(request):
                 to_who = User.objects.get(username=form.data.get("to_who"))
             except:
                 message = "Such user does not existed"
-                return render(request, "invitations/send_invitation.html", {"message": message, "form": form})
+                return render(
+                    request,
+                    "invitations/send_invitation.html",
+                    {"message": message, "form": form},
+                )
 
             to_a_group = Group.objects.get(pk=form.data.get("to_a_group"))
             Invitation.objects.create(

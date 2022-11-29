@@ -33,7 +33,15 @@ def create_group(request):
 def group_settings(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
-    return render(request, "groups/settings/settings.html", {"group_name": group_name})
+    data = {
+        "group_name": group_name,
+    }
+    return render(request, "groups/settings/settings.html", data)
+
+
+def delete_group(request, pub_id):
+    Group.objects.get(pub_id=pub_id).delete()
+    return redirect("index")
 
 
 @login_required
