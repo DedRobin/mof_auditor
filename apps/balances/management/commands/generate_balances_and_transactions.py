@@ -26,18 +26,20 @@ class Command(BaseCommand):
         balances = []
 
         # Create balances
+        number = 1
         for user in users:
-            for _ in range(2):
+            for _ in range(3):
                 balances.append(
                     Balance(
                         pub_id=ulid.new(),
-                        name=fake.word(),
+                        name=f"Balance №{number}",
                         owner=user,
                         currency=random.choice(currencies),
                         type=random.choice(BALANCE_TYPE_CHOICE)[0],
                         private=False,
                     )
                 )
+                number += 1
 
         Balance.objects.bulk_create(balances)
 

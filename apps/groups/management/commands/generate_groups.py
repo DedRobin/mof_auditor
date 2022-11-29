@@ -22,7 +22,7 @@ class Command(BaseCommand):
             copy_users = deepcopy(users)
             group_info = GroupInformation.objects.create(
                 owner=random.choice(users),
-                name=fake.word(),
+                name=f"Group №{i + 1}",
                 description=fake.sentence(),
             )
             group = Group.objects.create(
