@@ -167,6 +167,11 @@ REST_FRAMEWORK = {
         # "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'drf_excel.renderers.XLSXRenderer',
+    ),
 }
 # Basic redirect to URL if user is not authenticated
 LOGIN_URL = "/auth/login"
