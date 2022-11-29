@@ -13,6 +13,16 @@
             </div>
 
             <div class="col-8">
+                <form method="GET" action="{% url 'export_operations' %}">
+                    {% for name, value in filter.items %}
+                        {% if value %}
+                            <input name="{{ name }}" value="{{ value }}" hidden>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn btn-info mt-2">
+                        Export
+                    </button>
+                </form>
                 <table class="table">
                     <thead>
                     <tr>

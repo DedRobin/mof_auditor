@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.transactions.views import get_transactions
+from apps.transactions.views import get_transactions, export_operations
 from apps.users.views import index  # , test_view
 
 urlpatterns = [
@@ -28,6 +28,7 @@ urlpatterns = [
     path("groups/", include("apps.groups.urls")),
     path("invitations/", include("apps.invitations.urls")),
     path("operations/", get_transactions, name="operation_list"),
+    path("operations/export", export_operations, name="export_operations"),
     # Test URls
     # path("test/test/", test_view, name="test_view"),
 ]

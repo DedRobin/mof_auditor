@@ -8,12 +8,11 @@ from apps.transactions.models import Transaction
 
 def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> QuerySet:
     # Query param
-    cat_type = query_param.get("cat_type")
-    cat_name = query_param.get("cat_name")
-    balance = query_param.get("balance")
+    cat_type = query_param.get("category__type")
+    cat_name = query_param.get("category__name")
+    balance = query_param.get("balance__name")
     from_amount = query_param.get("from_amount")
     to_amount = query_param.get("to_amount")
-    category = query_param.get("category")
     comment = query_param.get("comment")
     from_date = query_param.get("from_date")
     to_date = query_param.get("to_date")

@@ -9,12 +9,12 @@ TRANSACTION_TYPE_CHOICE = (
 
 
 class TransactionTypeFilterForm(forms.Form):
-    cat_type = forms.ChoiceField(choices=TRANSACTION_TYPE_CHOICE, required=False)
-    cat_name = forms.CharField(max_length=255, required=False)
+    category__type = forms.ChoiceField(label="Category type", choices=TRANSACTION_TYPE_CHOICE, required=False)
+    category__name = forms.CharField(label="Category name", max_length=255, required=False)
 
 
 class TransactionFilterForm(TransactionTypeFilterForm):
-    balance = forms.CharField(max_length=255, required=False)
+    balance__name = forms.CharField(label="Balance",max_length=255, required=False)
     from_amount = forms.DecimalField(
         max_digits=settings.MAX_DIGITS,
         decimal_places=settings.DECIMAL_PLACES,
@@ -26,5 +26,5 @@ class TransactionFilterForm(TransactionTypeFilterForm):
         required=False,
     )
     comment = forms.CharField(max_length=255, required=False)
-    from_date = forms.DateTimeField(required=False, widget=forms.DateTimeInput)
-    to_date = forms.DateTimeField(required=False, widget=forms.DateTimeInput)
+    # from_date = forms.DateTimeField(required=False, widget=forms.DateTimeInput)
+    # to_date = forms.DateTimeField(required=False, widget=forms.DateTimeInput)
