@@ -7,6 +7,8 @@ Pillow==9.2.0
 psycopg2-binary==2.9.3
 pyopenssl==22.1.0
 ulid-py
+django-import-export==3.0.1
+
 
 pytest>=7.1.2
 pytest-django>=4.5.2
