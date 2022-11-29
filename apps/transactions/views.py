@@ -22,11 +22,7 @@ def get_transactions(request):
     else:
         form = TransactionFilterForm()
 
-    data = {
-        "transactions": transactions,
-        "form": form,
-        "filter": query_param
-    }
+    data = {"transactions": transactions, "form": form, "filter": query_param}
     return render(request, "operations/operation_list.html", data)
 
 

@@ -41,7 +41,7 @@ class Transaction(models.Model):
         null=True,
     )
     comment = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=False, db_index=True, editable=True)
 
     def __str__(self):
         return (
