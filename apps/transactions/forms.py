@@ -30,5 +30,21 @@ class TransactionFilterForm(TransactionTypeFilterForm):
         required=False,
     )
     comment = forms.CharField(max_length=255, required=False)
-    # from_date = forms.DateTimeField(required=False, widget=forms.DateTimeInput)
-    # to_date = forms.DateTimeField(required=False, widget=forms.DateTimeInput)
+    from_date = forms.DateTimeField(
+        required=False,
+        widget=forms.DateTimeInput(
+            attrs={
+                "placeholder": "YYYY-MM-DD HH:MM",
+            },
+            format="%Y-%m-%d %H:%M",
+        ),
+    )
+    to_date = forms.DateTimeField(
+        required=False,
+        widget=forms.DateTimeInput(
+            attrs={
+                "placeholder": "YYYY-MM-DD HH:MM",
+            },
+            format="%Y-%m-%d %H:%M",
+        ),
+    )
