@@ -34,7 +34,7 @@ def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> Query
         elif from_amount and to_amount:
             queryset = queryset.filter(amount__gte=from_amount, amount__lte=to_amount)
     if comment:
-        queryset = queryset.filter(comment__contains=comment)
+        queryset = queryset.filter(comment__icontains=comment)
     if from_date or to_date:
         if from_date and not to_date:
             queryset = queryset.filter(created_at__gte=from_date)
