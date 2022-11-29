@@ -3,6 +3,8 @@ import random
 from datetime import datetime
 from decimal import Decimal
 from django.core.management.base import BaseCommand
+from django.utils.timezone import make_aware
+
 from faker import Faker
 
 from apps.balances.models import Balance, BalanceCurrency, BALANCE_TYPE_CHOICE
@@ -21,6 +23,7 @@ class Command(BaseCommand):
     start_datetime = datetime(
         year=2022, month=8, day=1, hour=0, minute=0, second=0, microsecond=0
     )
+    start_datetime = make_aware(start_datetime)
 
     def handle(self, *args, **options):
         Balance.objects.all().delete()

@@ -78,16 +78,23 @@ def send_invitation(request):
 
     if request.method == "POST":
         form = SendInvitationForm(request.POST)
+        form.fields["to_a_group"] = forms.ModelChoiceField(
+            Group.objects.filter(group_info__owner=current_user)
+        )
         if form.is_valid():
-            to_who = User.objects.get(username=form.data["to_who"])
-            to_a_group = Group.objects.get(pk=form.data["to_a_group"])
+            try:
+                to_who = User.objects.get(username=form.data.get("to_who"))
+            except:
+                message = "Such user does not existed"
+                return render(request, "invitations/send_invitation.html", {"message": message, "form": form})
+
+            to_a_group = Group.objects.get(pk=form.data.get("to_a_group"))
             Invitation.objects.create(
                 from_who=current_user,
                 to_who=to_who,
                 to_a_group=to_a_group,
             )
             return redirect("invitation_list")
-
     data = {
         "form": form,
     }
