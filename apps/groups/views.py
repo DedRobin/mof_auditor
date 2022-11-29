@@ -33,8 +33,24 @@ def create_group(request):
 def group_settings(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
+    owner = group.group_info.owner
+
+    # Checks update permission
+    update_is_allowed = False
+    delete_is_allowed = False
+    permissions = group.permissions.filter(user=request.user)[0]
+    update_type = PermissionType.objects.get(name="update")
+    delete_type = PermissionType.objects.get(name="delete")
+    if update_type in permissions.types.all():
+        update_is_allowed = True
+    if delete_type in permissions.types.all():
+        delete_is_allowed = True
+
     data = {
         "group_name": group_name,
+        "update_is_allowed": update_is_allowed,
+        "delete_is_allowed": delete_is_allowed,
+        "owner": owner
     }
     return render(request, "groups/settings/settings.html", data)
 

@@ -6,14 +6,24 @@
 
 {% block content %}
 
-    <div class="container">
-        <h1>Settings for group "{{ group_name }}"/Editing</h1>
+    <div class="row">
 
-        <form method="POST" class="post-form">
-            {% csrf_token %}
-            {{ group_info_form|crispy }}
-            <button type="submit" class="save btn btn-primary">Apply changes</button>
-        </form>
+        <div class="col text-end">
+            <a href="../" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+        </div>
+
+        <div class="col-8">
+            <h1>Settings for group "{{ group_name }}"/Editing</h1>
+
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ group_info_form|crispy }}
+                <button type="submit" class="save btn btn-primary">Apply changes</button>
+            </form>
+        </div>
+
+        <div class="col">
+        </div>
     </div>
 
 {% endblock %}

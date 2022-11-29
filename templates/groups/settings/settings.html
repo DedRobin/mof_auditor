@@ -5,21 +5,42 @@
 {% block title %}Settings for group "{{ group_name }}"{% endblock %}
 
 {% block content %}
+    <div class="row">
 
-    <div class="container">
-        <h1>Settings for group "{{ group_name }}"</h1>
-
-
-        <div class="list-group list-group-numbered">
-            <a href="editing/" class="list-group-item list-group-item-action" aria-current="true">Editing</a>
-            <a href="privacy/" class="list-group-item list-group-item-action">Privacy</a>
-            <a href="members/" class="list-group-item list-group-item-action">Members</a>
-            <a href="delete/" class="list-group-item list-group-item-action text-danger">Delete</a>
+        <div class="col text-end">
+            <a href="{% url 'index' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
         </div>
 
+        <div class="col-8">
+            <h1>Settings for group "{{ group_name }}"</h1>
 
-        {#        {% include 'groups/permission_form_for_invited_users.html' %}#}
+            <div class="list-group list-group-numbered">
+                {% if update_is_allowed %}
+                    <a href="editing/" class="list-group-item list-group-item-action" aria-current="true">Editing</a>
+                {% else %}
+                    <a href="editing/" class="list-group-item list-group-item-action disabled" aria-current="true">Editing</a>
+                {% endif %}
 
+                {% if owner == request.user %}
+                    <a href="privacy/" class="list-group-item list-group-item-action">Privacy</a>
+                    <a href="members/" class="list-group-item list-group-item-action">Members</a>
+                {% else %}
+                    <a href="privacy/" class="list-group-item list-group-item-action disabled">Privacy</a>
+                    <a href="members/" class="list-group-item list-group-item-action disabled">Members</a>
+                {% endif %}
+
+                {% if delete_is_allowed %}
+                    <a href="delete/" class="list-group-item list-group-item-action text-danger">Delete</a>
+                {% else %}
+                    <a href="delete/" class="list-group-item list-group-item-action text-danger disabled">Delete</a>
+                {% endif %}
+            </div>
+
+
+        </div>
+        <div class="col">
+
+        </div>
     </div>
 
 {% endblock %}

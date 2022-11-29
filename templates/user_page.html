@@ -15,7 +15,12 @@
 
                 {% for group in user_groups %}
                     <div class="d-flex flex-row justify-content-between py-2">
-                        <h1 class="display-6">{{ forloop.counter }}) {{ group.group_info.name }}</h1>
+                        <h1 class="display-6">
+                            {{ forloop.counter }})
+                            {{ group.group_info.name }}
+                            (Owner: {{ group.group_info.owner.profile.first_name }}
+                            {{ group.group_info.owner.profile.last_name }})
+                        </h1>
                         <div class="material-symbols-rounded">
                             <a class="setting-setting" href="groups/{{ group.pub_id }}/settings/">settings</a>
                         </div>

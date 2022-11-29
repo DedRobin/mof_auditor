@@ -10,4 +10,3 @@ class Report(models.Model):
     date_to = models.DateTimeField()
     total = models.DecimalField(max_digits=19, decimal_places=7, default=0)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
-    pass

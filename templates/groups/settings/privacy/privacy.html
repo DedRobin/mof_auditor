@@ -5,12 +5,21 @@
 {% block title %}Privacy{% endblock %}
 
 {% block content %}
+    <div class="row">
 
-    <div class="container">
-        <h1>Settings for group "{{ group_name }}"/Privacy</h1>
+        <div class="col text-end">
+            <a href="../" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+        </div>
 
-        {% include 'groups/settings/privacy/privacy_form.html' %}
+        <div class="col-8">
+            <h1>Settings for group "{{ group_name }}"/Privacy</h1>
 
+            {% include 'groups/settings/privacy/privacy_form.html' %}
+
+        </div>
+
+        <div class="col">
+        </div>
     </div>
 
 {% endblock %}
