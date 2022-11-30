@@ -23,9 +23,9 @@ def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> Query
         elif cat_type == "expense":
             queryset = queryset.filter(amount__lte=0)
     if cat_name:
-        queryset = queryset.filter(category__name=cat_name)
+        queryset = queryset.filter(category__name__icontains=cat_name)
     if balance:
-        queryset = queryset.filter(balance__name=balance)
+        queryset = queryset.filter(balance__name__icontains=balance)
     if from_amount or to_amount:
         if from_amount:
             queryset = queryset.filter(amount__gte=from_amount)
