@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from api.balances.serializers import BalanceSerializer
 from apps.balances.models import Balance
-from apps.balances.services import create_balance_API, update_balance_API
+from apps.balances.services import create_balance_api, update_balance_api
 
 
 class BalanceViewSet(viewsets.ModelViewSet):
@@ -21,7 +21,7 @@ class BalanceViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        create_balance_API(request=request, validated_data=serializer.validated_data)
+        create_balance_api(request=request, validated_data=serializer.validated_data)
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -30,7 +30,7 @@ class BalanceViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         balance_id = kwargs.get("pk", None)
 
-        update_balance_API(
+        update_balance_api(
             balance_id=balance_id, validated_data=serializer.validated_data
         )
 

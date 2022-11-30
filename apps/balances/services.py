@@ -3,13 +3,14 @@ import os
 
 from decimal import Decimal
 from collections import OrderedDict
+from django.core.handlers.wsgi import WSGIRequest
 from rest_framework.request import Request
 
-from apps.balances.models import Balance
+from apps.balances.models import Balance, BalanceCurrency
 
 
 def get_currency_convert_result(
-    from_amount: Decimal, from_currency: str, to_currency: str
+        from_amount: Decimal, from_currency: str, to_currency: str
 ) -> Decimal:
     url = "https://api.apilayer.com/exchangerates_data/convert?to={0}&from={1}&amount={2}".format(
         to_currency, from_currency, from_amount
@@ -25,7 +26,17 @@ def get_currency_convert_result(
     return response.get("result")
 
 
-def create_balance_API(request: Request, validated_data: OrderedDict) -> None:
+def create_balance(request: WSGIRequest) -> None:
+    Balance.objects.create(
+        name=request.POST.get("name"),
+        owner=request.user,
+        type=request.POST.get("type"),
+        currency=BalanceCurrency.objects.get(pk=request.POST.get("currency")),
+        private=request.POST.get("private"),
+    )
+
+
+def create_balance_api(request: Request, validated_data: OrderedDict) -> None:
     balance = Balance.objects.create(
         name=validated_data["name"],
         owner=request.user,
@@ -36,7 +47,7 @@ def create_balance_API(request: Request, validated_data: OrderedDict) -> None:
     balance.groups.set(validated_data["groups"])
 
 
-def update_balance_API(balance_id: int, validated_data: OrderedDict) -> None:
+def update_balance_api(balance_id: int, validated_data: OrderedDict) -> None:
     balance = Balance.objects.filter(pk=balance_id)
     balance.update(
         name=validated_data["name"],

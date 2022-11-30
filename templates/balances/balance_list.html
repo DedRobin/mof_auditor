@@ -10,19 +10,32 @@
             </div>
 
             <div class="col-8">
-                <div class="d-flex flex-row justify-content-between py-2">
+                <div>
                     <h1 class="display-6 fw-bold">
                         My balances
                     </h1>
                 </div>
+                <div class="d-flex flex-row justify-content-between py-2">
+                    <div class="py-2">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#AddBalance-{{ balance.pub_id }}">
+                            Add balance
+                        </button>
+
+                    </div>
+
+                </div>
 
                 {% for balance in balances %}
                     <div>
-                        <div class="display-6">
+                        <div class="d-flex display-6 justify-content-between">
                             {{ balance.name }} ({{ balance.currency }})
+                            <div class="material-symbols-rounded">
+                                <a class="setting-setting" href="{{ balance.pub_id }}/">settings</a>
+                            </div>
                         </div>
 
-                    {% include 'balances/transaction_list.html' %}
+                        {% include 'balances/transaction_list.html' %}
 
                     </div>
                 {% endfor %}
@@ -34,5 +47,6 @@
 
         </div>
     </div>
+    {% include 'balances/balance_modal.html' %}
 {% endblock %}
 

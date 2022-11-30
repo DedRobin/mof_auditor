@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 
-from apps.balances.models import BalanceCurrency
+from apps.balances.models import BalanceCurrency, Balance
 
 
 class CurrencyConvertForm(forms.Form):
@@ -19,3 +19,9 @@ class CurrencyConvertForm(forms.Form):
     result = forms.CharField(
         required=False, widget=forms.TextInput(attrs={"readonly": "readonly"})
     )
+
+
+class BalanceForm(forms.ModelForm):
+    class Meta:
+        model = Balance
+        fields = ("name", "type", "currency", "private")
