@@ -26,6 +26,7 @@ urlpatterns = [
     path("auth/", include("apps.users.urls")),
     path("profile/", include("apps.profiles.urls")),
     path("groups/", include("apps.groups.urls")),
+    path("balances/", include("apps.balances.urls")),
     path("invitations/", include("apps.invitations.urls")),
     path("operations/", get_transactions, name="operation_list"),
     path("operations/export", export_operations, name="export_operations"),

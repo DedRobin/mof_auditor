@@ -1,0 +1,42 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">№</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Category name</th>
+        <th scope="col">Category type</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Created at</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+
+    {% for transaction in balance.transactions.all %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.category.name }}</td>
+            <td>{{ transaction.category.type }}</td>
+            <td>{{ transaction.comment }}</td>
+            <td>{{ transaction.created_at }}</td>
+            <td>
+                <form method="POST">
+                    <input name="transaction_id" value="{{ transaction.id }}" hidden>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="6 text-danger">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#AddTransaction-{{ balance.pub_id }}">
+                Add transaction
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+{% include 'groups/transaction_modal.html' %}

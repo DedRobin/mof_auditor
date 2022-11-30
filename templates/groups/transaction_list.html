@@ -23,7 +23,6 @@
                 {% if balance.owner == request.user %}
                     <form method="POST">
                         <input name="transaction_id" value="{{ transaction.id }}" hidden>
-                        <input name="balance_pub_id" value="{{ balance.pub_id }}" hidden>
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

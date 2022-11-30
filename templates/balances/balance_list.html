@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}MOF-Auditor{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col text-end">
+                <a href="{% url 'index' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+            </div>
+
+            <div class="col-8">
+                <div class="d-flex flex-row justify-content-between py-2">
+                    <h1 class="display-6 fw-bold">
+                        My balances
+                    </h1>
+                </div>
+
+                {% for balance in balances %}
+                    <div>
+                        <div class="display-6">
+                            {{ balance.name }}
+                        </div>
+
+                    {% include 'balances/transaction_list.html' %}
+
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="col">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+

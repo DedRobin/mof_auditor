@@ -1,9 +1,11 @@
 from collections import OrderedDict
+
+from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import QuerySet
 from django.http import QueryDict
 
 from apps.balances.models import Balance
-from apps.transactions.models import Transaction
+from apps.transactions.models import Transaction, TransactionCategory
 
 
 def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> QuerySet:
@@ -45,6 +47,25 @@ def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> Query
                 created_at__gte=from_date, created_at__lte=to_date
             )
     return queryset
+
+
+def create_transaction(request: WSGIRequest) -> None:
+    balance_pub_id = request.POST.get("balance_pub_id")
+    balance = Balance.objects.get(pub_id=balance_pub_id)
+    category = TransactionCategory.objects.get(pk=request.POST.get("category"))
+    amount = request.POST.get("amount")
+    comment = request.POST.get("comment")
+    Transaction.objects.create(
+        balance=balance,
+        category=category,
+        amount=amount,
+        comment=comment,
+    )
+
+
+def delete_transaction(request: WSGIRequest) -> None:
+    pk = request.POST.get("transaction_id")
+    Transaction.objects.get(pk=pk).delete()
 
 
 def create_transaction_API(balance_id: int, validated_data: OrderedDict) -> None:
