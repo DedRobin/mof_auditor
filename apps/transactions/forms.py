@@ -55,7 +55,7 @@ class TransactionFilterForm(forms.Form):
         required=False,
         widget=forms.DateTimeInput(
             attrs={
-                "placeholder": "YYYY-MM-DD HH:MM",
+                "type": "datetime-local",
             },
             format="%Y-%m-%d %H:%M",
         ),
@@ -64,7 +64,7 @@ class TransactionFilterForm(forms.Form):
         required=False,
         widget=forms.DateTimeInput(
             attrs={
-                "placeholder": "YYYY-MM-DD HH:MM",
+                "type": "datetime-local",
             },
             format="%Y-%m-%d %H:%M",
         ),
