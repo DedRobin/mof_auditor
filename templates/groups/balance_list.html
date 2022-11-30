@@ -17,15 +17,18 @@
                 </div>
 
                 {% for balance in group.balances.all %}
-                    <div>
-                        <div class="display-6">
-                            {{ balance.name }}
-                            (Owner:
-                            {{ balance.owner.profile.first_name }}
-                            {{ balance.owner.profile.last_name }})
+                    {% if not balance.private or balance.owner == request.user %}
+                        <div>
+                            <div class="display-6">
+                                {{ balance.name }}
+                                (Owner:
+                                {{ balance.owner.profile.first_name }}
+                                {{ balance.owner.profile.last_name }} -
+                                {{ balance.owner.username }})
+                            </div>
+                            {% include 'groups/transaction_list.html' %}
                         </div>
-                        {% include 'groups/transaction_list.html' %}
-                    </div>
+                    {% endif %}
                 {% endfor %}
 
             </div>
