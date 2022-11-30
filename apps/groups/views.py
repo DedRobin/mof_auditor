@@ -60,7 +60,16 @@ def create_group(request):
             group = Group.objects.create(
                 group_info=group_info,
             )
+            # Added user as invited
             group.invited_users.add(user)
+
+            # Added permissions
+            permission_types = PermissionType.objects.all()
+            permission = Permission.objects.create(
+                group=group,
+                user=user
+            )
+            permission.types.set(permission_types)
             return redirect("index")
     else:
         form = CreateGroupInformationForm()
@@ -76,13 +85,15 @@ def group_settings(request, pub_id):
     # Checks update permission
     update_is_allowed = False
     delete_is_allowed = False
-    permissions = group.permissions.filter(user=request.user)[0]
-    update_type = PermissionType.objects.get(name="update")
-    delete_type = PermissionType.objects.get(name="delete")
-    if update_type in permissions.types.all():
-        update_is_allowed = True
-    if delete_type in permissions.types.all():
-        delete_is_allowed = True
+    permissions = group.permissions.filter(user=request.user)
+    if len(permissions):
+        permissions = permissions[0]
+        update_type = PermissionType.objects.get(name="update")
+        delete_type = PermissionType.objects.get(name="delete")
+        if update_type in permissions.types.all():
+            update_is_allowed = True
+        if delete_type in permissions.types.all():
+            delete_is_allowed = True
 
     data = {
         "group_name": group_name,
