@@ -7,10 +7,16 @@ from apps.groups.views import (
     group_members,
     group_privacy,
     delete_group,
+    balance_and_transaction_list,
 )
 
 urlpatterns = [
     path("create/", create_group, name="create_group"),
+    path(
+        "<str:pub_id>/",
+        balance_and_transaction_list,
+        name="balance_and_transaction_list",
+    ),
     path("<str:pub_id>/settings/", group_settings, name="group_settings"),
     path("<str:pub_id>/settings/editing/", edit_group, name="group_editing"),
     path("<str:pub_id>/settings/privacy/", group_privacy, name="group_privacy"),

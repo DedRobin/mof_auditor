@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from apps.groups.models import Group
 from apps.transactions.import_export_resources import TransactionResource
 from apps.transactions.models import (
     Transaction,

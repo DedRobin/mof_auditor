@@ -12,5 +12,4 @@ urlpatterns = [
         name="particular_transaction",
     ),
     path("download/", DownloadTransactionAPI.as_view({"get": "list"}), name="download"),
-
 ]

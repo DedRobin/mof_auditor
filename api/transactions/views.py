@@ -75,10 +75,10 @@ class DownloadTransactionAPI(XLSXFileMixin, TransactionViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     renderer_classes = (XLSXRenderer,)
-    filename = 'transactions.xlsx'
+    filename = "transactions.xlsx"
 
     column_header = {
-        'titles': [
+        "titles": [
             # "id",
             "amount",
             "category",

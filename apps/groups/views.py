@@ -1,11 +1,49 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from apps.balances.models import Balance
+from apps.transactions.models import Transaction, TransactionCategory
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 from apps.permissions.models import Permission, PermissionType
 from apps.groups.services import get_users_and_permission_type
+from apps.transactions.forms import TransactionForm
+
+
+def balance_and_transaction_list(request, pub_id):
+    group = Group.objects.get(pub_id=pub_id)
+    if request.method == "POST":
+
+        # Create new transaction
+        if request.POST.get("balance_pub_id"):
+            balance_pub_id = request.POST.get("balance_pub_id")
+            balance = Balance.objects.get(pub_id=balance_pub_id)
+            if balance.owner == request.user:
+                category = TransactionCategory.objects.get(pk=request.POST.get("category"))
+                amount = request.POST.get("amount")
+                comment = request.POST.get("comment")
+                Transaction.objects.create(
+                    balance=balance,
+                    category=category,
+                    amount=amount,
+                    comment=comment,
+                )
+
+        # Delete specific transaction
+        if request.POST.get("transaction_id"):
+            balance_pub_id = request.POST.get("balance_pub_id")
+            balance = Balance.objects.get(pub_id=balance_pub_id)
+            if balance.owner == request.user:
+                pk = request.POST.get("transaction_id")
+                Transaction.objects.get(pk=pk).delete()
+
+    form = TransactionForm()
+    data = {
+        "group": group,
+        "form": form,
+    }
+    return render(request, "groups/balance_list.html", data)
 
 
 @login_required
@@ -50,7 +88,7 @@ def group_settings(request, pub_id):
         "group_name": group_name,
         "update_is_allowed": update_is_allowed,
         "delete_is_allowed": delete_is_allowed,
-        "owner": owner
+        "owner": owner,
     }
     return render(request, "groups/settings/settings.html", data)
 
