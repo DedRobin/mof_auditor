@@ -186,3 +186,9 @@ def group_privacy(request, pub_id):
     }
 
     return render(request, "groups/settings/privacy/privacy.html", data)
+
+
+def leave_group(request, pub_id):
+    group = Group.objects.get(pub_id=pub_id)
+    group.invited_users.remove(request.user)
+    return redirect("index")
