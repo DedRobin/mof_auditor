@@ -19,7 +19,7 @@
                 {% for balance in balances %}
                     <div>
                         <div class="display-6">
-                            {{ balance.name }}
+                            {{ balance.name }} ({{ balance.currency }})
                         </div>
 
                     {% include 'balances/transaction_list.html' %}
