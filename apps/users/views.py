@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 
-from apps.balances.models import BalanceCurrency
 from apps.users.forms import RegisterForm, LoginForm
 from apps.users.models import User
 from apps.profiles.models import Profile

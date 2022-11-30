@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from apps.balances.models import Balance
 from apps.transactions.forms import TransactionForm
 from apps.transactions.services import create_transaction, delete_transaction
 
 
+@login_required
 def balance_list(request):
     balances = Balance.objects.filter(owner=request.user)
 

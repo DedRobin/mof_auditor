@@ -174,7 +174,7 @@ REST_FRAMEWORK = {
     ),
 }
 # Basic redirect to URL if user is not authenticated
-LOGIN_URL = "/auth/login"
+LOGIN_URL = "/auth/login/"
 
 # Transaction display settings
 MAX_DIGITS = 19

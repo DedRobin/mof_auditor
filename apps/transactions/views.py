@@ -10,8 +10,10 @@ from apps.transactions.models import (
 )
 from apps.transactions.forms import TransactionFilterForm
 from apps.transactions.services import get_sorted_transactions
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def get_transactions(request):
     transactions = Transaction.objects.filter(balance__owner=request.user)
     query_param = None
@@ -28,6 +30,7 @@ def get_transactions(request):
     return render(request, "operations/operation_list.html", data)
 
 
+@login_required
 def export_operations(request):
     filters = request.GET
     filters = filters.dict()

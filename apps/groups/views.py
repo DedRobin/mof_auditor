@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from apps.balances.models import Balance
-from apps.transactions.models import Transaction, TransactionCategory
 from apps.transactions.services import create_transaction, delete_transaction
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group
@@ -12,6 +10,7 @@ from apps.groups.services import get_users_and_permission_type
 from apps.transactions.forms import TransactionForm
 
 
+@login_required
 def balance_and_transaction_list(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     if request.method == "POST":
@@ -188,6 +187,7 @@ def group_privacy(request, pub_id):
     return render(request, "groups/settings/privacy/privacy.html", data)
 
 
+@login_required
 def leave_group(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group.invited_users.remove(request.user)

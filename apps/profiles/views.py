@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from apps.users.models import User
 from apps.profiles.models import Profile
 from apps.profiles.forms import ProfileForm
 
 
+@login_required
 def edit_profile(request):
     user = User.objects.get(username=request.user)
 
