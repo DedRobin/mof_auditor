@@ -4,11 +4,10 @@
 
 {% block content %}
 
-
     {% if not request.user.is_authenticated %}
         {% include 'profile/login.html' %}
     {% else %}
-        {% include 'user_page.html' %}
+        {% include 'start_page/user_page.html' %}
     {% endif %}
 
 {% endblock %}
