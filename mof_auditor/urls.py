@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from apps.transactions.views import get_transactions, export_operations
-from apps.users.views import index  # , test_view
+from apps.users.views import index
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -30,6 +30,4 @@ urlpatterns = [
     path("invitations/", include("apps.invitations.urls")),
     path("operations/", get_transactions, name="operation_list"),
     path("operations/export", export_operations, name="export_operations"),
-    # Test URls
-    # path("test/test/", test_view, name="test_view"),
 ]

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     # other
     "import_export",
+    "drf_yasg",
     # apps
     "apps.users",
     "apps.profiles",
