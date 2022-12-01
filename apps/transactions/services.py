@@ -51,10 +51,14 @@ def get_sorted_transactions(queryset: QuerySet, query_param: QueryDict) -> Query
 
 def create_transaction(request: WSGIRequest) -> None:
     balance_pub_id = request.POST.get("balance_pub_id")
+
+    # Values
     balance = Balance.objects.get(pub_id=balance_pub_id)
     category = TransactionCategory.objects.get(pk=request.POST.get("category"))
     amount = request.POST.get("amount")
     comment = request.POST.get("comment")
+
+    # Create transaction
     Transaction.objects.create(
         balance=balance,
         category=category,
@@ -68,7 +72,7 @@ def delete_transaction(request: WSGIRequest) -> None:
     Transaction.objects.get(pk=pk).delete()
 
 
-def create_transaction_API(balance_id: int, validated_data: OrderedDict) -> None:
+def create_transaction_api(balance_id: int, validated_data: OrderedDict) -> None:
     balance = Balance.objects.get(pk=balance_id)
     Transaction.objects.create(
         balance=balance,
@@ -78,7 +82,7 @@ def create_transaction_API(balance_id: int, validated_data: OrderedDict) -> None
     )
 
 
-def update_transaction_API(transaction_id: str, validated_data: OrderedDict) -> None:
+def update_transaction_api(transaction_id: str, validated_data: OrderedDict) -> None:
     transaction = Transaction.objects.filter(pk=transaction_id)
     transaction.update(
         amount=validated_data["amount"],

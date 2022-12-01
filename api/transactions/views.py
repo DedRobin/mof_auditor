@@ -10,8 +10,8 @@ from apps.transactions.models import Transaction
 
 from api.transactions.serializers import TransactionSerializer
 from apps.transactions.services import (
-    create_transaction_API,
-    update_transaction_API,
+    create_transaction_api,
+    update_transaction_api,
     get_sorted_transactions,
 )
 
@@ -45,7 +45,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        create_transaction_API(
+        create_transaction_api(
             balance_id=kwargs.get("pk"), validated_data=serializer.validated_data
         )
 
@@ -56,7 +56,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         transaction_id = kwargs.get("transaction_id")
 
-        update_transaction_API(
+        update_transaction_api(
             transaction_id=transaction_id,
             validated_data=serializer.validated_data,
         )

@@ -28,7 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
     #     serializer = self.get_serializer(data=request.data)
     #     serializer.is_valid(raise_exception=True)
     #
-    #     create_transaction_API(
+    #     create_transaction_api(
     #         balance_id=kwargs.get("pk"), validated_data=serializer.validated_data
     #     )
     #
@@ -39,7 +39,7 @@ class UserViewSet(viewsets.ModelViewSet):
     #     serializer.is_valid(raise_exception=True)
     #     transaction_id = kwargs.get("transaction_id")
     #
-    #     update_transaction_API(
+    #     update_transaction_api(
     #         transaction_id=transaction_id,
     #         validated_data=serializer.validated_data,
     #     )
