@@ -1,14 +1,15 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 from apps.users.models import User
-from apps.groups.models import Group, GroupInformation, Permission
+from apps.groups.models import Group, GroupInformation
+from apps.permissions.models import Permission
 
 
 class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
 
-    username = factory.Faker("word")
+    username = factory.Faker("user_name")
     password = factory.Faker("md5")
 
 

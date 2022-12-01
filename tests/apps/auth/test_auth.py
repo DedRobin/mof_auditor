@@ -18,18 +18,18 @@ class TestViews:
     def test_index(self):
         response = self.client.get("/")
         assert response.status_code == 302
-        assert response.url == "/login?next=/"
+        assert response.url == "/auth/login?next=/"
 
     def test_register_login_logout(self):
         data = {
-            "username": self.fake.word(),
+            "username": self.fake.user_name(),
             "password": self.fake.md5(),
         }
-        response = self.client.get("/register/")
+        response = self.client.get("/auth/register/")
         assert response.status_code == 200
-        response = self.client.post("/register/", data=data)
+        response = self.client.post("/auth/register/", data=data)
         assert response.status_code == 302
-        assert response.url == "/login/"
+        assert response.url == "/auth/login/"
 
         response = self.client.get("/login/")
         assert response.status_code == 200
