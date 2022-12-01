@@ -6,7 +6,7 @@ from apps.users.models import User
 from apps.groups.models import GroupInformation, Group
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 from apps.permissions.models import Permission, PermissionType
-from apps.groups.services import get_users_and_permission_type
+from apps.groups.services import get_users_and_permission_type, delete_invited_user_from_group
 from apps.transactions.forms import TransactionForm
 
 
@@ -139,6 +139,11 @@ def group_members(request, pub_id):
     group = Group.objects.get(pub_id=pub_id)
     group_name = group.group_info.name
     invited_users = group.invited_users.all()
+
+    if request.method == "POST":
+        # Delete invited user
+        delete_invited_user_from_group(request=request, group=group)
+
     data = {
         "group_name": group_name,
         "invited_users": invited_users,

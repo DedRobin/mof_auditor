@@ -1,13 +1,16 @@
 from collections import OrderedDict
+
+from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import QuerySet
 from django.http.request import QueryDict
 from rest_framework.request import Request
 from typing import Tuple
 
 from apps.groups.models import GroupInformation, Group
+from apps.users.models import User
 
 
 def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[list, str]:
-    permission_query_dict = permission_query_dict
     users = []
     permission_type = "read"
 
@@ -30,7 +33,7 @@ def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[lis
     return users, permission_type
 
 
-def create_group_API(request: Request, validated_data: OrderedDict) -> None:
+def create_group_api(request: Request, validated_data: OrderedDict) -> None:
     group_info = GroupInformation.objects.create(
         owner=request.user,
         name=validated_data["group_info"]["name"],
@@ -42,7 +45,7 @@ def create_group_API(request: Request, validated_data: OrderedDict) -> None:
     group.invited_users.set(validated_data["invited_users"])
 
 
-def update_group_API(group_id: int, validated_data: OrderedDict) -> None:
+def update_group_api(group_id: int, validated_data: OrderedDict) -> None:
     group = Group.objects.get(pk=group_id)
     group_info = group.group_info
 
@@ -53,3 +56,9 @@ def update_group_API(group_id: int, validated_data: OrderedDict) -> None:
 
     # Updates invited users
     group.invited_users.set(validated_data["invited_users"])
+
+
+def delete_invited_user_from_group(request: WSGIRequest, group: Group) -> None:
+    username = request.POST.get("invited_user")
+    user = User.objects.get(username=username)
+    group.invited_users.remove(user)
