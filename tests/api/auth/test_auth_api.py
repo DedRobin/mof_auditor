@@ -25,12 +25,12 @@ class TestViews:
         register_data = {
             "username": self.fake.user_name(),
             "password": self.fake.md5(),
-            "gender": random.choice(gender_choice),
+            "gender": random.choice(["male", "female"]),
             "email": self.fake.email(),
             "first_name": self.fake.first_name(),
             "last_name": self.fake.last_name(),
         }
-        response = self.client.post("/api/auth/register/", data=register_data, content_type="application/json")
+        response = self.client.post("/api/auth/register/", data=register_data)
         assert response.status_code == 201
 
     def test_login(self):
@@ -41,11 +41,11 @@ class TestViews:
             "username": self.fake.user_name(),
             "password": self.fake.md5(),
             "email": self.fake.email(),
-            "gender": random.choice(gender_choice),
+            "gender": random.choice(["male", "female"]),
             "first_name": self.fake.first_name(),
             "last_name": self.fake.last_name(),
         }
-        response = self.client.post("/api/auth/register/", data=data_register, content_type="application/json")
+        response = self.client.post("/api/auth/register/", data=data_register)
         assert response.status_code == 201
 
         data_login = {
