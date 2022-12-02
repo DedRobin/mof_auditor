@@ -1,9 +1,12 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
+
+from apps.balances.models import Balance, BalanceCurrency
 from apps.users.models import User
 from apps.groups.models import Group, GroupInformation
 from apps.profiles.models import Profile, GENDER_CHOICE
 from apps.permissions.models import Permission
+from apps.balances.models import BALANCE_TYPE_CHOICE, BALANCE_PRIVATE_CHOICE
 
 
 class UserFactory(DjangoModelFactory):
@@ -25,13 +28,12 @@ class ProfileFactory(DjangoModelFactory):
     last_name = factory.Faker("last_name")
 
 
-class PermissionFactory(DjangoModelFactory):
+class BalanceCurrencyFactory(DjangoModelFactory):
     class Meta:
-        model = Permission
+        model = BalanceCurrency
 
-    name = factory.Faker("word")
-    codename = factory.Faker("word")
-    users = factory.SubFactory(UserFactory)
+    name = factory.Faker("currency_name")
+    codename = factory.Faker("currency_code")
 
 
 class GroupInformationFactory(DjangoModelFactory):
@@ -43,6 +45,15 @@ class GroupInformationFactory(DjangoModelFactory):
     description = factory.Faker("sentence")
 
 
+class PermissionFactory(DjangoModelFactory):
+    class Meta:
+        model = Permission
+
+    name = factory.Faker("word")
+    codename = factory.Faker("word")
+    users = factory.SubFactory(UserFactory)
+
+
 class GroupFactory(DjangoModelFactory):
     class Meta:
         model = Group
@@ -52,21 +63,13 @@ class GroupFactory(DjangoModelFactory):
     invited_users = factory.SubFactory(UserFactory)
     permissions = factory.SubFactory(PermissionFactory)
 
-#
-#
-# class ProductFactory(DjangoModelFactory):
-#     class Meta:
-#         model = Product
-#
-#     title = factory.Faker('company')
-#     cost = factory.Faker("pyint", min_value=50, max_value=150)
-#     color = factory.fuzzy.FuzzyChoice(dict(COLOR_CHOICES).keys())
-#
-#
-# class PurchaseFactory(DjangoModelFactory):
-#     class Meta:
-#         model = Purchase
-#
-#     user = factory.SubFactory(UserFactory)
-#     product = factory.SubFactory(ProductFactory)
-#     count = factory.Faker("pyint", min_value=1, max_value=5)
+
+class BalanceFactory(DjangoModelFactory):
+    class Meta:
+        model = Balance
+
+    name = f"Balance №{factory.Faker('random_number')}"
+    owner = factory.SubFactory(UserFactory)
+    type = factory.fuzzy.FuzzyChoice(dict(BALANCE_TYPE_CHOICE).keys())
+    private = factory.Faker("pybool")
+    # groups =
