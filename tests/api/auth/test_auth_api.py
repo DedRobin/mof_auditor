@@ -3,10 +3,7 @@ import random
 from django.test.client import Client
 from faker import Faker
 
-from apps.profiles.models import GENDER_CHOICE
 from tests.factories import UserFactory
-
-gender_choice = [x[0] for x in GENDER_CHOICE]
 
 
 @pytest.mark.django_db

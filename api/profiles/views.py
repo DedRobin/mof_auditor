@@ -5,7 +5,7 @@ from rest_framework.generics import UpdateAPIView, get_object_or_404
 
 from apps.profiles.models import Profile
 from api.profiles.serializers import ProfileSerializer
-from apps.profiles.services import update_profile_API
+from apps.profiles.services import update_profile_api
 
 
 class ProfileUpdateAPI(UpdateAPIView):
@@ -22,6 +22,6 @@ class ProfileUpdateAPI(UpdateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        update_profile_API(user=self.request.user, validated_data=serializer.data)
+        update_profile_api(user=self.request.user, validated_data=serializer.data)
 
         return Response(status=status.HTTP_200_OK, data=serializer.data)

@@ -2,6 +2,7 @@ import factory.fuzzy
 from factory.django import DjangoModelFactory
 from apps.users.models import User
 from apps.groups.models import Group, GroupInformation
+from apps.profiles.models import Profile, GENDER_CHOICE
 from apps.permissions.models import Permission
 
 
@@ -11,6 +12,17 @@ class UserFactory(DjangoModelFactory):
 
     username = factory.Faker("user_name")
     password = factory.Faker("md5")
+
+
+class ProfileFactory(DjangoModelFactory):
+    class Meta:
+        model = Profile
+
+    user = factory.SubFactory(UserFactory)
+    email = factory.Faker("email")
+    gender = factory.fuzzy.FuzzyChoice(dict(GENDER_CHOICE).keys())
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
 
 
 class PermissionFactory(DjangoModelFactory):
@@ -39,7 +51,6 @@ class GroupFactory(DjangoModelFactory):
     pub_id = factory.Faker("md5")
     invited_users = factory.SubFactory(UserFactory)
     permissions = factory.SubFactory(PermissionFactory)
-
 
 #
 #
