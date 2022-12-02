@@ -1,3 +1,4 @@
 .idea
 apps/users/__pycache__/
 .env
+tests/my_file.py
