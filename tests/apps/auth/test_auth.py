@@ -31,12 +31,10 @@ class TestViews:
         assert response.status_code == 302
         assert response.url == "/auth/login/"
 
-        response = self.client.get("/login/")
-        assert response.status_code == 200
-        response = self.client.post("/login/", data=data)
+        response = self.client.post("/auth/login/", data=data)
         assert response.status_code == 302
         assert response.url == "/"
 
-        response = self.client.get("/logout/")
+        response = self.client.get("/auth/logout/")
         assert response.status_code == 302
-        assert response.url == "/login/"
+        assert response.url == "/auth/login/"
