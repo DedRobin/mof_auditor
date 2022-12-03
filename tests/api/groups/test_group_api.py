@@ -2,7 +2,8 @@ import pytest
 from django.test.client import Client
 from faker import Faker
 
-from tests.factories import UserFactory, BalanceCurrencyFactory, BalanceFactory
+from apps.users.factories import UserFactory
+from apps.balances.factories import BalanceCurrencyFactory, BalanceFactory
 
 
 @pytest.mark.django_db

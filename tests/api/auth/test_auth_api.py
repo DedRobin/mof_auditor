@@ -3,7 +3,7 @@ import random
 from django.test.client import Client
 from faker import Faker
 
-from tests.factories import UserFactory
+from apps.users.factories import UserFactory
 
 
 @pytest.mark.django_db

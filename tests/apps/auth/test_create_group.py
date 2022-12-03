@@ -2,8 +2,8 @@ import pytest
 
 from django.test.client import Client
 from faker import Faker
-from tests.factories import GroupInformationFactory
-from tests.factories import *
+from apps.groups.factories import GroupInformationFactory
+from apps.users.factories import UserFactory
 
 
 @pytest.mark.django_db

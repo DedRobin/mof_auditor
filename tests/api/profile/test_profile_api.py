@@ -3,7 +3,8 @@ import random
 from django.test.client import Client
 from faker import Faker
 
-from tests.factories import UserFactory, ProfileFactory
+from apps.users.factories import UserFactory
+from apps.profiles.factories import ProfileFactory
 from apps.profiles.models import GENDER_CHOICE
 
 
