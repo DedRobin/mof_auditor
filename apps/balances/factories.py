@@ -17,8 +17,9 @@ class BalanceFactory(DjangoModelFactory):
     class Meta:
         model = Balance
 
-    name = f"Balance №{factory.Faker('random_number')}"
+    name = factory.Faker("random_number")
     owner = factory.SubFactory(UserFactory)
     type = factory.fuzzy.FuzzyChoice(dict(BALANCE_TYPE_CHOICE).keys())
+    currency = factory.SubFactory(BalanceCurrencyFactory)
     private = factory.Faker("pybool")
     # groups =

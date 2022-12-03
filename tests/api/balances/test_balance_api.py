@@ -12,13 +12,13 @@ class TestViews:
         self.user = UserFactory()
         self.fake = Faker()
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_balances_get(self):
         self.client.force_login(self.user)
-        BalanceCurrencyFactory()
-        BalanceFactory.build_batch(5)
-        response = self.client.get("/balances/")
+        BalanceFactory.create_batch(size=5, owner=self.user)
+        response = self.client.get("/api/balances/")
         assert response.status_code == 200
+        assert response.data["count"] == 5
 
     @pytest.mark.skip
     def test_balances_post(self):
