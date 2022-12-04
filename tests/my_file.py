@@ -2,4 +2,4 @@ from faker import Faker
 
 fake = Faker()
 
-print(fake.currency(), type(fake.currency()))
+print(fake.pydecimal())

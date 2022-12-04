@@ -9,8 +9,10 @@ class BalanceCurrencyFactory(DjangoModelFactory):
     class Meta:
         model = BalanceCurrency
 
-    name = factory.Faker("currency_name")
-    codename = factory.Faker("currency_code")
+    # name = factory.Faker("currency_name")
+    # codename = factory.Faker("currency_code")
+    name = "Belorussian Ruble"
+    codename = "BYN"
 
 
 class BalanceFactory(DjangoModelFactory):
