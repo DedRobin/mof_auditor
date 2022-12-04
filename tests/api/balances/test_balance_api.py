@@ -23,7 +23,7 @@ class TestViews:
         assert response.status_code == 200
         assert response.data["count"] == 5
 
-    # @pytest.mark.skip
+    @pytest.mark.skip
     def test_balances_post(self):
         self.client.force_login(self.user)
         data = {
