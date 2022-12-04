@@ -21,8 +21,7 @@ TRANSACTION_TYPE_CHOICE = (
 
 class TransactionForm(forms.Form):
     category = forms.ModelChoiceField(
-        queryset=TransactionCategory.objects.all(),
-        required=False
+        queryset=TransactionCategory.objects.all(), required=False
     )
     amount = forms.DecimalField(
         max_digits=settings.MAX_DIGITS,

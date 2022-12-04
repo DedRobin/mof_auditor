@@ -6,7 +6,10 @@ from apps.users.models import User
 from apps.groups.models import GroupInformation, Group
 from apps.groups.forms import CreateGroupInformationForm, EditGroupInformationForm
 from apps.permissions.models import Permission, PermissionType
-from apps.groups.services import get_users_and_permission_type, delete_invited_user_from_group
+from apps.groups.services import (
+    get_users_and_permission_type,
+    delete_invited_user_from_group,
+)
 from apps.transactions.forms import TransactionForm
 
 
@@ -50,10 +53,7 @@ def create_group(request):
 
             # Added permissions
             permission_types = PermissionType.objects.all()
-            permission = Permission.objects.create(
-                group=group,
-                user=user
-            )
+            permission = Permission.objects.create(group=group, user=user)
             permission.types.set(permission_types)
             return redirect("index")
     else:

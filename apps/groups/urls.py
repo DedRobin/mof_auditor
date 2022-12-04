@@ -7,7 +7,8 @@ from apps.groups.views import (
     group_members,
     group_privacy,
     delete_group,
-    balance_and_transaction_list, leave_group,
+    balance_and_transaction_list,
+    leave_group,
 )
 
 urlpatterns = [

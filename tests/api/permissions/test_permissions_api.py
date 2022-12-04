@@ -22,13 +22,16 @@ class TestViews:
             "read": self.permission_type_read,
             "create": self.permission_type_create,
             "update": self.permission_type_update,
-            "delete": self.permission_type_delete
+            "delete": self.permission_type_delete,
         }
 
     # @pytest.mark.skip
     def test_balances_post(self):
         self.client.force_login(self.user)
-        PermissionFactory.create(user=self.user, types=(self.permission_type_read, self.permission_type_update))
+        PermissionFactory.create(
+            user=self.user,
+            types=(self.permission_type_read, self.permission_type_update),
+        )
 
         response = self.client.get("/api/permissions/")
         print()

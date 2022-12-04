@@ -1,7 +1,11 @@
 import factory.fuzzy
 from factory.django import DjangoModelFactory
 
-from apps.transactions.models import TransactionCategory, Transaction, TRANSACTION_TYPE_CHOICE
+from apps.transactions.models import (
+    TransactionCategory,
+    Transaction,
+    TRANSACTION_TYPE_CHOICE,
+)
 from apps.balances.factories import BalanceFactory
 from apps.users.factories import UserFactory
 

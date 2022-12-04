@@ -10,7 +10,7 @@ from apps.balances.models import Balance, BalanceCurrency
 
 
 def get_currency_convert_result(
-        from_amount: Decimal, from_currency: str, to_currency: str
+    from_amount: Decimal, from_currency: str, to_currency: str
 ) -> Decimal:
     url = "https://api.apilayer.com/exchangerates_data/convert?to={0}&from={1}&amount={2}".format(
         to_currency, from_currency, from_amount

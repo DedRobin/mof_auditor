@@ -11,7 +11,9 @@ from apps.profiles.models import GENDER_CHOICE
 @pytest.mark.django_db
 class TestViews:
     def setup_method(self):
-        self.random_gender = random.choice([codename for codename, name in GENDER_CHOICE if codename is not None])
+        self.random_gender = random.choice(
+            [codename for codename, name in GENDER_CHOICE if codename is not None]
+        )
         self.client = Client()
         self.user = UserFactory()
         self.fake = Faker()
@@ -39,7 +41,9 @@ class TestViews:
         }
         content_type = "application/json"
 
-        response = self.client.put("/api/profile/", data=data, content_type=content_type)
+        response = self.client.put(
+            "/api/profile/", data=data, content_type=content_type
+        )
         assert response.status_code == 200
         assert response.data["gender"] == data["gender"]
         assert response.data["email"] == data["email"]
