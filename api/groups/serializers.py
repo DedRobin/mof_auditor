@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import serializers
 
 from apps.users.models import User
@@ -28,4 +29,4 @@ class CustomGroupSerializer(serializers.PrimaryKeyRelatedField):
         queryset = super(CustomGroupSerializer, self).get_queryset()
         if not request or not queryset:
             return None
-        return queryset.filter(group_info__owner=request.user)
+        return queryset.filter(Q(group_info__owner=request.user) | Q(invited_users=request.user))
