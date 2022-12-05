@@ -2,4 +2,4 @@ from faker import Faker
 
 fake = Faker()
 
-print(fake.pydecimal())
+print(fake.paragraphs())
