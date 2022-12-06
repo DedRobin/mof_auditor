@@ -1,4 +1,5 @@
 import ulid
+from decimal import Decimal
 from django.db import models
 
 from apps.users.models import User
@@ -50,7 +51,7 @@ class Balance(models.Model):
         if len(transactions):
             total = sum(transactions.amount for transactions in transactions)
             return total
-        return 0
+        return Decimal("0")
 
     def for_groups(self):
         return ", ".join(group.group_info.name for group in self.groups.all())

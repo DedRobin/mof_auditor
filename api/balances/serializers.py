@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.conf import settings
 
 from apps.balances.models import BALANCE_TYPE_CHOICE
 from apps.balances.models import BalanceCurrency
@@ -21,7 +22,9 @@ class BalanceSerializer(serializers.Serializer):
         queryset=BalanceCurrency.objects.all(),
     )
     private = serializers.BooleanField()
-    total = serializers.IntegerField(read_only=True)
+    total = serializers.DecimalField(
+        max_digits=settings.MAX_DIGITS,
+        decimal_places=settings.DECIMAL_PLACES, )
     groups = CustomGroupSerializer(
         queryset=Group.objects.all(), many=True, required=False
     )

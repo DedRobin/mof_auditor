@@ -9,7 +9,6 @@ TRANSACTION_TYPE_CHOICE = (
     ("expense", "Expense"),
 )
 
-
 class TransactionCategory(models.Model):
     name = models.CharField(max_length=255)
     type = models.CharField(

@@ -30,14 +30,6 @@ class TestViews:
         self.client.force_login(self.user)
 
     # @pytest.mark.skip
-    def test_balances_get(self):
-        """"""
-
-        response = self.client.get("/api/balances/")
-        assert response.status_code == 200
-        assert response.data["count"] == 5
-
-    # @pytest.mark.skip
     def test_balances_post_with_different_currency_types(self):
         """Creating balances with different types"""
         balance_types = [codename for codename, name in BALANCE_TYPE_CHOICE]
