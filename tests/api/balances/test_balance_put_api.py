@@ -33,7 +33,6 @@ class TestViews:
         assert response.data["name"] == self.balance.name
         assert response.data["owner"] == self.balance.owner.username
         assert response.data["type"] == self.balance.type
-        assert response.data["type"] == self.balance.type
         assert response.data["currency"] == self.balance.currency.id
         assert Decimal(response.data["total"]) == self.total
         assert len(response.data["groups"]) == len(self.balance.groups.all())
