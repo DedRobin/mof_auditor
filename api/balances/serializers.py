@@ -24,7 +24,9 @@ class BalanceSerializer(serializers.Serializer):
     private = serializers.BooleanField()
     total = serializers.DecimalField(
         max_digits=settings.MAX_DIGITS,
-        decimal_places=settings.DECIMAL_PLACES, )
+        decimal_places=settings.DECIMAL_PLACES,
+        required=False
+    )
     groups = CustomGroupSerializer(
         queryset=Group.objects.all(), many=True, required=False
     )
