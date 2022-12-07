@@ -21,9 +21,9 @@ class PermissionsViewSet(viewsets.ModelViewSet):
             return permission
 
         if user_id:
-            permissions = Permission.objects.filter(user=user_id, group=group_id)
+            permissions = Permission.objects.filter(user=user_id, group=group_id).order_by("id")
         else:
-            permissions = Permission.objects.filter(user=self.request.user)
+            permissions = Permission.objects.filter(user=self.request.user).order_by("id")
 
         return permissions
 
