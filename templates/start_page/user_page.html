@@ -15,7 +15,7 @@
 
                 {% for group in user_groups %}
                     <div class="d-flex flex-row justify-content-between py-2">
-                        <a href="groups/{{ group.pub_id }}/" class="btn btn-secondary display-6 fs-2">
+                        <a href="{{ group.get_absolute_url }}" class="btn btn-secondary display-6 fs-2">
                             {{ forloop.counter }})
                             {{ group.group_info.name }}
                             (Owner: {{ group.group_info.owner.profile.first_name }}
@@ -23,7 +23,7 @@
                             {{ group.group_info.owner.username }})
                         </a>
                         <div class="material-symbols-rounded">
-                            <a class="setting-setting" href="groups/{{ group.pub_id }}/settings/">settings</a>
+                            <a class="setting-setting" href="{{ group.get_absolute_url }}settings/">settings</a>
                         </div>
                     </div>
                     {% include 'start_page/user_groups.html' %}
