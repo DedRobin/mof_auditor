@@ -23,7 +23,7 @@ class GroupSerializer(serializers.Serializer):
     )
 
 
-class CustomGroupSerializer(serializers.PrimaryKeyRelatedField):
+class CustomGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSerializer):
     def get_queryset(self):
         request = self.context.get("request", None)
         queryset = super(CustomGroupSerializer, self).get_queryset()
