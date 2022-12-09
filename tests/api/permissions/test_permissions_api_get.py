@@ -5,7 +5,6 @@ from faker import Faker
 from apps.users.factories import UserFactory
 from apps.permissions.factories import PermissionFactory, PermissionTypeFactory
 from apps.groups.factories import GroupFactory
-from apps.permissions.models import Permission
 
 
 @pytest.mark.django_db
@@ -37,3 +36,13 @@ class TestViews:
         assert response.data["count"] == 2
         assert response.data["results"][0]["types"] == [self.permission_types["read"].id,
                                                         self.permission_types["create"].id]
+
+    # @pytest.mark.skip
+    def test_permission_get_one_note(self):
+        """Getting all user permissions"""
+
+        permission = PermissionFactory(user=self.user, group=self.user_group)
+
+        response = self.client.get(f"/api/permissions/{permission.id}/")
+        assert response.status_code == 200
+        assert response.data["id"] == permission.id
