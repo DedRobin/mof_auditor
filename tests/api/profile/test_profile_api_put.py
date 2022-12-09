@@ -18,19 +18,9 @@ class TestViews:
         self.user = UserFactory()
         self.fake = Faker()
 
-    def test_profile_get(self):
         self.client.force_login(self.user)
-        ProfileFactory(user=self.user)
-
-        response = self.client.get("/api/profile/")
-        assert response.status_code == 200
-        assert response.data["email"] == self.user.profile.email
-        assert response.data["gender"] == self.user.profile.gender
-        assert response.data["first_name"] == self.user.profile.first_name
-        assert response.data["last_name"] == self.user.profile.last_name
 
     def test_profile_put(self):
-        self.client.force_login(self.user)
         ProfileFactory(user=self.user)
 
         data = {
