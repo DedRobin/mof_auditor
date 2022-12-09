@@ -18,9 +18,13 @@ class TestViews:
     def test_group_post(self):
         """Create new group"""
 
+        invited_users = UserFactory.create_batch(size=3)
+        invited_users = [user.id for user in invited_users]
+
         data = {
             "group_info.name": "test_name",
             "group_info.description": "test_description",
+            "invited_users": invited_users,
         }
 
         response = self.client.post("/api/groups/", data=data)
