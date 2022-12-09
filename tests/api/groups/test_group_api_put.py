@@ -30,76 +30,70 @@ class TestViews:
         invited_users = [user.id for user in invited_users]
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
         # Change all notes
-        data["group_info"]["name"] = "test_name"
-        data["group_info"]["description"] = "test_description"
-        data["invited_users"] = invited_users
+        response.data["group_info"]["name"] = "test_name"
+        response.data["group_info"]["description"] = "test_description"
+        response.data["invited_users"] = invited_users
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
         assert response.status_code == 200
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
         # Check data
-        assert data["group_info"]["name"] == "test_name"
-        assert data["group_info"]["description"] == "test_description"
-        assert data["invited_users"] == invited_users
+        assert response.data["group_info"]["name"] == "test_name"
+        assert response.data["group_info"]["description"] == "test_description"
+        assert response.data["invited_users"] == invited_users
 
     # @pytest.mark.skip
     def test_group_put_name(self):
         """Change a group name"""
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
         # Change all notes
-        data["group_info"]["name"] = "test_name"
+        response.data["group_info"]["name"] = "test_name"
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
         assert response.status_code == 200
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
         # Check data
-        assert data["group_info"]["name"] == "test_name"
+        assert response.data["group_info"]["name"] == "test_name"
 
     # @pytest.mark.skip
     def test_group_put_description(self):
         """Change a group description"""
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
         # Change a description
-        data["group_info"]["description"] = "test_description"
+        response.data["group_info"]["description"] = "test_description"
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
         assert response.status_code == 200
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
         # Check data
-        assert data["group_info"]["description"] == "test_description"
+        assert response.data["group_info"]["description"] == "test_description"
 
     # @pytest.mark.skip
     def test_group_put_invited_users(self):
         """Change invited users for group"""
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
-        data = response.data
 
+        # Generate users
         invited_users = UserFactory.create_batch(size=3)
         invited_users = [user.id for user in invited_users]
 
         # Change invited users
-        data["invited_users"] = invited_users
+        response.data["invited_users"] = invited_users
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
         assert response.status_code == 200
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
