@@ -12,11 +12,10 @@ class TestViews:
         self.client = Client()
         self.user = UserFactory()
         self.fake = Faker()
+        self.client.force_login(self.user)
 
     # @pytest.mark.skip
     def test_group_get(self):
-        self.client.force_login(self.user)
-
         group_info = GroupInformationFactory(owner=self.user)
         GroupFactory(group_info=group_info)
 
