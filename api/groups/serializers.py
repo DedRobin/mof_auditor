@@ -5,13 +5,11 @@ from apps.users.models import User
 
 
 class GroupInfoSerializer(serializers.Serializer):
-    owner = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.order_by("username"),
-    )
+    owner = serializers.StringRelatedField()
     name = serializers.CharField(
         max_length=255,
     )
-    description = serializers.CharField()
+    description = serializers.CharField(required=False)
 
 
 class GroupSerializer(serializers.Serializer):

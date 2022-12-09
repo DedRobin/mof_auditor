@@ -36,8 +36,8 @@ def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[lis
 def create_group_api(request: Request, validated_data: OrderedDict) -> None:
     group_info = GroupInformation.objects.create(
         owner=request.user,
-        name=validated_data["group_info"]["name"],
-        description=validated_data["group_info"]["description"],
+        name=validated_data.get("group_info").get("name"),
+        description=validated_data.get("group_info").get("description"),
     )
     group = Group.objects.create(
         group_info=group_info,
