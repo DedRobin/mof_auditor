@@ -50,12 +50,12 @@ def update_group_api(group_id: int, validated_data: OrderedDict) -> None:
     group_info = group.group_info
 
     # Updates group information
-    group_info.name = validated_data["group_info"]["name"]
-    group_info.description = validated_data["group_info"]["description"]
+    group_info.name = validated_data.get("group_info").get("name")
+    group_info.description = validated_data.get("group_info").get("description")
     group_info.save()
 
     # Updates invited users
-    group.invited_users.set(validated_data["invited_users"])
+    group.invited_users.set(validated_data.get("invited_users"))
 
 
 def delete_invited_user_from_group(request: WSGIRequest, group: Group) -> None:
