@@ -8,6 +8,7 @@ from typing import Tuple
 
 from apps.groups.models import GroupInformation, Group
 from apps.users.models import User
+from apps.permissions.models import Permission, PermissionType
 
 
 def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[list, str]:
@@ -42,7 +43,14 @@ def create_group_api(request: Request, validated_data: OrderedDict) -> None:
     group = Group.objects.create(
         group_info=group_info,
     )
-    group.invited_users.set(validated_data["invited_users"])
+
+    # Adding invited users and creating default permissions for them
+    if validated_data["invited_users"]:
+        group.invited_users.set(validated_data["invited_users"])
+        for invited_user in validated_data["invited_users"]:
+            permission = Permission.objects.create(group=group, user=invited_user)
+            default_permission = PermissionType.objects.get(name="read")
+            permission.types.add(default_permission)
 
 
 def update_group_api(group_id: int, validated_data: OrderedDict) -> None:
