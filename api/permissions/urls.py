@@ -3,7 +3,6 @@ from api.permissions.views import PermissionsViewSet
 
 actions_for_list = {
     "get": "list",
-    "post": "create",
 }
 actions_for_one_note = {"get": "retrieve", "put": "update"}
 

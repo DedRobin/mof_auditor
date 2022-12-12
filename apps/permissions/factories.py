@@ -11,7 +11,7 @@ class PermissionTypeFactory(DjangoModelFactory):
         model = PermissionType
 
     # name = factory.fuzzy.FuzzyChoice(dict(PERMISSION_LIST).keys())
-    name = None
+    name = "read"
 
 
 class PermissionFactory(DjangoModelFactory):

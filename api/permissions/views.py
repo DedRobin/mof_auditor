@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from apps.permissions.models import Permission
 from api.permissions.serializers import PermissionSerializer
-from apps.permissions.services import update_permission_api, create_permission_api
+from apps.permissions.services import update_permission_api
 
 
 class PermissionsViewSet(viewsets.ModelViewSet):
@@ -29,14 +29,6 @@ class PermissionsViewSet(viewsets.ModelViewSet):
 
     def get(self):
         return Response(status=status.HTTP_200_OK)
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        create_permission_api(request=request, validated_data=serializer.validated_data)
-
-        return Response(status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
