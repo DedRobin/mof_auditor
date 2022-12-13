@@ -38,8 +38,42 @@ class TestViews:
         self.client.force_login(self.user)
 
     # @pytest.mark.skip
-    def test_permission_get(self):
-        """Getting all user permissions"""
+    def test_permission_get_through_group(self):
+        """
+        Getting all user permissions
+        through url='api/groups/<id>/permissions/'
+        """
+
+        url = "/api/groups/{0}/permissions/"
+        url = url.format(self.group.id)
+
+        response = self.client.get(url)
+        assert response.status_code == 200
+        assert response.data["count"] == 2
+        assert response.data["results"][0]["types"] == [self.read.id, self.create.id, self.update.id, self.delete.id]
+        assert response.data["results"][1]["types"] == [self.read.id]
+
+    # @pytest.mark.skip
+    def test_permission_get_one_note_through_group(self):
+        """
+        Getting a specific permission
+        through url='api/groups/<id>/invited_users/<id>/permissions/<id>/'
+        """
+
+        url = "/api/groups/{0}/permissions/{1}/"
+        url = url.format(self.group.id, self.p_for_invited_user.id)
+
+        response = self.client.get(url)
+        assert response.status_code == 200
+        assert response.data["id"] == self.p_for_invited_user.id
+        assert response.data["types"] == [self.read.id]
+        # @pytest.mark.skip
+
+    def test_permission_get_through_invited_users(self):
+        """
+        Getting all user permissions
+        through url='api/groups/<id>/invited_users/<id>/permissions/'
+        """
 
         url = "/api/groups/{0}/invited_users/{1}/permissions/"
         url = url.format(self.group.id, self.user.id)
@@ -55,8 +89,11 @@ class TestViews:
         assert response.data["results"][0]["types"] == [self.read.id]
 
     # @pytest.mark.skip
-    def test_permission_get_one_note(self):
-        """Getting a specific permission"""
+    def test_permission_get_one_note_through_invited_users(self):
+        """
+        Getting a specific permission
+        through url='api/groups/<id>/invited_users/<id>/permissions/<id>/'
+        """
 
         url = "/api/groups/{0}/invited_users/{1}/permissions/{2}/"
         url = url.format(self.group.id, self.invited_user.id, self.p_for_invited_user.id)
