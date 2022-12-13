@@ -20,7 +20,7 @@ class TestViews:
         self.content_type = "application/json"
         self.client.force_login(self.user)
 
-    def test_profile_put(self):
+    def test_profile_patch(self):
         ProfileFactory(user=self.user)
 
         data = {
@@ -31,9 +31,7 @@ class TestViews:
         }
         url = "/api/profile/"
 
-        response = self.client.put(url, data=data, content_type=self.content_type)
-        assert response.status_code == 200
-        assert response.data["gender"] == data["gender"]
-        assert response.data["email"] == data["email"]
-        assert response.data["first_name"] == data["first_name"]
-        assert response.data["last_name"] == data["last_name"]
+        for key, value in data.items():
+            response = self.client.patch(url, data={key: value}, content_type=self.content_type)
+            assert response.status_code == 200
+            assert response.data[key] == data[key]
