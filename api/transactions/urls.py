@@ -9,7 +9,7 @@ urlpatterns = [
     path(
         "<int:transaction_id>/",
         TransactionViewSet.as_view(actions_for_one_note),
-        name="particular_transaction",
+        name="specific_transaction",
     ),
     path("download/", DownloadTransactionAPI.as_view({"get": "list"}), name="download"),
 ]

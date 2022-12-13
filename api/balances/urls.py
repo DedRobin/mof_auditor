@@ -9,7 +9,7 @@ urlpatterns = [
     path(
         "<int:pk>/",
         BalanceViewSet.as_view(actions_for_one_note),
-        name="RUD_particular_balance",
+        name="specific_balance",
     ),
     path("<int:pk>/transactions/", include("api.transactions.urls")),
 ]
