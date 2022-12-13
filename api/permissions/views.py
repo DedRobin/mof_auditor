@@ -27,9 +27,6 @@ class PermissionsViewSet(viewsets.ModelViewSet):
 
         return permissions
 
-    def get(self):
-        return Response(status=status.HTTP_200_OK)
-
     def update(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

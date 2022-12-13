@@ -11,15 +11,10 @@ from apps.profiles.services import update_profile_api
 class ProfileUpdateAPI(UpdateAPIView):
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        return Profile.objects.all()
-
-    def get_object(self):
-        return Profile.objects.get(user=self.request.user)
+    queryset = Profile.objects.all()
 
     def get(self, request):
-        obj = self.get_object()
+        obj = Profile.objects.get(user=request.user)
         serializer = self.serializer_class(obj)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
