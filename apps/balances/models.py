@@ -1,6 +1,7 @@
 import ulid
 from decimal import Decimal
 from django.db import models
+from django.utils import timezone
 
 from apps.users.models import User
 from apps.groups.models import Group
@@ -10,14 +11,11 @@ BALANCE_TYPE_CHOICE = (("cash", "Cash"), ("card", "Card"), ("bank", "Bank accoun
 BALANCE_PRIVATE_CHOICE = ((False, "Public"), (True, "Private"))
 
 
-class BalanceCurrency(models.Model):
-    name = models.CharField(
-        max_length=255,
-    )
-    codename = models.CharField(
-        max_length=255,
-        unique=True,
-    )
+class Currency(models.Model):
+    name = models.CharField(max_length=255)
+    codename = models.CharField(max_length=255, unique=True)
+    rate = models.DecimalField(max_digits=9, decimal_places=6, default=1)
+    updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} ({self.codename})"
@@ -30,7 +28,7 @@ class Balance(models.Model):
 
     type = models.CharField(max_length=255, choices=BALANCE_TYPE_CHOICE)
     currency = models.ForeignKey(
-        BalanceCurrency, related_name="balances", on_delete=models.CASCADE
+        Currency, related_name="balances", on_delete=models.CASCADE
     )
     private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
     groups = models.ManyToManyField(Group, related_name="balances", blank=True)

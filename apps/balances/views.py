@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.balances.forms import BalanceForm
-from apps.balances.models import Balance, BalanceCurrency
+from apps.balances.models import Balance, Currency
 from apps.balances.services import create_balance
 from apps.transactions.forms import TransactionForm
 from apps.transactions.services import create_transaction, delete_transaction
@@ -40,7 +40,7 @@ def edit_balance(request, pub_id):
         balance.name = request.POST.get("name")
         balance.owner = request.user
         balance.type = request.POST.get("type")
-        balance.currency = BalanceCurrency.objects.get(pk=request.POST.get("currency"))
+        balance.currency = Currency.objects.get(pk=request.POST.get("currency"))
         balance.private = request.POST.get("private")
         balance.save()
     balance_form = BalanceForm(instance=balance)

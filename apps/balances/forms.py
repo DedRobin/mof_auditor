@@ -1,7 +1,7 @@
 from django import forms
 from django.conf import settings
 
-from apps.balances.models import BalanceCurrency, Balance
+from apps.balances.models import Currency, Balance
 
 
 class CurrencyConvertForm(forms.Form):
@@ -10,10 +10,10 @@ class CurrencyConvertForm(forms.Form):
         decimal_places=settings.DECIMAL_PLACES,
     )
     from_currency = forms.ModelChoiceField(
-        queryset=BalanceCurrency.objects.order_by("name"), required=True
+        queryset=Currency.objects.order_by("name"), required=True
     )
     to_currency = forms.ModelChoiceField(
-        queryset=BalanceCurrency.objects.order_by("name"),
+        queryset=Currency.objects.order_by("name"),
         required=True,
     )
     result = forms.CharField(

@@ -2,14 +2,14 @@ import os
 import requests
 from django.core.management.base import BaseCommand
 
-from apps.balances.models import BalanceCurrency
+from apps.balances.models import Currency
 
 
 class Command(BaseCommand):
     help = "Request currencies"
 
     def handle(self, *args, **options):
-        BalanceCurrency.objects.all().delete()
+        Currency.objects.all().delete()
 
         url = "https://api.apilayer.com/exchangerates_data/symbols"
 
@@ -21,6 +21,6 @@ class Command(BaseCommand):
         result = response.json()
         currencies = []
         for codename, name in result.get("symbols").items():
-            currencies.append(BalanceCurrency(name=name, codename=codename))
-        BalanceCurrency.objects.bulk_create(currencies)
+            currencies.append(Currency(name=name, codename=codename))
+        Currency.objects.bulk_create(currencies)
         print("Received current currencies")

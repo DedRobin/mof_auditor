@@ -3,7 +3,7 @@ from factory.django import DjangoModelFactory
 
 from apps.balances.models import (
     Balance,
-    BalanceCurrency,
+    Currency,
     BALANCE_TYPE_CHOICE,
     BALANCE_PRIVATE_CHOICE,
 )
@@ -12,7 +12,7 @@ from apps.users.factories import UserFactory
 
 class BalanceCurrencyFactory(DjangoModelFactory):
     class Meta:
-        model = BalanceCurrency
+        model = Currency
 
     # name = factory.Faker("currency_name")
     # codename = factory.Faker("currency_code")

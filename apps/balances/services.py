@@ -6,7 +6,7 @@ from collections import OrderedDict
 from django.core.handlers.wsgi import WSGIRequest
 from rest_framework.request import Request
 
-from apps.balances.models import Balance, BalanceCurrency
+from apps.balances.models import Balance, Currency
 
 
 def get_currency_convert_result(
@@ -31,7 +31,7 @@ def create_balance(request: WSGIRequest) -> None:
         name=request.POST.get("name"),
         owner=request.user,
         type=request.POST.get("type"),
-        currency=BalanceCurrency.objects.get(pk=request.POST.get("currency")),
+        currency=Currency.objects.get(pk=request.POST.get("currency")),
         private=request.POST.get("private"),
     )
 

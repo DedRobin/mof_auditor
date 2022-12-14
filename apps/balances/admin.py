@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.balances.models import Balance, BalanceCurrency
+from apps.balances.models import Balance, Currency
 from apps.transactions.admin import TransactionInline
 
 
@@ -8,7 +8,7 @@ class BalanceInline(admin.TabularInline):
     model = Balance
 
 
-@admin.register(BalanceCurrency)
+@admin.register(Currency)
 class BalanceCurrencyAdmin(admin.ModelAdmin):
     list_display = ("name", "codename")
     fields = ("name", "codename")

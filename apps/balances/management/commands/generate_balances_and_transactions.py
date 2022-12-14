@@ -7,7 +7,7 @@ from django.utils.timezone import make_aware
 
 from faker import Faker
 
-from apps.balances.models import Balance, BalanceCurrency, BALANCE_TYPE_CHOICE
+from apps.balances.models import Balance, Currency, BALANCE_TYPE_CHOICE
 from apps.transactions.models import (
     Transaction,
     TransactionCategory,
@@ -29,7 +29,7 @@ class Command(BaseCommand):
         Balance.objects.all().delete()
 
         users = User.objects.all()
-        currencies = BalanceCurrency.objects.all()
+        currencies = Currency.objects.all()
         balances = []
 
         # Create balances
