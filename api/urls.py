@@ -15,4 +15,5 @@ urlpatterns = [
     path("balances/", include("api.balances.urls")),
     path("groups/", include("api.groups.urls")),
     path("profile/", include("api.profiles.urls")),
+    path("invitations/", include("api.invitations.urls")),
 ]

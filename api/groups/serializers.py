@@ -21,10 +21,10 @@ class GroupSerializer(serializers.Serializer):
     )
 
 
-class CustomGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSerializer):
+class MyOwnGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSerializer):
     def get_queryset(self):
         request = self.context.get("request", None)
-        queryset = super(CustomGroupSerializer, self).get_queryset()
+        queryset = super(MyOwnGroupSerializer, self).get_queryset()
         if not request or not queryset:
             return None
         return queryset.filter(Q(group_info__owner=request.user) | Q(invited_users=request.user))

@@ -1,7 +1,5 @@
 from collections import OrderedDict
-
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import QuerySet
 from django.http.request import QueryDict
 from rest_framework.request import Request
 from typing import Tuple

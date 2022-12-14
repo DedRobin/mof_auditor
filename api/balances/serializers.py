@@ -3,7 +3,7 @@ from rest_framework import serializers
 from apps.balances.models import BALANCE_TYPE_CHOICE
 from apps.balances.models import Currency
 from apps.groups.models import Group
-from api.groups.serializers import CustomGroupSerializer
+from api.groups.serializers import MyOwnGroupSerializer
 
 
 class BalanceSerializer(serializers.Serializer):
@@ -22,6 +22,6 @@ class BalanceSerializer(serializers.Serializer):
     )
     private = serializers.BooleanField()
     total = serializers.StringRelatedField()
-    groups = CustomGroupSerializer(
+    groups = MyOwnGroupSerializer(
         queryset=Group.objects.all(), many=True, required=False
     )
