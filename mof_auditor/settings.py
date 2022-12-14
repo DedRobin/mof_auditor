@@ -177,6 +177,10 @@ REST_FRAMEWORK = {
 # Basic redirect to URL if user is not authenticated
 LOGIN_URL = "/auth/login"
 
-# Transaction display settings
+# Transaction value display settings
 MAX_DIGITS = 19
 DECIMAL_PLACES = 7
+
+# Currency settings
+BASE_CURRENCY = "BYN"
+OTHER_CURRENCIES = ["RUB", "USD", "EUR", "CNY"]

@@ -1,7 +1,6 @@
 import ulid
 from decimal import Decimal
 from django.db import models
-from django.utils import timezone
 
 from apps.users.models import User
 from apps.groups.models import Group
@@ -15,7 +14,7 @@ class Currency(models.Model):
     name = models.CharField(max_length=255)
     codename = models.CharField(max_length=255, unique=True)
     rate = models.DecimalField(max_digits=9, decimal_places=6, default=1)
-    updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         verbose_name_plural = "Currencies"
