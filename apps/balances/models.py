@@ -17,6 +17,9 @@ class Currency(models.Model):
     rate = models.DecimalField(max_digits=9, decimal_places=6, default=1)
     updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = "Currencies"
+
     def __str__(self):
         return f"{self.name} ({self.codename})"
 

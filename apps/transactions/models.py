@@ -9,11 +9,15 @@ TRANSACTION_TYPE_CHOICE = (
     ("expense", "Expense"),
 )
 
+
 class TransactionCategory(models.Model):
     name = models.CharField(max_length=255)
     type = models.CharField(
         max_length=255, choices=TRANSACTION_TYPE_CHOICE, blank=True, null=True
     )
+
+    class Meta:
+        verbose_name_plural = "Transaction Categories"
 
     def __str__(self):
         return f"{self.type.capitalize()} --> {self.name}"
