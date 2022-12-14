@@ -10,9 +10,9 @@ class BalanceInline(admin.TabularInline):
 
 @admin.register(Currency)
 class BalanceCurrencyAdmin(admin.ModelAdmin):
-    list_display = ("name", "codename")
-    fields = ("name", "codename")
-    search_fields = ("name", "codename")
+    list_display = ("name", "codename", "rate")
+    fields = ("name", "codename", "rate")
+    search_fields = ("name", "codename", "rate")
 
 
 @admin.register(Balance)

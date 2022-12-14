@@ -29,6 +29,8 @@ class Command(BaseCommand):
         for codename, rate in response_rates.get("rates").items():
             name = response_symbols["symbols"].get(codename)
             currencies.append(Currency(name=name, codename=codename, rate=rate))
+        name = response_symbols["symbols"].get(settings.BASE_CURRENCY)
+        currencies.append(Currency(name=name, codename=settings.BASE_CURRENCY, rate=1))
         Currency.objects.bulk_create(currencies)
 
         print("Updates currency rates.")
