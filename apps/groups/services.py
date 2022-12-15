@@ -38,17 +38,7 @@ def create_group_api(request: Request, validated_data: OrderedDict) -> None:
         name=validated_data.get("group_info").get("name"),
         description=validated_data.get("group_info").get("description"),
     )
-    group = Group.objects.create(
-        group_info=group_info,
-    )
-
-    # Adding invited users and creating default permissions for them
-    if validated_data["invited_users"]:
-        group.invited_users.set(validated_data["invited_users"])
-        for invited_user in validated_data["invited_users"]:
-            permission = Permission.objects.create(group=group, user=invited_user)
-            default_permission = PermissionType.objects.get(name="read")
-            permission.types.add(default_permission)
+    Group.objects.create(group_info=group_info)
 
 
 def update_group_api(group_id: int, validated_data: OrderedDict) -> None:
@@ -59,9 +49,6 @@ def update_group_api(group_id: int, validated_data: OrderedDict) -> None:
     group_info.name = validated_data.get("group_info").get("name")
     group_info.description = validated_data.get("group_info").get("description")
     group_info.save()
-
-    # Updates invited users
-    group.invited_users.set(validated_data.get("invited_users"))
 
 
 def delete_invited_user_from_group(request: WSGIRequest, group: Group) -> None:

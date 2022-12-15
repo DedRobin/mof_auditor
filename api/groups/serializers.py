@@ -2,6 +2,7 @@ from django.db.models import Q
 from rest_framework import serializers
 
 from apps.users.models import User
+from api.users.serializers import UserProfileSerializer
 
 
 class GroupInfoSerializer(serializers.Serializer):
@@ -14,11 +15,8 @@ class GroupInfoSerializer(serializers.Serializer):
 
 class GroupSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    pub_id = serializers.CharField(max_length=255, read_only=True)
     group_info = GroupInfoSerializer()
-    invited_users = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.order_by("username"), many=True, required=False
-    )
+    invited_users = UserProfileSerializer(required=False, many=True, read_only=True)
 
 
 class MyOwnGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSerializer):
