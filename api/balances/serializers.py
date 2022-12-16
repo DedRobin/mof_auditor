@@ -15,5 +15,4 @@ class BalanceSerializer(serializers.Serializer):
     currency = serializers.PrimaryKeyRelatedField(queryset=Currency.objects.all())
     private = serializers.BooleanField()
     total = serializers.StringRelatedField()
-    groups = MyAndInvitedGroupSerializer(queryset=Group.objects.all(),
-                                         many=True, required=False)
+    groups = MyAndInvitedGroupSerializer(queryset=Group.objects.all(), many=True)

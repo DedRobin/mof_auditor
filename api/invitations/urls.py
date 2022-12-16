@@ -7,8 +7,7 @@ actions_for_list = {
 }
 actions_for_one_note = {
     "get": "retrieve",
-    # "put": "update",
-    # "delete": "destroy",
+    "delete": "destroy",
 }
 
 urlpatterns = [

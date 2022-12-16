@@ -12,7 +12,7 @@ class InvitationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Invitation.objects.filter(to_who=self.request.user).order_by("-created_at")
+        return Invitation.objects.filter(from_who=self.request.user).order_by("-created_at")
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -21,19 +21,10 @@ class InvitationViewSet(viewsets.ModelViewSet):
         response = create_invitation_or_404_api(request=request, validated_data=serializer.validated_data)
 
         return response
-    #
-    # def update(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     group_id = kwargs.get("pk", None)
-    #
-    #     update_group_api(group_id=group_id, validated_data=serializer.validated_data)
-    #
-    #     return Response(status=status.HTTP_200_OK)
-    #
-    # def destroy(self, request, *args, **kwargs):
-    #     group_id = kwargs.get("pk", None)
-    #
-    #     Group.objects.get(pk=group_id).delete()
-    #
-    #     return Response(status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        invitation_id = kwargs.get("pk", None)
+
+        Invitation.objects.get(pk=invitation_id).delete()
+
+        return Response(status=status.HTTP_200_OK)
