@@ -19,10 +19,19 @@ class GroupSerializer(serializers.Serializer):
     invited_users = UserProfileSerializer(required=False, many=True, read_only=True)
 
 
-class MyOwnGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSerializer):
+class MyAndInvitedGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSerializer):
     def get_queryset(self):
         request = self.context.get("request", None)
-        queryset = super(MyOwnGroupSerializer, self).get_queryset()
+        queryset = super(MyAndInvitedGroupSerializer, self).get_queryset()
         if not request or not queryset:
             return None
         return queryset.filter(Q(group_info__owner=request.user) | Q(invited_users=request.user))
+
+
+class MyGroupSerializer(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        request = self.context.get("request", None)
+        queryset = super(MyGroupSerializer, self).get_queryset()
+        if not request or not queryset:
+            return None
+        return queryset.filter(group_info__owner=request.user)
