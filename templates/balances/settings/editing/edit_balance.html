@@ -11,6 +11,7 @@
             </div>
 
             <div class="col-8">
+                <h1>Editing for balance "{{ balance.name }}"</h1>
                 <form method="POST">
                     {% csrf_token %}
                     {{ balance_form|crispy }}

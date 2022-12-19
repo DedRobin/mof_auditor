@@ -36,6 +36,11 @@ def balance_list(request):
 @login_required
 def balance_settings(request, pub_id):
     balance = Balance.objects.get(pub_id=pub_id)
+    if request.POST:
+        action = request.POST.get("action", None)
+        if action == "delete":
+            balance.delete()
+            return redirect("balance_list")
     data = {
         "balance": balance
     }
@@ -55,5 +60,6 @@ def edit_balance(request, pub_id):
     balance_form = BalanceForm(instance=balance)
     data = {
         "balance_form": balance_form,
+        "balance": balance,
     }
-    return render(request, "balances/edit_balance.html", data)
+    return render(request, "balances/settings/editing/edit_balance.html", data)
