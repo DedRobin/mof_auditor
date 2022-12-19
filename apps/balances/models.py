@@ -48,7 +48,7 @@ class Balance(models.Model):
         super().save(**kwargs)
 
     def get_absolute_url(self):
-        return reverse(viewname="balance", kwargs={"pub_id": self.pub_id})
+        return reverse(viewname="get_specific_balance", kwargs={"pub_id": self.pub_id})
 
     def total(self):
         transactions = self.transactions.all()

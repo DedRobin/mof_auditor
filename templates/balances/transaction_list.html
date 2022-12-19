@@ -19,24 +19,32 @@
             <td>{{ transaction.category.type }}</td>
             <td>{{ transaction.comment }}</td>
             <td>{{ transaction.created_at }}</td>
-            <td>
-                <form method="POST">
-                    <input name="transaction_id" value="{{ transaction.id }}" hidden>
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
+
+            {% if balance.owner == request.user %}
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="transaction_id" value="{{ transaction.id }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            {% endif %}
+
         </tr>
     {% endfor %}
-    <tr>
-        <td colspan="7 text-danger">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#AddTransaction-{{ balance.pub_id }}">
-                Add transaction
-            </button>
-        </td>
-    </tr>
+
+    {% if balance.owner == request.user %}
+        <tr>
+            <td colspan="7 text-danger">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#AddTransaction-{{ balance.pub_id }}">
+                    Add transaction
+                </button>
+                {% include 'balances/add_transaction_modal.html' %}
+            </td>
+        </tr>
+    {% endif %}
+
     </tbody>
 </table>
 
-{% include 'balances/add_transaction_modal.html' %}

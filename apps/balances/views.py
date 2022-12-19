@@ -6,10 +6,10 @@ from apps.balances.models import Balance, Currency
 from apps.balances.services import create_balance
 from apps.transactions.forms import TransactionForm
 from apps.transactions.services import create_transaction, delete_transaction
-
+from apps.permissions.models import Permission, PermissionType
 
 @login_required
-def balance_list(request):
+def get_balance_list(request):
     balances = Balance.objects.filter(owner=request.user)
 
     if request.method == "POST":
@@ -31,6 +31,15 @@ def balance_list(request):
         "balance_form": balance_form,
     }
     return render(request, "balances/balance_list.html", data)
+
+
+@login_required
+def get_specific_balance(request, pub_id):
+    balance = Balance.objects.get(pub_id=pub_id)
+    data = {
+        "balance": balance
+    }
+    return render(request, "balances/specific_balance.html", data)
 
 
 @login_required

@@ -20,11 +20,13 @@
                     {% if not balance.private or balance.owner == request.user %}
                         <div>
                             <div class="display-6">
-                                {{ balance.name }}
-                                (Owner:
-                                {{ balance.owner.profile.first_name }}
-                                {{ balance.owner.profile.last_name }} -
-                                {{ balance.owner.username }})
+                                <a href="{{ balance.get_absolute_url }}">
+                                    {{ balance.name }}
+                                    (Owner:
+                                    {{ balance.owner.profile.first_name }}
+                                    {{ balance.owner.profile.last_name }} -
+                                    {{ balance.owner.username }})
+                                </a>
                             </div>
                             {% include 'groups/transaction_list.html' %}
                         </div>
