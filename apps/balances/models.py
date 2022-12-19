@@ -1,6 +1,7 @@
 import ulid
 from decimal import Decimal
 from django.db import models
+from django.shortcuts import reverse
 
 from apps.users.models import User
 from apps.groups.models import Group
@@ -45,6 +46,9 @@ class Balance(models.Model):
         if not self.pub_id:
             self.pub_id = ulid.new()
         super().save(**kwargs)
+
+    def get_absolute_url(self):
+        return reverse(viewname="balance", kwargs={"pub_id": self.pub_id})
 
     def total(self):
         transactions = self.transactions.all()

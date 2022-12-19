@@ -34,6 +34,15 @@ def balance_list(request):
 
 
 @login_required
+def balance_settings(request, pub_id):
+    balance = Balance.objects.get(pub_id=pub_id)
+    data = {
+        "balance": balance
+    }
+    return render(request, "balances/settings/settings.html", data)
+
+
+@login_required
 def edit_balance(request, pub_id):
     balance = Balance.objects.get(pub_id=pub_id)
     if request.method == "POST":

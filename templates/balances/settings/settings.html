@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Settings for group "{{ group_name }}"{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col text-end">
+            <a href="{% url 'balance_list' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+        </div>
+
+        <div class="col-8">
+            <h1>Settings for balance "{{ balance }}"</h1>
+
+            <div class="list-group list-group-numbered">
+                <a href="editing/" class="list-group-item list-group-item-action" aria-current="true">Editing</a>
+                <a href="delete/" class="list-group-item list-group-item-action text-danger">Delete</a>
+            </div>
+
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+
+{% endblock %}
