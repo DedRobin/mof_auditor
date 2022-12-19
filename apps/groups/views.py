@@ -171,7 +171,7 @@ def group_privacy(request, pub_id):
         )
 
         for p_for_add in permissions_for_add:
-            p_for_add.types.add(permission_type)
+            p_for_add.types.addF(permission_type)
         for p_for_del in permissions_for_delete:
             p_for_del.types.remove(permission_type)
 

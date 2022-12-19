@@ -1,6 +1,7 @@
 {% load crispy_forms_filters %}
 
-<div class="modal fade" id="AddTransaction-{{ balance.pub_id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddTransaction-{{ balance.pub_id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +11,7 @@
             <div class="modal-body">
                 <form method="POST">
                     {% csrf_token %}
-                    <input name="balance_pub_id" value="{{ balance.pub_id }}" hidden>
+                    <input type="hidden" name="balance_pub_id" value="{{ balance.pub_id }}">
                     {{ form|crispy }}
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>

@@ -8,6 +8,7 @@ from apps.transactions.forms import TransactionForm
 from apps.transactions.services import create_transaction, delete_transaction
 from apps.permissions.models import Permission, PermissionType
 
+
 @login_required
 def get_balance_list(request):
     balances = Balance.objects.filter(owner=request.user)
@@ -36,8 +37,18 @@ def get_balance_list(request):
 @login_required
 def get_specific_balance(request, pub_id):
     balance = Balance.objects.get(pub_id=pub_id)
+    if request.method == "POST":
+        # Create new transaction
+        if request.POST.get("balance_pub_id"):
+            create_transaction(request=request)
+        # Delete specific transaction
+        if request.POST.get("transaction_id"):
+            delete_transaction(request=request)
+
+    form = TransactionForm()
     data = {
-        "balance": balance
+        "balance": balance,
+        "form": form
     }
     return render(request, "balances/specific_balance.html", data)
 
@@ -45,7 +56,7 @@ def get_specific_balance(request, pub_id):
 @login_required
 def balance_settings(request, pub_id):
     balance = Balance.objects.get(pub_id=pub_id)
-    if request.POST:
+    if request.method == "POST":
         action = request.POST.get("action", None)
         if action == "delete":
             balance.delete()
