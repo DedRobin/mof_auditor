@@ -25,7 +25,9 @@ class MyAndInvitedGroupSerializer(serializers.PrimaryKeyRelatedField, GroupSeria
         queryset = super(MyAndInvitedGroupSerializer, self).get_queryset()
         if not request or not queryset:
             return None
-        return queryset.filter(Q(group_info__owner=request.user) | Q(invited_users=request.user))
+        return queryset.filter(
+            Q(group_info__owner=request.user) | Q(invited_users=request.user)
+        )
 
 
 class MyGroupSerializer(serializers.PrimaryKeyRelatedField):

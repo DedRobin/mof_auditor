@@ -41,7 +41,9 @@ class Group(models.Model):
         return f"{self.group_info.name} (Owner: {self.group_info.owner}) {self.id}"
 
     def get_absolute_url(self):
-        return reverse(viewname="balance_and_transaction_list", kwargs={"pub_id": self.pub_id})
+        return reverse(
+            viewname="balance_and_transaction_list", kwargs={"pub_id": self.pub_id}
+        )
 
     def save(self, **kwargs):
         """Generates a public ID when the instance is saved"""

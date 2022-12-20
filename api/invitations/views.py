@@ -12,13 +12,17 @@ class InvitationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Invitation.objects.filter(from_who=self.request.user).order_by("-created_at")
+        return Invitation.objects.filter(from_who=self.request.user).order_by(
+            "-created_at"
+        )
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        response = create_invitation_or_404_api(request=request, validated_data=serializer.validated_data)
+        response = create_invitation_or_404_api(
+            request=request, validated_data=serializer.validated_data
+        )
 
         return response
 

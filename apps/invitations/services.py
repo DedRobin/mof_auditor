@@ -8,7 +8,9 @@ from apps.users.models import User
 from apps.groups.models import Group
 
 
-def create_invitation_or_404_api(request: Request, validated_data: OrderedDict) -> Response:
+def create_invitation_or_404_api(
+    request: Request, validated_data: OrderedDict
+) -> Response:
     invited_user = validated_data.get("to_who")
 
     if User.objects.filter(username=invited_user).exists():
@@ -21,4 +23,3 @@ def create_invitation_or_404_api(request: Request, validated_data: OrderedDict) 
         return Response(status=status.HTTP_201_CREATED)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
-

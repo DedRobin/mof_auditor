@@ -7,41 +7,53 @@
 {% block content %}
     <div class="row">
 
+        {#        left#}
         <div class="col text-end">
             <a href="{% url 'index' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
         </div>
 
+        {#        center#}
         <div class="col-8">
-            <h1>Settings for group "{{ group_name }}"</h1>
+            <form method="POST">
 
-            <div class="list-group list-group-numbered">
-                {% if update_is_allowed %}
-                    <a href="editing/" class="list-group-item list-group-item-action" aria-current="true">Editing</a>
-                {% else %}
-                    <a href="editing/" class="list-group-item list-group-item-action disabled" aria-current="true">Editing</a>
-                {% endif %}
+                <h1>Settings for group "{{ group_name }}"</h1>
 
-                {% if owner == request.user %}
-                    <a href="privacy/" class="list-group-item list-group-item-action">Privacy</a>
-                    <a href="members/" class="list-group-item list-group-item-action">Members</a>
-                {% else %}
-                    <a href="privacy/" class="list-group-item list-group-item-action disabled">Privacy</a>
-                    <a href="members/" class="list-group-item list-group-item-action disabled">Members</a>
-                {% endif %}
+                <div class="list-group list-group-numbered">
+                    {% if update_is_allowed %}
+                        <a href="editing/" class="list-group-item list-group-item-action"
+                           aria-current="true">Editing</a>
+                    {% else %}
+                        <a href="editing/" class="list-group-item list-group-item-action disabled" aria-current="true">Editing</a>
+                    {% endif %}
 
-                {% if delete_is_allowed %}
-                    <a href="delete/" class="list-group-item list-group-item-action text-danger">Delete</a>
-                {% else %}
-                    <a href="delete/" class="list-group-item list-group-item-action text-danger disabled">Delete</a>
-                {% endif %}
-                <a href="leave/" class="list-group-item list-group-item-action text-danger">Leave</a>
-            </div>
+                    {% if owner == request.user %}
+                        <a href="privacy/" class="list-group-item list-group-item-action">Privacy</a>
+                        <a href="members/" class="list-group-item list-group-item-action">Members</a>
+                    {% else %}
+                        <a href="privacy/" class="list-group-item list-group-item-action disabled">Privacy</a>
+                        <a href="members/" class="list-group-item list-group-item-action disabled">Members</a>
+                    {% endif %}
 
+                    {% if delete_is_allowed %}
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="delete">
+                        <button type="submit" class="list-group-item list-group-item-action text-danger">Delete</button>
+                    {% else %}
+                        <button type="button" class="list-group-item list-group-item-action" disabled>Delete
+                        </button>
+                    {% endif %}
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="leave">
+                    <button type="submit" class="list-group-item list-group-item-action text-danger">Leave</button>
 
+                </div>
+            </form>
         </div>
+
+        {#        right#}
         <div class="col">
-
         </div>
+
     </div>
 
 {% endblock %}

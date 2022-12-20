@@ -3,7 +3,11 @@ from django.test.client import Client
 from faker import Faker
 
 from apps.users.factories import UserFactory
-from apps.balances.factories import BalanceCurrencyFactory, BalanceFactory, BALANCE_TYPE_CHOICE
+from apps.balances.factories import (
+    BalanceCurrencyFactory,
+    BalanceFactory,
+    BALANCE_TYPE_CHOICE,
+)
 from apps.groups.factories import GroupFactory
 
 
@@ -23,7 +27,7 @@ class TestViews:
             "currency": self.currency.id,
             "type": "cash",
             "private": False,
-            "groups": self.groups
+            "groups": self.groups,
         }
         BalanceFactory.create_batch(size=5, owner=self.user, currency=self.currency)
 

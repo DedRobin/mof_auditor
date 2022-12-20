@@ -3,7 +3,11 @@ from django.test.client import Client
 from faker import Faker
 
 from apps.users.factories import UserFactory
-from apps.balances.factories import BalanceCurrencyFactory, BalanceFactory, BALANCE_TYPE_CHOICE
+from apps.balances.factories import (
+    BalanceCurrencyFactory,
+    BalanceFactory,
+    BALANCE_TYPE_CHOICE,
+)
 from apps.groups.factories import GroupFactory
 
 

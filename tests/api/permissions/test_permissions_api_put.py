@@ -19,8 +19,8 @@ class TestViews:
 
         # Default permission types
         self.permission_types = {
-            name: PermissionTypeFactory(name=name) for name in
-            ["read", "create", "update", "delete"]
+            name: PermissionTypeFactory(name=name)
+            for name in ["read", "create", "update", "delete"]
         }
         self.read = self.permission_types["read"]
         self.create = self.permission_types["create"]
@@ -42,9 +42,7 @@ class TestViews:
         assert response.status_code == 200
         assert response.data["types"] == []
 
-        data = {
-            "types": [self.read.id, self.update.id]
-        }
+        data = {"types": [self.read.id, self.update.id]}
 
         response = self.client.put(url, data=data, content_type=self.content_type)
         assert response.status_code == 200

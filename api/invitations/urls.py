@@ -16,5 +16,5 @@ urlpatterns = [
         "<int:pk>/",
         InvitationViewSet.as_view(actions_for_one_note),
         name="specific_invitation",
-    )
+    ),
 ]

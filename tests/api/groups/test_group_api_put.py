@@ -31,7 +31,11 @@ class TestViews:
         response.data["group_info"]["name"] = "test_name"
         response.data["group_info"]["description"] = "test_description"
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/groups/{self.group.id}/",
+            data=response.data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
 
         response = self.client.get(f"/api/groups/{self.group.id}/")
@@ -47,7 +51,11 @@ class TestViews:
         response = self.client.get(f"/api/groups/{self.group.id}/")
         response.data["group_info"]["name"] = "test_name"
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/groups/{self.group.id}/",
+            data=response.data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
 
         # Check data
@@ -63,7 +71,11 @@ class TestViews:
         # Change a description
         response.data["group_info"]["description"] = "test_description"
 
-        response = self.client.put(f"/api/groups/{self.group.id}/", data=response.data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/groups/{self.group.id}/",
+            data=response.data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
 
         response = self.client.get(f"/api/groups/{self.group.id}/")

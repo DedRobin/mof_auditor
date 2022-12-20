@@ -1,6 +1,11 @@
 from django.urls import path, include
 
-from apps.balances.views import get_balance_list, edit_balance, balance_settings, get_specific_balance
+from apps.balances.views import (
+    get_balance_list,
+    edit_balance,
+    balance_settings,
+    get_specific_balance,
+)
 
 urlpatterns = [
     path("", get_balance_list, name="get_balance_list"),

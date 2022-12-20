@@ -4,7 +4,11 @@ from django.test.client import Client
 from faker import Faker
 
 from apps.users.factories import UserFactory
-from apps.balances.factories import BalanceCurrencyFactory, BalanceFactory, BALANCE_TYPE_CHOICE
+from apps.balances.factories import (
+    BalanceCurrencyFactory,
+    BalanceFactory,
+    BALANCE_TYPE_CHOICE,
+)
 from apps.groups.factories import GroupFactory
 
 
@@ -26,7 +30,7 @@ class TestViews:
             "type": self.balance.type,
             "currency": self.balance.currency.id,
             "private": self.balance.private,
-            "groups": [group for group in self.balance.groups.all()]
+            "groups": [group for group in self.balance.groups.all()],
         }
 
     # @pytest.mark.skip
@@ -52,7 +56,11 @@ class TestViews:
         # New name
         data["name"] = "test_name"
 
-        response = self.client.put(f"/api/balances/{self.balance.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/balances/{self.balance.id}/",
+            data=data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
         response = self.client.get(f"/api/balances/{self.balance.id}/")
         assert response.status_code == 200
@@ -69,7 +77,11 @@ class TestViews:
         for balance_type in balance_types:
             data["type"] = balance_type
 
-            response = self.client.put(f"/api/balances/{self.balance.id}/", data=data, content_type=self.content_type)
+            response = self.client.put(
+                f"/api/balances/{self.balance.id}/",
+                data=data,
+                content_type=self.content_type,
+            )
             assert response.status_code == 200
             response = self.client.get(f"/api/balances/{self.balance.id}/")
             assert response.status_code == 200
@@ -84,7 +96,11 @@ class TestViews:
         # Unknown type
         data["type"] = "bitcoin"
 
-        response = self.client.put(f"/api/balances/{self.balance.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/balances/{self.balance.id}/",
+            data=data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 400
 
     # @pytest.mark.skip
@@ -97,7 +113,11 @@ class TestViews:
         new_currency = BalanceCurrencyFactory(name="Russian Ruble", codename="RUB")
         data["currency"] = new_currency.id
 
-        response = self.client.put(f"/api/balances/{self.balance.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/balances/{self.balance.id}/",
+            data=data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
         response = self.client.get(f"/api/balances/{self.balance.id}/")
         assert response.status_code == 200
@@ -112,7 +132,11 @@ class TestViews:
         # New private (inverting bool)
         data["private"] = not data["private"]
 
-        response = self.client.put(f"/api/balances/{self.balance.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/balances/{self.balance.id}/",
+            data=data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
         response = self.client.get(f"/api/balances/{self.balance.id}/")
         assert response.status_code == 200
@@ -130,7 +154,11 @@ class TestViews:
             group.invited_users.add(self.user)
         data["groups"] = [group.id for group in new_groups]
 
-        response = self.client.put(f"/api/balances/{self.balance.id}/", data=data, content_type=self.content_type)
+        response = self.client.put(
+            f"/api/balances/{self.balance.id}/",
+            data=data,
+            content_type=self.content_type,
+        )
         assert response.status_code == 200
         response = self.client.get(f"/api/balances/{self.balance.id}/")
         assert response.status_code == 200

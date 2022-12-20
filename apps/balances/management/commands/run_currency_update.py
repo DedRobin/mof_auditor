@@ -15,15 +15,21 @@ class Command(BaseCommand):
         else:
             symbols = ""
 
-        url_rates = "https://api.apilayer.com/exchangerates_data/latest?symbols={0}&base={1}"
+        url_rates = (
+            "https://api.apilayer.com/exchangerates_data/latest?symbols={0}&base={1}"
+        )
         url_rates = url_rates.format(symbols, settings.BASE_CURRENCY)
         url_symbols = "https://api.apilayer.com/exchangerates_data/symbols"
 
         payload = {}
         headers = {"apikey": os.environ.get("API_LAYER_KEY")}
 
-        response_rates = requests.request("GET", url_rates, headers=headers, data=payload).json()
-        response_symbols = requests.request("GET", url_symbols, headers=headers, data=payload).json()
+        response_rates = requests.request(
+            "GET", url_rates, headers=headers, data=payload
+        ).json()
+        response_symbols = requests.request(
+            "GET", url_symbols, headers=headers, data=payload
+        ).json()
 
         currencies = []
         for codename, rate in response_rates.get("rates").items():

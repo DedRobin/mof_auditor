@@ -16,8 +16,8 @@ class TestViews:
 
         # Default permission types
         self.permission_types = {
-            name: PermissionTypeFactory(name=name) for name in
-            ["read", "create", "update", "delete"]
+            name: PermissionTypeFactory(name=name)
+            for name in ["read", "create", "update", "delete"]
         }
         self.read = self.permission_types["read"]
         self.create = self.permission_types["create"]

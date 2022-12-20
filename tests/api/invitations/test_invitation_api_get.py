@@ -32,6 +32,7 @@ class TestViews:
         assert response.data["id"] == invitation.id
         assert response.data["to_who"] == invitation.to_who.username
         assert response.data["from_who"] == invitation.from_who.username
+
     #
     #     GroupFactory(group_info__owner=self.user)
     #

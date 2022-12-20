@@ -19,8 +19,8 @@ class TestViews:
 
         # Default permission types
         self.permission_types = {
-            name: PermissionTypeFactory(name=name) for name in
-            ["read", "create", "update", "delete"]
+            name: PermissionTypeFactory(name=name)
+            for name in ["read", "create", "update", "delete"]
         }
         self.read = self.permission_types["read"]
         self.create = self.permission_types["create"]
@@ -32,7 +32,9 @@ class TestViews:
         self.p_for_user.types.set([self.read, self.create, self.update, self.delete])
 
         # Setting permission types for invited user
-        self.p_for_invited_user = PermissionFactory(user=self.invited_user, group=self.group)
+        self.p_for_invited_user = PermissionFactory(
+            user=self.invited_user, group=self.group
+        )
         self.p_for_invited_user.types.set([self.read])
 
         self.client.force_login(self.user)
@@ -50,7 +52,12 @@ class TestViews:
         response = self.client.get(url)
         assert response.status_code == 200
         assert response.data["count"] == 2
-        assert response.data["results"][0]["types"] == [self.read.id, self.create.id, self.update.id, self.delete.id]
+        assert response.data["results"][0]["types"] == [
+            self.read.id,
+            self.create.id,
+            self.update.id,
+            self.delete.id,
+        ]
         assert response.data["results"][1]["types"] == [self.read.id]
 
     # @pytest.mark.skip
@@ -80,7 +87,12 @@ class TestViews:
 
         response = self.client.get(url)
         assert response.status_code == 200
-        assert response.data["results"][0]["types"] == [self.read.id, self.create.id, self.update.id, self.delete.id]
+        assert response.data["results"][0]["types"] == [
+            self.read.id,
+            self.create.id,
+            self.update.id,
+            self.delete.id,
+        ]
 
         url = "/api/groups/{0}/invited_users/{1}/permissions/"
         url = url.format(self.group.id, self.invited_user.id)
@@ -96,7 +108,9 @@ class TestViews:
         """
 
         url = "/api/groups/{0}/invited_users/{1}/permissions/{2}/"
-        url = url.format(self.group.id, self.invited_user.id, self.p_for_invited_user.id)
+        url = url.format(
+            self.group.id, self.invited_user.id, self.p_for_invited_user.id
+        )
 
         response = self.client.get(url)
         assert response.status_code == 200

@@ -21,7 +21,7 @@ class TestViews:
         data = {
             "from_who": self.user,
             "to_who": UserFactory(),
-            "to_a_group": self.group.id
+            "to_a_group": self.group.id,
         }
 
         response = self.client.post(f"/api/invitations/", data=data)

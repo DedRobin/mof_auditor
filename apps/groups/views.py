@@ -67,6 +67,19 @@ def group_settings(request, pub_id):
     group_name = group.group_info.name
     owner = group.group_info.owner
 
+    if request.method == "POST":
+        action = request.POST.get("action", None)
+        if action == "leave":
+            # Leaving from current group
+
+            group.invited_users.remove(request.user)
+            return redirect("index")
+        elif action == "delete":
+            # Delete current group
+
+            group.delete()
+            return redirect("index")
+
     # Checks update permission
     update_is_allowed = False
     delete_is_allowed = False
@@ -87,11 +100,6 @@ def group_settings(request, pub_id):
         "owner": owner,
     }
     return render(request, "groups/settings/settings.html", data)
-
-
-def delete_group(request, pub_id):
-    Group.objects.get(pub_id=pub_id).delete()
-    return redirect("index")
 
 
 @login_required
@@ -171,7 +179,7 @@ def group_privacy(request, pub_id):
         )
 
         for p_for_add in permissions_for_add:
-            p_for_add.types.addF(permission_type)
+            p_for_add.types.add(permission_type)
         for p_for_del in permissions_for_delete:
             p_for_del.types.remove(permission_type)
 
@@ -190,10 +198,3 @@ def group_privacy(request, pub_id):
     }
 
     return render(request, "groups/settings/privacy/privacy.html", data)
-
-
-@login_required
-def leave_group(request, pub_id):
-    group = Group.objects.get(pub_id=pub_id)
-    group.invited_users.remove(request.user)
-    return redirect("index")

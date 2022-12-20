@@ -46,10 +46,7 @@ def get_specific_balance(request, pub_id):
             delete_transaction(request=request)
 
     form = TransactionForm()
-    data = {
-        "balance": balance,
-        "form": form
-    }
+    data = {"balance": balance, "form": form}
     return render(request, "balances/specific_balance.html", data)
 
 
@@ -61,9 +58,7 @@ def balance_settings(request, pub_id):
         if action == "delete":
             balance.delete()
             return redirect("balance_list")
-    data = {
-        "balance": balance
-    }
+    data = {"balance": balance}
     return render(request, "balances/settings/settings.html", data)
 
 

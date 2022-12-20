@@ -32,6 +32,8 @@ class TestViews:
         url = "/api/profile/"
 
         for key, value in data.items():
-            response = self.client.patch(url, data={key: value}, content_type=self.content_type)
+            response = self.client.patch(
+                url, data={key: value}, content_type=self.content_type
+            )
             assert response.status_code == 200
             assert response.data[key] == data[key]
