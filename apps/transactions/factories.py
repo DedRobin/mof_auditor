@@ -7,7 +7,6 @@ from apps.transactions.models import (
     TRANSACTION_TYPE_CHOICE,
 )
 from apps.balances.factories import BalanceFactory
-from apps.users.factories import UserFactory
 
 
 class TransactionCategoryFactory(DjangoModelFactory):

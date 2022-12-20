@@ -5,7 +5,6 @@ from rest_framework import status
 
 from apps.invitations.models import Invitation
 from apps.users.models import User
-from apps.groups.models import Group
 
 
 def create_invitation_or_404_api(

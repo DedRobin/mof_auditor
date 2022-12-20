@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from apps.balances.views import (
     get_balance_list,

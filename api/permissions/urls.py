@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import path
 from api.permissions.views import PermissionsViewSet
 
 actions_for_list = {

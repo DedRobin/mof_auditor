@@ -23,13 +23,13 @@ class TestViews:
     def test_balances_delete(self):
         """Delete a specific balance"""
 
-        response = self.client.get(f"/api/balances/")
+        response = self.client.get("/api/balances/")
         assert response.status_code == 200
         assert response.data["count"] == 1
 
-        response = self.client.delete(f"/api/balances/{self.balance.id}/")
+        response = self.client.delete("/api/balances/{self.balance.id}/")
         assert response.status_code == 200
 
-        response = self.client.get(f"/api/balances/")
+        response = self.client.get("/api/balances/")
         assert response.status_code == 200
         assert response.data["count"] == 0

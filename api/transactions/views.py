@@ -3,9 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from drf_excel.mixins import XLSXFileMixin
 from drf_excel.renderers import XLSXRenderer
-from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from apps.transactions.import_export_resources import TransactionResource
 from apps.transactions.models import Transaction
 
 from api.transactions.serializers import TransactionSerializer

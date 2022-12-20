@@ -5,7 +5,6 @@ from apps.balances.models import (
     Balance,
     Currency,
     BALANCE_TYPE_CHOICE,
-    BALANCE_PRIVATE_CHOICE,
 )
 from apps.users.factories import UserFactory
 

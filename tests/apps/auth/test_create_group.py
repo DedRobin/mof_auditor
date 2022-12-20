@@ -2,7 +2,6 @@ import pytest
 
 from django.test.client import Client
 from faker import Faker
-from apps.groups.factories import GroupInformationFactory
 from apps.users.factories import UserFactory
 
 

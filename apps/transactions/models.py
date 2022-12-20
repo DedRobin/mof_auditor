@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-from apps.users.models import User
 from apps.balances.models import Balance
 
 TRANSACTION_TYPE_CHOICE = (

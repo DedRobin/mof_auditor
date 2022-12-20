@@ -6,7 +6,6 @@ from typing import Tuple
 
 from apps.groups.models import GroupInformation, Group
 from apps.users.models import User
-from apps.permissions.models import Permission, PermissionType
 
 
 def get_users_and_permission_type(permission_query_dict: QueryDict) -> Tuple[list, str]:

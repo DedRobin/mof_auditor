@@ -6,7 +6,6 @@ from apps.balances.models import Balance, Currency
 from apps.balances.services import create_balance
 from apps.transactions.forms import TransactionForm
 from apps.transactions.services import create_transaction, delete_transaction
-from apps.permissions.models import Permission, PermissionType
 
 
 @login_required

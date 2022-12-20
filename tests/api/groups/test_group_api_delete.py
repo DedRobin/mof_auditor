@@ -3,7 +3,7 @@ from django.test.client import Client
 from faker import Faker
 
 from apps.users.factories import UserFactory
-from apps.groups.factories import GroupInformationFactory, GroupFactory
+from apps.groups.factories import GroupFactory
 
 
 @pytest.mark.django_db

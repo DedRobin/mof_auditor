@@ -1,6 +1,6 @@
 from django import forms
 
-from apps.groups.models import Group, GroupInformation
+from apps.groups.models import GroupInformation
 
 
 class CreateGroupInformationForm(forms.ModelForm):

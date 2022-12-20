@@ -1,13 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from apps.groups.models import Group
 from apps.transactions.import_export_resources import TransactionResource
-from apps.transactions.models import (
-    Transaction,
-    TransactionCategory,
-    TRANSACTION_TYPE_CHOICE,
-)
+from apps.transactions.models import Transaction
 from apps.transactions.forms import TransactionFilterForm
 from apps.transactions.services import get_sorted_transactions
 from django.contrib.auth.decorators import login_required

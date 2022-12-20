@@ -24,9 +24,9 @@ class TestViews:
             "to_a_group": self.group.id,
         }
 
-        response = self.client.post(f"/api/invitations/", data=data)
+        response = self.client.post("/api/invitations/", data=data)
         assert response.status_code == 201
 
-        response = self.client.get(f"/api/invitations/")
+        response = self.client.get("/api/invitations/")
         assert response.status_code == 200
         assert response.data["count"] == 1
