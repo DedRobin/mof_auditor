@@ -7,6 +7,7 @@ from django.utils.timezone import make_aware
 from faker import Faker
 
 from apps.balances.models import Balance, Currency, BALANCE_TYPE_CHOICE
+from apps.balances.factories import BalanceFactory
 from apps.users.models import User
 
 fake = Faker()
@@ -20,36 +21,35 @@ class Command(BaseCommand):
     )
     start_datetime = make_aware(start_datetime)
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--clear",
+            action="store_true",
+            help="Delete all balance records",
+        )
+
     def handle(self, *args, **options):
-        Balance.objects.all().delete()
+        if options["clear"]:
+            Balance.objects.exclude(owner__is_superuser=True).delete()
 
         users = User.objects.all()
-        currencies = Currency.objects.all()
-        balances = []
+        size = 0
+        try:
+            size = int(input("How much would you like create balances for each user?\n"))
+            if size <= 0:
+                print("Size must be greater than 0.")
+                return
+        except ValueError:
+            print("The value is incorrect.")
+        else:
+            for user in users:
+                BalanceFactory.create_batch(owner=user, size=size)
 
-        # Create balances
-        number = 1
-        for user in users:
-            for _ in range(3):
-                balances.append(
-                    Balance(
-                        pub_id=ulid.new(),
-                        name=f"Wallet №{number}",
-                        owner=user,
-                        currency=random.choice(currencies),
-                        type=random.choice(BALANCE_TYPE_CHOICE)[0],
-                        private=False,
-                    )
-                )
-                number += 1
+        # # Add each balance in some group
+        # balances = Balance.objects.all()
+        # for balance in balances:
+        #     for _ in range(2):
+        #         user_groups = balance.owner.user_groups.all()
+        #         balance.groups.add(random.choice(user_groups))
 
-        Balance.objects.bulk_create(balances)
-
-        # Add each balance in some group
-        balances = Balance.objects.all()
-        for balance in balances:
-            for _ in range(2):
-                user_groups = balance.owner.user_groups.all()
-                balance.groups.add(random.choice(user_groups))
-
-        print("Create balances.")
+        print(f"{size * len(users)} balances has been created.")
