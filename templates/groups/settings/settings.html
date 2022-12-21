@@ -19,7 +19,7 @@
                 <h1>Settings for group "{{ group_name }}"</h1>
 
                 <div class="list-group list-group-numbered">
-                    {% if update_is_allowed %}
+                    {% if update_is_allowed or owner == request.user %}
                         <a href="editing/" class="list-group-item list-group-item-action"
                            aria-current="true">Editing</a>
                     {% else %}
@@ -34,7 +34,7 @@
                         <a href="members/" class="list-group-item list-group-item-action disabled">Members</a>
                     {% endif %}
 
-                    {% if delete_is_allowed %}
+                    {% if delete_is_allowed or owner == request.user %}
                         {% csrf_token %}
                         <input type="hidden" name="action" value="delete">
                         <button type="submit" class="list-group-item list-group-item-action text-danger">Delete</button>
