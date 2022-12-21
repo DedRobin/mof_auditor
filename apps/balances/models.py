@@ -2,7 +2,7 @@ import ulid
 from decimal import Decimal
 from django.db import models
 from django.shortcuts import reverse
-
+from django.utils import timezone
 from apps.users.models import User
 from apps.groups.models import Group
 
@@ -35,7 +35,7 @@ class Balance(models.Model):
     )
     private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
     groups = models.ManyToManyField(Group, related_name="balances", blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    created_at = models.DateTimeField(default=timezone.now(), db_index=True)
 
     def __str__(self):
         return f"{self.name}"

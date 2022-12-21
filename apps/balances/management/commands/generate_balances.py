@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options["clear"]:
-            Balance.objects.exclude(owner__is_superuser=True).delete()
+            Balance.objects.all().delete()
 
         users = User.objects.all()
         size = 0

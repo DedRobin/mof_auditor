@@ -28,3 +28,4 @@ class BalanceFactory(DjangoModelFactory):
     type = factory.fuzzy.FuzzyChoice(dict(BALANCE_TYPE_CHOICE).keys())
     currency = factory.Iterator(Currency.objects.all())
     private = factory.Faker("pybool")
+    created_at = factory.Faker("date_time")
