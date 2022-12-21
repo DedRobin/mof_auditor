@@ -3,7 +3,7 @@ from django.test.client import Client
 from faker import Faker
 
 from apps.users.factories import UserFactory
-from apps.balances.factories import BalanceCurrencyFactory, BalanceFactory
+from apps.balances.factories import CurrencyFactory, BalanceFactory
 
 
 @pytest.mark.django_db
@@ -13,7 +13,7 @@ class TestViews:
         self.user = UserFactory()
         self.other_user = UserFactory()
         self.fake = Faker()
-        self.currency = BalanceCurrencyFactory()
+        self.currency = CurrencyFactory()
 
         self.balance = BalanceFactory(owner=self.user, currency=self.currency)
 
@@ -27,7 +27,7 @@ class TestViews:
         assert response.status_code == 200
         assert response.data["count"] == 1
 
-        response = self.client.delete("/api/balances/{self.balance.id}/")
+        response = self.client.delete(f"/api/balances/{self.balance.id}/")
         assert response.status_code == 200
 
         response = self.client.get("/api/balances/")

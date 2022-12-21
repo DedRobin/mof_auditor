@@ -3,7 +3,7 @@ from django.test.client import Client
 from faker import Faker
 
 from apps.users.factories import UserFactory
-from apps.balances.factories import BalanceCurrencyFactory, BalanceFactory
+from apps.balances.factories import CurrencyFactory, BalanceFactory
 
 
 @pytest.mark.django_db
@@ -13,7 +13,7 @@ class TestViews:
         self.user = UserFactory()
         self.other_user = UserFactory()
         self.fake = Faker()
-        self.currency = BalanceCurrencyFactory()
+        self.currency = CurrencyFactory()
 
         BalanceFactory.create_batch(size=20, owner=self.user, currency=self.currency)
 

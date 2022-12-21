@@ -9,14 +9,14 @@ from apps.balances.models import (
 from apps.users.factories import UserFactory
 
 
-class BalanceCurrencyFactory(DjangoModelFactory):
+class CurrencyFactory(DjangoModelFactory):
     class Meta:
         model = Currency
+        exclude = ("currency",)
 
-    # name = factory.Faker("currency_name")
-    # codename = factory.Faker("currency_code")
-    name = "Belorussian Ruble"
-    codename = "BYN"
+    currency = factory.Faker("currency")
+    name = factory.LazyAttribute(lambda x: x.currency[1])
+    codename = factory.LazyAttribute(lambda x: x.currency[0])
 
 
 class BalanceFactory(DjangoModelFactory):
@@ -26,6 +26,5 @@ class BalanceFactory(DjangoModelFactory):
     name = factory.Faker("word")
     owner = factory.SubFactory(UserFactory)
     type = factory.fuzzy.FuzzyChoice(dict(BALANCE_TYPE_CHOICE).keys())
-    currency = factory.SubFactory(BalanceCurrencyFactory)
+    currency = factory.Iterator(Currency.objects.all())
     private = factory.Faker("pybool")
-    # groups =

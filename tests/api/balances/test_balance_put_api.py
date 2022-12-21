@@ -5,7 +5,7 @@ from faker import Faker
 
 from apps.users.factories import UserFactory
 from apps.balances.factories import (
-    BalanceCurrencyFactory,
+    CurrencyFactory,
     BalanceFactory,
     BALANCE_TYPE_CHOICE,
 )
@@ -19,7 +19,7 @@ class TestViews:
         self.user = UserFactory()
         self.other_user = UserFactory()
         self.fake = Faker()
-        self.currency = BalanceCurrencyFactory()
+        self.currency = CurrencyFactory()
         self.balance = BalanceFactory(owner=self.user, currency=self.currency)
         self.client.force_login(self.user)
 
@@ -110,7 +110,7 @@ class TestViews:
         data = copy.deepcopy(self.data)
 
         # New currency
-        new_currency = BalanceCurrencyFactory(name="Russian Ruble", codename="RUB")
+        new_currency = CurrencyFactory(name="Russian Ruble", codename="RUB")
         data["currency"] = new_currency.id
 
         response = self.client.put(

@@ -4,7 +4,7 @@ from faker import Faker
 
 from apps.users.factories import UserFactory
 from apps.balances.factories import (
-    BalanceCurrencyFactory,
+    CurrencyFactory,
     BalanceFactory,
     BALANCE_TYPE_CHOICE,
 )
@@ -18,7 +18,7 @@ class TestViews:
         self.user = UserFactory()
         self.other_user = UserFactory()
         self.fake = Faker()
-        self.currency = BalanceCurrencyFactory()
+        self.currency = CurrencyFactory()
         self.groups = GroupFactory.create_batch(size=3, group_info__owner=self.user)
         self.groups = [group.id for group in self.groups]
 
