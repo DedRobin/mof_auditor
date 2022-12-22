@@ -4,32 +4,41 @@ from django.core.management.base import BaseCommand
 from apps.users.models import User
 from apps.groups.models import Group
 from apps.invitations.models import Invitation
+from apps.invitations.factories import InvitationFactory
 
 
 class Command(BaseCommand):
     help = "Generate invitations"
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--clear",
+            action="store_true",
+            help="Delete all invitation records",
+        )
+
     def handle(self, *args, **options):
         """Generates a unique invitation from each user"""
+        if options["clear"]:
+            Invitation.objects.all().delete()
 
-        Invitation.objects.all().delete()
+        users = User.objects.all()
+        size = 0
+        other_users = 0
+        groups = 0
+        try:
+            size = int(input("How much would you like create invitations for each group each user?\n"))
+            if size <= 0:
+                print("Size must be greater than 0.")
+                return
+        except ValueError:
+            print("The value is incorrect.")
+        else:
+            for from_who in users:
+                other_users = User.objects.exclude(pk=from_who.id).order_by("?")[:size]
+                groups = Group.objects.filter(group_info__owner=from_who).order_by("?")[:size]
+                for to_a_group in groups:
+                    for to_who in other_users:
+                        InvitationFactory(from_who=from_who, to_who=to_who, to_a_group=to_a_group)
 
-        admin = User.objects.get(username="dedrobin")
-        checked_users = [admin]
-        groups = Group.objects.exclude(group_info__owner__in=checked_users)
-        if not groups:
-            print("Groups not found. Create it.")
-            return None
-        i = 0
-        while i < len(groups):
-            groups = Group.objects.exclude(group_info__owner__in=checked_users)
-            random_group = random.choice(groups)
-            owner = random_group.group_info.owner
-            Invitation.objects.create(
-                from_who=owner,
-                to_who=admin,
-                to_a_group=random_group,
-            )
-            checked_users.append(owner)
-            i += 1
-        print("Create invitations.")
+        print(f"{size * len(other_users) * len(groups)} invitations have been created for each group each user.")
