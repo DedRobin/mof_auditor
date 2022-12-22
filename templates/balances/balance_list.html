@@ -5,16 +5,16 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col text-end">
-                <a href="{% url 'index' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+            <div class="col">
             </div>
 
             <div class="col-8">
-                <div>
-                    <h1 class="display-6 fw-bold">
-                        My balances
-                    </h1>
-                </div>
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item "><a href="{% url 'index' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My balances</li>
+                    </ol>
+                </nav>
                 <div class="d-flex flex-row justify-content-between py-2">
                     <div class="py-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

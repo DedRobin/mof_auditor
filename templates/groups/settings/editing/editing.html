@@ -9,11 +9,18 @@
     <div class="row">
 
         <div class="col text-end">
-            <a href="../" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
         </div>
 
         <div class="col-8">
-            <h1>Settings for group "{{ group_name }}"/Editing</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Groups</a></li>
+                    <li class="breadcrumb-item"><a href="#">Group "{{ group_name }}"</a></li>
+                    <li class="breadcrumb-item"><a href="#">Settings</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Editing</li>
+                </ol>
+            </nav>
 
             <form method="POST" class="post-form">
                 {% csrf_token %}

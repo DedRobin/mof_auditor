@@ -5,15 +5,19 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col text-end">
-                <a href="{% url 'index' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+            <div class="col ">
             </div>
 
             <div class="col-8">
                 <div class="d-flex flex-row justify-content-between py-2">
-                    <h1 class="display-6 fw-bold">
-                        {{ group.group_info.name }}
-                    </h1>
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Groups</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Group "{{ group.group_info.name }}"</li>
+                        </ol>
+                    </nav>
+                    <a href="settings/">Settings</a>
                 </div>
 
                 {% for balance in group.balances.all %}

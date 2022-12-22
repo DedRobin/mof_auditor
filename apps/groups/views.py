@@ -30,6 +30,7 @@ def balance_and_transaction_list(request, pub_id):
     data = {
         "group": group,
         "form": form,
+        "pub_id": pub_id,
     }
     return render(request, "groups/balance_list.html", data)
 
@@ -108,7 +109,6 @@ def edit_group(request, pub_id):
 
     group = Group.objects.get(pub_id=pub_id)
     group_info = group.group_info
-
     group_info_form = EditGroupInformationForm(instance=group_info)
 
     if request.method == "POST":
