@@ -30,7 +30,6 @@ def balance_and_transaction_list(request, pub_id):
     data = {
         "group": group,
         "form": form,
-        "pub_id": pub_id,
     }
     return render(request, "groups/balance_list.html", data)
 
@@ -99,6 +98,8 @@ def group_settings(request, pub_id):
         "update_is_allowed": update_is_allowed,
         "delete_is_allowed": delete_is_allowed,
         "owner": owner,
+        "pub_id": pub_id,
+
     }
     return render(request, "groups/settings/settings.html", data)
 
@@ -134,6 +135,8 @@ def edit_group(request, pub_id):
     data = {
         "group_info_form": group_info_form,
         "group_name": group_info.name,
+        "pub_id": pub_id,
+
     }
     return render(
         request,
