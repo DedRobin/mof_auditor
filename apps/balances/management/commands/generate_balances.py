@@ -46,10 +46,10 @@ class Command(BaseCommand):
                 BalanceFactory.create_batch(owner=user, size=size)
 
         # # Add each balance in some group
-        # balances = Balance.objects.all()
-        # for balance in balances:
-        #     for _ in range(2):
-        #         user_groups = balance.owner.user_groups.all()
-        #         balance.groups.add(random.choice(user_groups))
+        balances = Balance.objects.all()
+        for balance in balances:
+            for _ in range(2):
+                user_groups = balance.owner.user_groups.all()
+                balance.groups.add(random.choice(user_groups))
 
         print(f"{size * len(users)} balances has been created.")
