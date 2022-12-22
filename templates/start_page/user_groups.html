@@ -14,7 +14,7 @@
     {% for user in group.invited_users.all %}
         {% for balance in user.balances.all %}
 
-            {% if group in balance.groups.all %}
+{#            {% if group in balance.groups.all %}#}
                 {% if not balance.private %}
                     {% if user in group.invited_users.all %}
 
@@ -29,7 +29,7 @@
 
                     {% endif %}
                 {% endif %}
-            {% endif %}
+{#            {% endif %}#}
 
         {% endfor %}
     {% endfor %}

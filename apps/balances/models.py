@@ -28,7 +28,6 @@ class Balance(models.Model):
     pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="balances")
-
     type = models.CharField(max_length=255, choices=BALANCE_TYPE_CHOICE)
     currency = models.ForeignKey(
         Currency, related_name="balances", on_delete=models.CASCADE

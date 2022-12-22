@@ -25,3 +25,4 @@ class TransactionFactory(DjangoModelFactory):
     amount = factory.Faker("pydecimal", left_digits=5, right_digits=2)
     category = factory.SubFactory(TransactionCategoryFactory)
     comment = factory.Faker("sentence")
+    created_at = factory.Faker("date_time")

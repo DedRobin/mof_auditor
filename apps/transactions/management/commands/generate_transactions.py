@@ -11,6 +11,7 @@ from apps.transactions.models import (
     Transaction,
     TransactionCategory,
 )
+from apps.transactions.factories import TransactionFactory
 
 fake = Faker()
 
@@ -23,32 +24,40 @@ class Command(BaseCommand):
     )
     start_datetime = make_aware(start_datetime)
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--clear",
+            action="store_true",
+            help="Delete all transaction records",
+        )
+
     def handle(self, *args, **options):
-        Transaction.objects.all().delete()
+        if options["clear"]:
+            Transaction.objects.all().delete()
 
         transaction_cat = TransactionCategory.objects.all()
         balances = Balance.objects.all()
-        transactions = []
-        for balance in balances:
-            for _ in range(10):
-                # Random datetime and transaction category
-                random_datetime = fake.date_time_between_dates(
-                    datetime_start=self.start_datetime, datetime_end="now"
-                )
-                random_transaction_cat = random.choice(transaction_cat)
+        size = 0
 
-                if random_transaction_cat.type == "income":
-                    amount = Decimal(str(random.uniform(0.00000, 999.99999)))
-                else:
-                    amount = Decimal(str(random.uniform(-999.99999, -0.00001)))
-                transactions.append(
-                    Transaction(
+        try:
+            size = int(input("How much would you like create transaction for each balance?\n"))
+            if size <= 0:
+                print("Size must be greater than 0.")
+                return
+        except ValueError:
+            print("The value is incorrect.")
+        else:
+            for balance in balances:
+                for _ in range(size):
+                    random_transaction_cat = random.choice(transaction_cat)
+                    if random_transaction_cat.type == "income":
+                        amount = Decimal(str(random.uniform(0.00000, 999.99999)))
+                    else:
+                        amount = Decimal(str(random.uniform(-999.99999, -0.00001)))
+                    TransactionFactory(
                         balance=balance,
                         amount=amount,
                         category=random_transaction_cat,
-                        comment=fake.sentence(),
-                        created_at=random_datetime,
                     )
-                )
-        Transaction.objects.bulk_create(transactions)
+
         print("Create transactions.")
