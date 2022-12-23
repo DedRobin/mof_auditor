@@ -7,12 +7,20 @@
 {% block content %}
     <div class="row">
 
-        <div class="col text-end">
-            <a href="../" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+        <div class="col">
         </div>
 
         <div class="col-8">
-            <h1>Settings for group "{{ group_name }}"/Members</h1>
+
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Groups</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'balance_and_transaction_list' pub_id %}">Group "{{ group_name }}"</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'group_settings' pub_id %}">Settings</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Members</li>
+                </ol>
+            </nav>
 
             {% include 'groups/settings/members/members_form.html' %}
 

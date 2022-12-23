@@ -106,7 +106,7 @@ def group_settings(request, pub_id):
 
 @login_required
 def edit_group(request, pub_id):
-    """Updates data for particular group"""
+    """Updates data for a specific group"""
 
     group = Group.objects.get(pub_id=pub_id)
     group_info = group.group_info
@@ -158,6 +158,7 @@ def group_members(request, pub_id):
     data = {
         "group_name": group_name,
         "invited_users": invited_users,
+        "pub_id": pub_id,
     }
     return render(request, "groups/settings/members/members.html", data)
 
@@ -198,6 +199,7 @@ def group_privacy(request, pub_id):
         "invited_users": invited_users,
         "permissions": permissions,
         "permission_list": permission_list,
+        "pub_id": pub_id,
     }
 
     return render(request, "groups/settings/privacy/privacy.html", data)
