@@ -6,12 +6,20 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col text-end">
-                <a href="../" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+            <div class="col">
             </div>
 
             <div class="col-8">
-                <h1>Editing for balance "{{ balance.name }}"</h1>
+
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'get_balance_list' %}">My balances</a></li>
+                    <li class="breadcrumb-item"><a href="#">Balance "{{ balance.name }}"</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'balance_settings' pub_id %}">Settings</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Editing</li>
+                </ol>
+            </nav>
                 <form method="POST">
                     {% csrf_token %}
                     {{ balance_form|crispy }}

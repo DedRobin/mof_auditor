@@ -7,12 +7,18 @@
 {% block content %}
     <div class="row">
 
-        <div class="col text-end">
-            <a href="{% url 'get_balance_list' %}" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
+        <div class="col">
         </div>
 
         <div class="col-8">
-            <h1>Settings for balance "{{ balance.name }}"</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'get_balance_list' %}">My balances</a></li>
+                    <li class="breadcrumb-item"><a href="#">Balance "{{ balance.name }}"</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                </ol>
+            </nav>
 
             <div class="list-group list-group-numbered">
                 <a href="editing/" class="list-group-item list-group-item-action" aria-current="true">Editing</a>

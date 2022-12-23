@@ -57,7 +57,10 @@ def balance_settings(request, pub_id):
         if action == "delete":
             balance.delete()
             return redirect("balance_list")
-    data = {"balance": balance}
+    data = {
+        "balance": balance,
+        "pub_id": pub_id,
+    }
     return render(request, "balances/settings/settings.html", data)
 
 
@@ -75,5 +78,6 @@ def edit_balance(request, pub_id):
     data = {
         "balance_form": balance_form,
         "balance": balance,
+        "pub_id": pub_id,
     }
     return render(request, "balances/settings/editing/edit_balance.html", data)
