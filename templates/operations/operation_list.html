@@ -16,7 +16,7 @@
                 <form method="GET" action="{% url 'export_operations' %}">
                     {% for name, value in filter.items %}
                         {% if value %}
-                            <input name="{{ name }}" value="{{ value }}" hidden>
+                            <input type="hidden" name="{{ name }}" value="{{ value }}">
                         {% endif %}
                     {% endfor %}
                     <button type="submit" class="btn btn-success mt-2">
