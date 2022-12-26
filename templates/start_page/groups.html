@@ -1,5 +1,5 @@
-<div class="card mb-2">
-    <div class="card-header">
+<div class="card border-dark mb-2">
+    <div class="card-header border-dark">
         <div class="d-flex flex-row justify-content-between">
             <div class="">
                 <a href="{{ group.get_absolute_url }}">{{ forloop.counter }}) {{ group.group_info.name }}</a>
@@ -12,7 +12,7 @@
     <div class="card-body">
         {% include 'start_page/balances.html' %}
     </div>
-    <div class="card-footer text-muted">
+    <div class="card-footer text-muted border-dark">
         Created at {{ group.created_at }}
     </div>
 </div>
