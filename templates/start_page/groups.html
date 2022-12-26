@@ -1,0 +1,19 @@
+<div class="card mb-2">
+    <div class="card-header">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="">
+                <a href="{{ group.get_absolute_url }}">{{ forloop.counter }}) {{ group.group_info.name }}</a>
+            </div>
+
+            <div>
+                <a class="btn btn-primary" href="{{ group.get_absolute_url }}settings/">settings</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {% include 'start_page/balances.html' %}
+    </div>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+</div>

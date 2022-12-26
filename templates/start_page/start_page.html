@@ -1,0 +1,21 @@
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col">
+            </div>
+
+            <div class="col-8">
+                {% for group in user_groups %}
+                    {% include 'start_page/groups.html' %}
+                {% endfor %}
+            </div>
+
+            <div class="col">
+                {% include 'start_page/converter.html' %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
