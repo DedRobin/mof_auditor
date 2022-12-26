@@ -8,11 +8,16 @@
     <div class="row">
 
         <div class="col text-end">
-            <a href="../" class="btn btn-primary btn-lg mx-2 my-1">Back</a>
         </div>
 
         <div class="col-8">
-            <h1>Send invitation</h1>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item "><a href="{% url 'index' %}">Home</a></li>
+                    <li class="breadcrumb-item "><a href="{% url 'invitation_list' %}">Invitations</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Send invitation</li>
+                </ol>
+            </nav>
             <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
