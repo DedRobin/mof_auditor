@@ -53,7 +53,7 @@ def logout_user(request):
 
 @login_required
 def index(request):
-    user = User.objects.get(username=request.user)
+    user = request.user
     user_groups = user.user_groups.all()
     if request.GET:
         form = CurrencyConvertForm(request.GET)
