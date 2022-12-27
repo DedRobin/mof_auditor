@@ -9,7 +9,6 @@ from apps.balances.factories import (
     BalanceFactory,
     BALANCE_TYPE_CHOICE,
 )
-from apps.groups.factories import GroupFactory
 
 
 @pytest.mark.django_db
@@ -30,7 +29,6 @@ class TestViews:
             "type": self.balance.type,
             "currency": self.balance.currency.id,
             "private": self.balance.private,
-            "groups": [group for group in self.balance.groups.all()],
         }
 
     # @pytest.mark.skip
@@ -45,7 +43,6 @@ class TestViews:
         assert response.data["owner"] == self.balance.owner.username
         assert response.data["type"] == self.balance.type
         assert response.data["currency"] == self.balance.currency.id
-        assert len(response.data["groups"]) == len(self.balance.groups.all())
 
     # @pytest.mark.skip
     def test_balances_put_name(self):
@@ -141,25 +138,3 @@ class TestViews:
         response = self.client.get(f"/api/balances/{self.balance.id}/")
         assert response.status_code == 200
         assert response.data["private"] == data["private"]
-
-    # @pytest.mark.skip
-    def test_balances_put_groups(self):
-        """Update groups for a specific balance"""
-
-        data = copy.deepcopy(self.data)
-
-        # New groups
-        new_groups = GroupFactory.create_batch(size=3)
-        for group in new_groups:
-            group.invited_users.add(self.user)
-        data["groups"] = [group.id for group in new_groups]
-
-        response = self.client.put(
-            f"/api/balances/{self.balance.id}/",
-            data=data,
-            content_type=self.content_type,
-        )
-        assert response.status_code == 200
-        response = self.client.get(f"/api/balances/{self.balance.id}/")
-        assert response.status_code == 200
-        assert response.data["groups"] == data["groups"]

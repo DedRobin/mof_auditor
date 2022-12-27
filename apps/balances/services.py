@@ -10,7 +10,7 @@ from apps.balances.models import Balance, Currency
 
 
 def get_currency_convert_result(
-    from_amount: Decimal, from_currency: str, to_currency: str
+        from_amount: Decimal, from_currency: str, to_currency: str
 ) -> Decimal:
     url = "https://api.apilayer.com/exchangerates_data/convert?to={0}&from={1}&amount={2}".format(
         to_currency, from_currency, from_amount
@@ -37,14 +37,13 @@ def create_balance(request: WSGIRequest) -> None:
 
 
 def create_balance_api(request: Request, validated_data: OrderedDict) -> None:
-    balance = Balance.objects.create(
+    Balance.objects.create(
         name=validated_data["name"],
         owner=request.user,
         type=validated_data["type"],
         currency=validated_data["currency"],
         private=validated_data["private"],
     )
-    balance.groups.set(validated_data["groups"])
 
 
 def update_balance_api(balance_id: int, validated_data: OrderedDict) -> None:
@@ -55,4 +54,3 @@ def update_balance_api(balance_id: int, validated_data: OrderedDict) -> None:
         currency=validated_data["currency"],
         private=validated_data["private"],
     )
-    balance[0].groups.set(validated_data["groups"])

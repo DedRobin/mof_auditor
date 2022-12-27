@@ -11,8 +11,6 @@ class TestViews:
     def setup_method(self):
         self.client = Client()
         self.user = UserFactory()
-        self.other_user = UserFactory()
-        self.fake = Faker()
         self.currency = CurrencyFactory()
 
         self.balance = BalanceFactory(owner=self.user, currency=self.currency)
