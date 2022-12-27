@@ -37,6 +37,7 @@ class BalanceAdmin(admin.ModelAdmin):
     list_filter = (
         "type",
         "private",
+        "owner",
     )
     readonly_fields = ("created_at",)
     search_fields = (
@@ -49,7 +50,6 @@ class BalanceAdmin(admin.ModelAdmin):
         "private",
     )
     radio_fields = {"type": admin.VERTICAL, "private": admin.VERTICAL}
-
     inlines = [
         TransactionInline,
     ]

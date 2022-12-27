@@ -38,3 +38,6 @@ class GroupAdmin(admin.ModelAdmin):
         "created_at",
         "pub_id",
     )
+    list_filter = (
+        "group_info__owner",
+    )
