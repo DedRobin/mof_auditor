@@ -24,11 +24,13 @@ class GroupAdmin(admin.ModelAdmin):
         "group_info",
         "pub_id",
         "all_invited_users",
+        "all_linked_balances",
         "created_at",
     )
     fields = (
         "group_info",
         "invited_users",
+        "balances",
     )
     readonly_fields = ("created_at",)
     search_fields = (

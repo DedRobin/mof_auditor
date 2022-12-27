@@ -4,7 +4,6 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils import timezone
 from apps.users.models import User
-from apps.groups.models import Group
 
 BALANCE_TYPE_CHOICE = (("cash", "Cash"), ("card", "Card"), ("bank", "Bank account"))
 
@@ -33,11 +32,10 @@ class Balance(models.Model):
         Currency, related_name="balances", on_delete=models.CASCADE
     )
     private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
-    groups = models.ManyToManyField(Group, related_name="balances", blank=True)
     created_at = models.DateTimeField(default=timezone.now(), db_index=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} (Owner: {self.owner.username})"
 
     def save(self, **kwargs):
         """Generates a public ID when the instance is saved"""
@@ -55,6 +53,3 @@ class Balance(models.Model):
             total = sum(transactions.amount for transactions in transactions)
             return total
         return Decimal("0")
-
-    def for_groups(self):
-        return ", ".join(group.group_info.name for group in self.groups.all())

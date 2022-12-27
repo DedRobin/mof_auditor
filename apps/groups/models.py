@@ -3,6 +3,7 @@ from django.db import models
 from django.shortcuts import reverse
 
 from apps.users.models import User
+from apps.balances.models import Balance
 
 
 class GroupInformation(models.Model):
@@ -22,20 +23,10 @@ class GroupInformation(models.Model):
 
 class Group(models.Model):
     group_info = models.OneToOneField(GroupInformation, on_delete=models.CASCADE)
-    pub_id = models.CharField(
-        max_length=255,
-        unique=True,
-        blank=True,
-        null=True,
-    )
-    invited_users = models.ManyToManyField(
-        User,
-        related_name="user_groups",
-        blank=True,
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True, db_index=True, blank=True, null=True
-    )
+    pub_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
+    invited_users = models.ManyToManyField(User, related_name="user_groups", blank=True, )
+    balances = models.ManyToManyField(Balance, related_name="user_groups", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.group_info.name} (Owner: {self.group_info.owner}) {self.id}"
@@ -56,3 +47,8 @@ class Group(models.Model):
         """Method for displaying all invited users in admin"""
 
         return ", ".join(user.username for user in self.invited_users.all())
+
+    def all_linked_balances(self):
+        """Method for displaying all linked balances in admin"""
+
+        return ", ".join(balance.name for balance in self.balances.all())

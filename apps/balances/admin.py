@@ -26,7 +26,6 @@ class BalanceAdmin(admin.ModelAdmin):
         "currency",
         "private",
         "created_at",
-        "for_groups",
     )
     fields = (
         "name",
@@ -34,7 +33,6 @@ class BalanceAdmin(admin.ModelAdmin):
         "type",
         "currency",
         "private",
-        "groups",
     )
     list_filter = (
         "type",
