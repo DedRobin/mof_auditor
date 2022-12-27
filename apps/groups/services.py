@@ -48,6 +48,7 @@ def update_group_api(group_id: int, validated_data: OrderedDict) -> None:
     group_info.name = validated_data.get("group_info").get("name")
     group_info.description = validated_data.get("group_info").get("description")
     group_info.save()
+    group.balances.set(validated_data.get("balances"))
 
 
 def delete_invited_user_from_group(request: WSGIRequest, group: Group) -> None:

@@ -2,8 +2,6 @@ from rest_framework import serializers
 
 from apps.balances.models import BALANCE_TYPE_CHOICE
 from apps.balances.models import Currency
-from apps.groups.models import Group
-from api.groups.serializers import MyAndInvitedGroupSerializer
 
 
 class BalanceSerializer(serializers.Serializer):
@@ -15,4 +13,12 @@ class BalanceSerializer(serializers.Serializer):
     currency = serializers.PrimaryKeyRelatedField(queryset=Currency.objects.all())
     private = serializers.BooleanField()
     total = serializers.StringRelatedField()
-    # groups = MyAndInvitedGroupSerializer(queryset=Group.objects.all(), many=True)
+
+
+class MyBalanceSerializer(serializers.PrimaryKeyRelatedField, BalanceSerializer):
+    def get_queryset(self):
+        request = self.context.get("request", None)
+        queryset = super(MyBalanceSerializer, self).get_queryset()
+        if not request or not queryset:
+            return None
+        return queryset.filter(owner=request.user).order_by("name")
