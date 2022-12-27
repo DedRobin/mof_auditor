@@ -1,6 +1,7 @@
 from faker import Faker
 from django.core.management.base import BaseCommand
 
+from apps.balances.models import Balance
 from apps.groups.factories import GroupFactory
 from apps.users.models import User
 from apps.groups.models import Group
@@ -36,6 +37,8 @@ class Command(BaseCommand):
                 groups = GroupFactory.create_batch(size=size, group_info__owner=user)
                 for group in groups:
                     invited_users = User.objects.exclude(pk=user.id).order_by("?")[:3]
+                    balances = Balance.objects.filter(owner=user).order_by("?")[:3]
                     group.invited_users.set(invited_users)
+                    group.balances.set(balances)
 
         print(f"{size * len(users)} groups have been created.")

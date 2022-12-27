@@ -2,9 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from apps.users.forms import RegisterForm, LoginForm
 from apps.users.models import User
+from apps.groups.models import Group
 from apps.profiles.models import Profile
 from apps.balances.forms import CurrencyConvertForm
 from apps.balances.services import get_currency_convert_result
@@ -54,7 +56,7 @@ def logout_user(request):
 @login_required
 def index(request):
     user = request.user
-    user_groups = user.user_groups.all()
+    groups = Group.objects.filter(Q(group_info__owner=user) | Q(invited_users=user)).order_by("group_info__name")
     if request.GET:
         form = CurrencyConvertForm(request.GET)
         if form.is_valid():
@@ -80,7 +82,7 @@ def index(request):
 
     data = {
         "user": user,
-        "user_groups": user_groups,
+        "user_groups": groups,
         "form": form,
     }
     return render(request, "index.html", data)

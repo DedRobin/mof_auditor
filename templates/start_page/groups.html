@@ -2,7 +2,15 @@
     <div class="card-header border-dark">
         <div class="d-flex flex-row justify-content-between">
             <div class="">
-                <a href="{{ group.get_absolute_url }}">{{ forloop.counter }}) {{ group.group_info.name }}</a>
+                <a
+                        {% if group.group_info.owner == request.user %}
+                            class="link-success"
+                        {% endif %}
+                            href="{{ group.get_absolute_url }}">{{ forloop.counter }}) {{ group.group_info.name }}
+                    ({{ group.group_info.owner.username }} -
+                    {{ group.group_info.owner.profile.first_name }}
+                    {{ group.group_info.owner.profile.last_name }})
+                </a>
             </div>
             <div>
                 <a class="btn btn-primary" href="{{ group.get_absolute_url }}settings/">settings</a>
