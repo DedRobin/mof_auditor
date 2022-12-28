@@ -1,12 +1,9 @@
-<div class="card border-dark mb-2">
+<div class="card border border-5 border-primary mb-2">
     <div class="card-header border-dark">
         <div class="d-flex flex-row justify-content-between">
             <div class="">
-                <a
-                        {% if group.group_info.owner == request.user %}
-                            class="link-success"
-                        {% endif %}
-                            href="{{ group.get_absolute_url }}">{{ forloop.counter }}) {{ group.group_info.name }}
+                <a class="link-primary" href="{{ group.get_absolute_url }}">
+                    {{ forloop.counter }}) {{ group.group_info.name }}
                     ({{ group.group_info.owner.username }} -
                     {{ group.group_info.owner.profile.first_name }}
                     {{ group.group_info.owner.profile.last_name }})

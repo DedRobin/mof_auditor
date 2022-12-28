@@ -7,7 +7,11 @@
 
             <div class="col-8">
                 {% for group in user_groups %}
-                    {% include 'start_page/groups.html' %}
+                    {% if group.group_info.owner == request.user %}
+                        {% include 'start_page/authorized_user_group.html' %}
+                    {% else %}
+                        {% include 'start_page/group.html' %}
+                    {% endif %}
                 {% endfor %}
             </div>
 
