@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from apps.balances.models import Balance
 from apps.transactions.services import create_transaction, delete_transaction
 from apps.users.models import User
 from apps.groups.models import GroupInformation, Group
@@ -203,3 +204,24 @@ def group_privacy(request, pub_id):
     }
 
     return render(request, "groups/settings/privacy/privacy.html", data)
+
+
+@login_required
+def get_linked_balances(request, pub_id):
+    balances = Balance.objects.filter(owner=request.user)
+    group = Group.objects.get(pub_id=pub_id)
+    linked_balances = group.balances.all()
+
+    if request.method == "POST":
+        balance_pub_ids = request.POST.getlist("balances")
+        updated_linked_balances = Balance.objects.filter(pub_id__in=balance_pub_ids).order_by("name")
+        group.balances.set(updated_linked_balances)
+        linked_balances = updated_linked_balances
+
+    data = {
+        "pub_id": pub_id,
+        "balances": balances,
+        "linked_balances": linked_balances,
+        "group_name": group.group_info.name,
+    }
+    return render(request, "groups/settings/linked_balances/linked_balances.html", data)

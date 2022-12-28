@@ -1,0 +1,19 @@
+{% if balance in linked_balances %}
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="balance-{{ balance.name }}"
+               name="balances" value="{{ balance.pub_id }}" checked>
+        <label class="form-check-label" for="balance-{{ balance.name }}">{{ balance.name }}</label>
+    </div>
+{% elif balance.private %}
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="balance-{{ balance.name }}" disabled>
+        <label class="form-check-label" for="balance-{{ balance.name }}">{{ balance.name }} (Private)</label>
+    </div>
+{% else %}
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="balance-{{ balance.name }}"
+               name="balances" value="{{ balance.pub_id }}">
+        <label class="form-check-label" for="balance-{{ balance.name }}">{{ balance.name }}</label>
+    </div>
+{% endif %}
+

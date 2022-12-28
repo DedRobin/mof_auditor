@@ -7,6 +7,7 @@ from apps.groups.views import (
     group_members,
     group_privacy,
     balance_and_transaction_list,
+    get_linked_balances,
 )
 
 urlpatterns = [
@@ -20,4 +21,5 @@ urlpatterns = [
     path("<str:pub_id>/settings/editing/", edit_group, name="group_editing"),
     path("<str:pub_id>/settings/privacy/", group_privacy, name="group_privacy"),
     path("<str:pub_id>/settings/members/", group_members, name="group_members"),
+    path("<str:pub_id>/settings/linked_balances/", get_linked_balances, name="linked_balances"),
 ]

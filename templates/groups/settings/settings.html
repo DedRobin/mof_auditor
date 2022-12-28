@@ -18,7 +18,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Groups</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'balance_and_transaction_list' pub_id %}">Group "{{ group_name }}"</a>
+                    <li class="breadcrumb-item"><a href="{% url 'balance_and_transaction_list' pub_id %}">Group
+                        "{{ group_name }}"</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">Settings</li>
                 </ol>
@@ -36,9 +37,12 @@
                     {% if owner == request.user %}
                         <a href="privacy/" class="list-group-item list-group-item-action">Privacy</a>
                         <a href="members/" class="list-group-item list-group-item-action">Members</a>
+                        <a href="linked_balances/" class="list-group-item list-group-item-action">Linked balances</a>
                     {% else %}
                         <a href="privacy/" class="list-group-item list-group-item-action disabled">Privacy</a>
                         <a href="members/" class="list-group-item list-group-item-action disabled">Members</a>
+                        <a href="linked_balances/" class="list-group-item list-group-item-action disabled">Linked
+                            balances</a>
                     {% endif %}
 
                     {% if delete_is_allowed or owner == request.user %}

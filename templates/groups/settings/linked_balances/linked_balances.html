@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Settings for group "{{ group_name }}"/Editing{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="col text-end">
+        </div>
+
+        <div class="col-8">
+            {% include 'groups/settings/linked_balances/breadcrumb.html' %}
+            <form method="POST">
+                {% csrf_token %}
+                {% for balance in balances %}
+                    {% include 'groups/settings/linked_balances/user_switches.html' %}
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+        </div>
+
+        <div class="col">
+        </div>
+    </div>
+
+{% endblock %}
