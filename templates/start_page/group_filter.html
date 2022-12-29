@@ -1,0 +1,9 @@
+{% load crispy_forms_filters %}
+
+<form method="GET" class="position-fixed start-10">
+    <input type="hidden" name="group_filter" value="True">
+    <div class="fs-3 text-center mb-2">Group filter</div>
+    {{ group_filter_form|crispy }}
+    <button type="submit" class="btn btn-primary">Apply</button>
+    <a href="{% url 'index' %}" class="btn btn-danger">Reset</a>
+</form>

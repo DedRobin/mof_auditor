@@ -1,15 +1,40 @@
 import requests
 import os
-
+from django.forms import Form
 from decimal import Decimal
 from collections import OrderedDict
 from django.core.handlers.wsgi import WSGIRequest
 from rest_framework.request import Request
 
+from apps.balances.forms import CurrencyConvertForm
 from apps.balances.models import Balance, Currency
 
 
-def get_currency_convert_result(
+def get_currency_form(request: WSGIRequest) -> Form:
+    form = CurrencyConvertForm(request.GET)
+    if form.is_valid():
+        from_amount = form.cleaned_data["from_amount"]
+        from_currency = form.cleaned_data["from_currency"]
+        to_currency = form.cleaned_data["to_currency"]
+        convert_result = _get_convert_result(
+            from_amount=from_amount,
+            from_currency=from_currency.codename,
+            to_currency=to_currency.codename,
+        )
+
+        form_data = {
+            "from_amount": from_amount,
+            "from_currency": from_currency,
+            "to_currency": to_currency,
+            "result": convert_result,
+        }
+        form = CurrencyConvertForm(form_data)
+    else:
+        form = CurrencyConvertForm()
+    return form
+
+
+def _get_convert_result(
         from_amount: Decimal, from_currency: str, to_currency: str
 ) -> Decimal:
     url = "https://api.apilayer.com/exchangerates_data/convert?to={0}&from={1}&amount={2}".format(

@@ -1,6 +1,7 @@
 {% load crispy_forms_filters %}
 
 <form method="GET" class="position-fixed start-10">
+    <input type="hidden" name="converter" value="True">
     <div class="fs-3 text-center mb-2">Currency converter</div>
     {{ form|crispy }}
     <button type="submit" class="btn btn-primary">Convert</button>

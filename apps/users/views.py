@@ -4,12 +4,14 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
+from apps.groups.services import get_filter_groups
 from apps.users.forms import RegisterForm, LoginForm
 from apps.users.models import User
 from apps.groups.models import Group
+from apps.groups.forms import GroupFilterForm
 from apps.profiles.models import Profile
 from apps.balances.forms import CurrencyConvertForm
-from apps.balances.services import get_currency_convert_result
+from apps.balances.services import get_currency_form
 
 
 def login_view(request):
@@ -57,32 +59,20 @@ def logout_user(request):
 def index(request):
     user = request.user
     groups = Group.objects.filter(Q(group_info__owner=user) | Q(invited_users=user)).order_by("group_info__name")
+    form = CurrencyConvertForm()
+    group_filter_form = GroupFilterForm()
+
     if request.GET:
-        form = CurrencyConvertForm(request.GET)
-        if form.is_valid():
-            from_amount = form.cleaned_data["from_amount"]
-            from_currency = form.cleaned_data["from_currency"]
-            to_currency = form.cleaned_data["to_currency"]
-
-            convert_result = get_currency_convert_result(
-                from_amount=from_amount,
-                from_currency=from_currency.codename,
-                to_currency=to_currency.codename,
-            )
-
-            form_data = {
-                "from_amount": from_amount,
-                "from_currency": from_currency,
-                "to_currency": to_currency,
-                "result": convert_result,
-            }
-            form = CurrencyConvertForm(form_data)
-    else:
-        form = CurrencyConvertForm()
+        if request.GET.get("group_filter", None):
+            groups = get_filter_groups(request, groups)
+            group_filter_form = GroupFilterForm(request.GET)
+        elif request.GET.get("converter", None):
+            form = get_currency_form(request)
 
     data = {
         "user": user,
         "user_groups": groups,
         "form": form,
+        "group_filter_form": group_filter_form,
     }
     return render(request, "index.html", data)
