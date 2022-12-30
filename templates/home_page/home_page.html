@@ -3,21 +3,21 @@
         <div class="row">
 
             <div class="col">
-                {% include 'start_page/group_filter.html' %}
+                {% include 'home_page/group_filter.html' %}
             </div>
 
             <div class="col-8">
                 {% for group in user_groups %}
                     {% if group.group_info.owner == request.user %}
-                        {% include 'start_page/authorized_user_group.html' %}
+                        {% include 'home_page/authorized_user_group.html' %}
                     {% else %}
-                        {% include 'start_page/group.html' %}
+                        {% include 'home_page/group.html' %}
                     {% endif %}
                 {% endfor %}
             </div>
 
             <div class="col">
-                {% include 'start_page/converter.html' %}
+                {% include 'home_page/converter.html' %}
             </div>
 
         </div>
