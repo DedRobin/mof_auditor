@@ -1,6 +1,5 @@
 import pytest
 from django.test.client import Client
-from faker import Faker
 
 from apps.users.factories import UserFactory
 from apps.groups.factories import GroupFactory
@@ -88,7 +87,9 @@ class TestViews:
         """Change linked balances"""
 
         currency = CurrencyFactory()
-        balances = BalanceFactory.create_batch(size=3, owner=self.user, currency=currency)
+        balances = BalanceFactory.create_batch(
+            size=3, owner=self.user, currency=currency
+        )
         balances = [b.id for b in balances]
         response = self.client.get(f"/api/groups/{self.group.id}/")
         response.data["balances"] = balances  # Change balances

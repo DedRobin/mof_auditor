@@ -7,5 +7,7 @@ class Report(models.Model):
         Balance, on_delete=models.CASCADE, related_name="reports"
     )
     total = models.DecimalField(max_digits=19, decimal_places=7)
-    difference = models.DecimalField(max_digits=19, decimal_places=7, blank=True, null=True)
+    difference = models.DecimalField(
+        max_digits=19, decimal_places=7, blank=True, null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)

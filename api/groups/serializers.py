@@ -17,7 +17,9 @@ class GroupSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     group_info = GroupInfoSerializer()
     invited_users = UserProfileSerializer(required=False, many=True, read_only=True)
-    balances = MyBalanceSerializer(queryset=Balance.objects.all(), required=False, many=True)
+    balances = MyBalanceSerializer(
+        queryset=Balance.objects.all(), required=False, many=True
+    )
 
 
 class MyGroupSerializer(serializers.PrimaryKeyRelatedField):

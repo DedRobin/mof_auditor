@@ -3,11 +3,5 @@
 {% block title %}MOF-Auditor{% endblock %}
 
 {% block content %}
-
-{#    {% if not request.user.is_authenticated %}#}
-{#        {% include 'profile/login.html' %}#}
-{#    {% else %}#}
-        {% include 'start_page/start_page.html' %}
-{#    {% endif %}#}
-
+    {% include 'start_page/start_page.html' %}
 {% endblock %}

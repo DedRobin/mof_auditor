@@ -29,7 +29,9 @@
                                     (Owner:
                                     {{ balance.owner.profile.first_name }}
                                     {{ balance.owner.profile.last_name }} -
-                                    {{ balance.owner.username }})
+                                    {{ balance.owner.username }},
+                                    {{ balance.currency.codename }},
+                                    {{ balance.total }})
                                 </a>
                             </div>
                             {% include 'groups/transaction_list.html' %}

@@ -1,6 +1,5 @@
 import pytest
 from django.test.client import Client
-from faker import Faker
 
 from apps.users.factories import UserFactory
 from apps.balances.factories import CurrencyFactory, BalanceFactory

@@ -21,5 +21,9 @@ urlpatterns = [
     path("<str:pub_id>/settings/editing/", edit_group, name="group_editing"),
     path("<str:pub_id>/settings/privacy/", group_privacy, name="group_privacy"),
     path("<str:pub_id>/settings/members/", group_members, name="group_members"),
-    path("<str:pub_id>/settings/linked_balances/", get_linked_balances, name="linked_balances"),
+    path(
+        "<str:pub_id>/settings/linked_balances/",
+        get_linked_balances,
+        name="linked_balances",
+    ),
 ]

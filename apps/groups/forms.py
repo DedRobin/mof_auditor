@@ -3,8 +3,8 @@ from django import forms
 from apps.groups.models import GroupInformation
 
 GROUP_TYPE = [
-    ('mine', 'Only mine'),
-    ('not mine', 'Excluding mine'),
+    ("mine", "Only mine"),
+    ("not mine", "Excluding mine"),
 ]
 
 
@@ -35,7 +35,7 @@ class GroupFilterForm(forms.Form):
                 "type": "datetime-local",
             },
             # format="%Y-%m-%d %H:%M",
-        )
+        ),
     )
     created_at_to = forms.DateTimeField(
         required=False,
@@ -44,10 +44,8 @@ class GroupFilterForm(forms.Form):
                 "type": "datetime-local",
             },
             # format="%Y-%m-%d %H:%M",
-        )
+        ),
     )
     group_type = forms.ChoiceField(
-        widget=forms.RadioSelect(),
-        choices=GROUP_TYPE,
-        required=False
+        widget=forms.RadioSelect(), choices=GROUP_TYPE, required=False
     )

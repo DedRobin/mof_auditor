@@ -8,7 +8,6 @@ from apps.balances.factories import (
     BalanceFactory,
     BALANCE_TYPE_CHOICE,
 )
-from apps.groups.factories import GroupFactory
 
 
 @pytest.mark.django_db

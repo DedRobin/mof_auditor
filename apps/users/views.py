@@ -58,7 +58,9 @@ def logout_user(request):
 @login_required
 def index(request):
     user = request.user
-    groups = Group.objects.filter(Q(group_info__owner=user) | Q(invited_users=user)).order_by("group_info__name")
+    groups = Group.objects.filter(
+        Q(group_info__owner=user) | Q(invited_users=user)
+    ).order_by("group_info__name")
     form = CurrencyConvertForm()
     group_filter_form = GroupFilterForm()
 

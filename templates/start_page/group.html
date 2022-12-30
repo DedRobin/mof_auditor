@@ -1,5 +1,5 @@
 <div class="card border border-5 border-primary mb-2">
-    <div class="card-header border-dark">
+    <div class="card-header border-primary">
         <div class="d-flex flex-row justify-content-between">
             <div class="">
                 <a class="link-primary" href="{{ group.get_absolute_url }}">
@@ -15,9 +15,9 @@
         </div>
     </div>
     <div class="card-body">
-        {% include 'start_page/balances.html' %}
+        {% include 'start_page/total.html' %}
     </div>
-    <div class="card-footer text-muted border-dark">
+    <div class="card-footer text-muted border-primary">
         Created at {{ group.created_at }}
     </div>
 </div>

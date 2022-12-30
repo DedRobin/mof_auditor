@@ -10,7 +10,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def get_transactions(request):
-    transactions = Transaction.objects.filter(balance__owner=request.user).order_by("-created_at")
+    transactions = Transaction.objects.filter(balance__owner=request.user).order_by(
+        "-created_at"
+    )
     query_param = None
     if request.GET:
         query_param = request.GET
@@ -21,11 +23,7 @@ def get_transactions(request):
     else:
         form = TransactionFilterForm()
 
-    data = {
-        "transactions": transactions,
-        "form": form,
-        "filter": query_param
-    }
+    data = {"transactions": transactions, "form": form, "filter": query_param}
     return render(request, "operations/operation_list.html", data)
 
 

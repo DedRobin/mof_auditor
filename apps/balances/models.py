@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django.shortcuts import reverse
 from django.utils import timezone
+
 from apps.users.models import User
 
 BALANCE_TYPE_CHOICE = (("cash", "Cash"), ("card", "Card"), ("bank", "Bank account"))

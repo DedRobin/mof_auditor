@@ -1,4 +1,3 @@
-import random
 from django.core.management.base import BaseCommand
 
 from apps.users.models import User
@@ -27,7 +26,11 @@ class Command(BaseCommand):
         other_users = 0
         groups = 0
         try:
-            size = int(input("How much would you like create invitations for each group each user?\n"))
+            size = int(
+                input(
+                    "How much would you like create invitations for each group each user?\n"
+                )
+            )
             if size <= 0:
                 print("Size must be greater than 0.")
                 return
@@ -36,9 +39,15 @@ class Command(BaseCommand):
         else:
             for from_who in users:
                 other_users = User.objects.exclude(pk=from_who.id).order_by("?")[:size]
-                groups = Group.objects.filter(group_info__owner=from_who).order_by("?")[:size]
+                groups = Group.objects.filter(group_info__owner=from_who).order_by("?")[
+                    :size
+                ]
                 for to_a_group in groups:
                     for to_who in other_users:
-                        InvitationFactory(from_who=from_who, to_who=to_who, to_a_group=to_a_group)
+                        InvitationFactory(
+                            from_who=from_who, to_who=to_who, to_a_group=to_a_group
+                        )
 
-        print(f"{size * len(other_users) * len(groups)} invitations have been created for each group each user.")
+        print(
+            f"{size * len(other_users) * len(groups)} invitations have been created for each group each user."
+        )

@@ -1,12 +1,10 @@
-import ulid
-import random
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from django.utils.timezone import make_aware
 
 from faker import Faker
 
-from apps.balances.models import Balance, Currency, BALANCE_TYPE_CHOICE
+from apps.balances.models import Balance
 from apps.balances.factories import BalanceFactory
 from apps.users.models import User
 
@@ -35,7 +33,9 @@ class Command(BaseCommand):
         users = User.objects.all()
         size = 0
         try:
-            size = int(input("How much would you like create balances for each user?\n"))
+            size = int(
+                input("How much would you like create balances for each user?\n")
+            )
             if size <= 0:
                 print("Size must be greater than 0.")
                 return

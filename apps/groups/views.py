@@ -100,7 +100,6 @@ def group_settings(request, pub_id):
         "delete_is_allowed": delete_is_allowed,
         "owner": owner,
         "pub_id": pub_id,
-
     }
     return render(request, "groups/settings/settings.html", data)
 
@@ -137,7 +136,6 @@ def edit_group(request, pub_id):
         "group_info_form": group_info_form,
         "group_name": group_info.name,
         "pub_id": pub_id,
-
     }
     return render(
         request,
@@ -214,7 +212,9 @@ def get_linked_balances(request, pub_id):
 
     if request.method == "POST":
         balance_pub_ids = request.POST.getlist("balances")
-        updated_linked_balances = Balance.objects.filter(pub_id__in=balance_pub_ids).order_by("name")
+        updated_linked_balances = Balance.objects.filter(
+            pub_id__in=balance_pub_ids
+        ).order_by("name")
         group.balances.set(updated_linked_balances)
         linked_balances = updated_linked_balances
 
