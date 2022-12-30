@@ -2,6 +2,11 @@ from django import forms
 
 from apps.groups.models import GroupInformation
 
+GROUP_TYPE = [
+    ('mine', 'Only mine'),
+    ('not mine', 'Excluding mine'),
+]
+
 
 class CreateGroupInformationForm(forms.ModelForm):
     class Meta:
@@ -29,7 +34,7 @@ class GroupFilterForm(forms.Form):
             attrs={
                 "type": "datetime-local",
             },
-            format="%Y-%m-%d %H:%M",
+            # format="%Y-%m-%d %H:%M",
         )
     )
     created_at_to = forms.DateTimeField(
@@ -38,8 +43,11 @@ class GroupFilterForm(forms.Form):
             attrs={
                 "type": "datetime-local",
             },
-            format="%Y-%m-%d %H:%M",
+            # format="%Y-%m-%d %H:%M",
         )
     )
-    my_groups = forms.BooleanField()
-    other_groups = forms.BooleanField()
+    group_type = forms.ChoiceField(
+        widget=forms.RadioSelect(),
+        choices=GROUP_TYPE,
+        required=False
+    )

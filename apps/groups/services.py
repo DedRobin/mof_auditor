@@ -14,17 +14,21 @@ def get_filter_groups(request: WSGIRequest, queryset: QuerySet) -> QuerySet:
     by_name = filters.get("by_name", None)
     created_at_from = filters.get("created_at_from", None)
     created_at_to = filters.get("created_at_to", None)
-    my_groups = filters.get("my_groups", None)
-    other_groups = filters.get("other_groups", None)
+    group_type = filters.get("group_type", None)
 
     if by_name:
         queryset = queryset.filter(group_info__name__icontains=by_name)
     if created_at_from or created_at_to:
-        queryset = queryset.filter(created_at__gte=created_at_from, created_at__lte=created_at_to)
-    if my_groups:
-        queryset = queryset.filter(group_info__owner=request.user)
-    if other_groups:
-        queryset = queryset.exclude(group_info__owner=request.user)
+        if created_at_from:
+            queryset = queryset.filter(created_at__gte=created_at_from)
+        elif created_at_to:
+            queryset = queryset.filter(created_at__lte=created_at_to)
+
+    if group_type:
+        if group_type == "mine":
+            queryset = queryset.filter(group_info__owner=request.user)
+        elif group_type == "not mine":
+            queryset = queryset.exclude(group_info__owner=request.user)
     return queryset
 
 
