@@ -1,18 +1,10 @@
-<div class="card border border-5 border-primary mb-2">
+<a href="{{ group.get_absolute_url }}" class="card border border-5 border-primary mb-2 d-block"
+   style="text-decoration: none">
     <div class="card-header border-primary">
-        <div class="d-flex flex-row justify-content-between">
-            <div class="">
-                <a class="link-primary" href="{{ group.get_absolute_url }}">
-                    {{ forloop.counter }}) {{ group.group_info.name }}
-                    ({{ group.group_info.owner.username }} -
-                    {{ group.group_info.owner.profile.first_name }}
-                    {{ group.group_info.owner.profile.last_name }})
-                </a>
-            </div>
-            <div>
-                <a class="btn btn-primary" href="{{ group.get_absolute_url }}settings/">settings</a>
-            </div>
-        </div>
+        {{ forloop.counter }}) {{ group.group_info.name }}
+        ({{ group.group_info.owner.username }} -
+        {{ group.group_info.owner.profile.first_name }}
+        {{ group.group_info.owner.profile.last_name }})
     </div>
     <div class="card-body">
         {% include 'home_page/total.html' %}
@@ -20,4 +12,4 @@
     <div class="card-footer text-muted border-primary">
         Created at {{ group.created_at }}
     </div>
-</div>
+</a>
