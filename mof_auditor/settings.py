@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "rest_framework",
     "rest_framework.authtoken",
+
     # other
     "import_export",
     "drf_yasg",
+    "django_rq",
+
     # apps
     "apps.users",
     "apps.profiles",
@@ -174,6 +177,16 @@ REST_FRAMEWORK = {
         "drf_excel.renderers.XLSXRenderer",
     ),
 }
+
+RQ_QUEUES = {
+   "default": {
+       "HOST": "localhost",
+       "PORT": 6379,
+       "DB": 0,
+       "DEFAULT_TIMEOUT": 360,
+   },
+}
+
 # Basic redirect to URL if user is not authenticated
 LOGIN_URL = "/auth/login"
 

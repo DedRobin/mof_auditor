@@ -11,6 +11,7 @@ django-import-export==3.0.1
 drf-excel==2.2.0
 drf-yasg==1.21.4
 coreapi==2.3.3
+django-rq==2.6.0
 
 pytest>=7.1.2
 pytest-django>=4.5.2
