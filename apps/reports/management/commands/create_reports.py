@@ -46,7 +46,8 @@ class Command(BaseCommand):
     Balance ID={balance.id}: 
     The total amount from the current balance and the total amount from the report don't match.
     The total amount from the current balance= {balance.total()}
-    The total amount from report= {last_report.total}""")
+    The total amount from report= {last_report.total}
+    The difference is {balance.total() - last_report.total}""")
                         error_counter += 1
                         continue
 

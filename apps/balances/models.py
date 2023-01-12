@@ -33,7 +33,7 @@ class Balance(models.Model):
         Currency, related_name="balances", on_delete=models.CASCADE
     )
     private = models.BooleanField(choices=BALANCE_PRIVATE_CHOICE)
-    created_at = models.DateTimeField(default=timezone.now(), db_index=True)
+    created_at = models.DateTimeField(db_index=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} (Owner: {self.owner.username})"
