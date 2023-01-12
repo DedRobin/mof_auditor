@@ -4,7 +4,7 @@ import logging
 from apps.balances.models import Balance
 from apps.reports.models import Report
 
-logger = logging.getLogger("Make_report.py")
+logger = logging.getLogger(__name__)
 logging.basicConfig(
     level=logging.WARNING,
     filename="event_log/make_report.log",
@@ -42,12 +42,11 @@ class Command(BaseCommand):
                     if not transactions_after:
                         logger.warning(
                             f"""
-    ALARM!
     Balance ID={balance.id}: 
     The total amount from the current balance and the total amount from the report don't match.
     The total amount from the current balance= {balance.total()}
     The total amount from report= {last_report.total}
-    The difference is {balance.total() - last_report.total}""")
+    The difference is {balance.total() - last_report.total}.""")
                         error_counter += 1
                         continue
 
@@ -61,7 +60,6 @@ class Command(BaseCommand):
                     if difference:
                         logger.warning(
                             f"""
-    ALARM! 
     Balance ID={balance.id}
     Difference is {difference} for '{balance}'.""")
                         error_counter += 1
@@ -87,4 +85,7 @@ class Command(BaseCommand):
         elif counter > 1:
             logger.info(f"All balances have been checked. {counter} reports have been created.")
         else:
-            logger.warning(f"\n    There are some errors ({error_counter}).")
+            if error_counter > 1:
+                logger.warning(f"\n    There are some errors ({error_counter}).")
+            else:
+                logger.warning("\n    All balances have been checked.")
