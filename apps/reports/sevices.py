@@ -84,4 +84,4 @@ def create_reports(clear):
                 logger.info(msg="All balances have been checked.")
 
         # Delay
-        # time.sleep(10)
+        time.sleep(30)
