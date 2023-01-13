@@ -9,9 +9,7 @@
             </div>
 
             <div class="col-8">
-                <div class="d-flex flex-row justify-content-between py-2">
-                    {% include 'groups/breadcrumb.html' %}
-                </div>
+                {% include 'groups/breadcrumb.html' %}
 
                 {% for balance in group.balances.all %}
                     {% if not balance.private or balance.owner == request.user %}

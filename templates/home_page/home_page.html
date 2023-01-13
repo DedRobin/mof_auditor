@@ -7,6 +7,7 @@
             </div>
 
             <div class="col-8">
+                {% include 'home_page/breadcrumb.html' %}
                 {% for group in user_groups %}
                     {% include 'home_page/group.html' %}
                 {% endfor %}
