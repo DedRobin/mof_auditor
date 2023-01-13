@@ -1,6 +1,21 @@
-<a href="{{ group.get_absolute_url }}" class="card border border-5 border-primary mb-2 d-block"
-   style="text-decoration: none">
-    <div class="card-header border-primary">
+<a href="{{ group.get_absolute_url }}" class="card border border-5 mb-2 d-block rounded-5
+
+{% if group.group_info.owner == request.user %}
+border-success link-success
+{% else %}
+border-primary
+{% endif %}
+
+" style="text-decoration: none">
+    <div class="card-header
+
+    {% if group.group_info.owner == request.user %}
+    border-success
+    {% else %}
+    border-primary
+    {% endif %}
+
+">
         {{ forloop.counter }}) {{ group.group_info.name }}
         ({{ group.group_info.owner.username }} -
         {{ group.group_info.owner.profile.first_name }}
@@ -9,7 +24,14 @@
     <div class="card-body">
         {% include 'home_page/total.html' %}
     </div>
-    <div class="card-footer text-muted border-primary">
+    <div class="card-footer text-muted
+
+        {% if group.group_info.owner == request.user %}
+        border-success
+        {% else %}
+        border-primary
+        {% endif %}">
+
         Created at {{ group.created_at }}
     </div>
 </a>
