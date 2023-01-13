@@ -10,32 +10,12 @@
 
             <div class="col-8">
                 <div class="d-flex flex-row justify-content-between py-2">
-                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Groups</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Group "{{ group.group_info.name }}"</li>
-                        </ol>
-                    </nav>
-                    <a href="settings/">Settings</a>
+                    {% include 'groups/breadcrumb.html' %}
                 </div>
 
                 {% for balance in group.balances.all %}
                     {% if not balance.private or balance.owner == request.user %}
-                        <div>
-                            <div class="display-6">
-                                <a href="{{ balance.get_absolute_url }}">
-                                    {{ balance.name }}
-                                    (Owner:
-                                    {{ balance.owner.profile.first_name }}
-                                    {{ balance.owner.profile.last_name }} -
-                                    {{ balance.owner.username }},
-                                    {{ balance.currency.codename }},
-                                    {{ balance.total }})
-                                </a>
-                            </div>
-                            {% include 'groups/transaction_list.html' %}
-                        </div>
+                        {% include 'groups/balance.html' %}
                     {% endif %}
                 {% endfor %}
 

@@ -1,0 +1,16 @@
+<a class="" href="{{ balance.get_absolute_url }}settings/">settings</a>
+<a href="#" class="card border border-5 mb-2 d-block rounded-5 border-secondary"
+   style="text-decoration: none">
+    <div href="{{ balance.get_absolute_url }}" class="card-header border-secondary">
+        {{ balance.name }}
+        (Owner:
+        {{ balance.owner.profile.first_name }}
+        {{ balance.owner.profile.last_name }} -
+        {{ balance.owner.username }},
+        {{ balance.currency.codename }},
+        {{ balance.total }})
+    </div>
+    <div class="card-body">
+        {% include 'groups/transaction_list.html' %}
+    </div>
+</a>

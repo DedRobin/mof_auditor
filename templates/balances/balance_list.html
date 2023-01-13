@@ -9,37 +9,17 @@
             </div>
 
             <div class="col-8">
-                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item "><a href="{% url 'index' %}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My balances</li>
-                    </ol>
-                </nav>
-                <div class="d-flex flex-row justify-content-between py-2">
-                    <div class="py-2">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#AddBalance-{{ balance.pub_id }}">
-                            Add balance
-                        </button>
-
-                    </div>
-
+                {% include 'balances/breadcrumb.html' %}
+                <div class="py-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#AddBalance-{{ balance.pub_id }}">
+                        Add balance
+                    </button>
                 </div>
 
                 {% for balance in balances %}
-                    <div class="bg-info bg-opacity-25 border border-secondary mb-2 p-2 rounded-5">
-                        <div class="d-flex display-6 justify-content-between bg-info p-3 rounded-bottom rounded-5">
-                            {{ balance.name }} ({{ balance.currency }})
-                            <div class="material-symbols-rounded">
-                                <a class="setting-setting" href="{{ balance.get_absolute_url }}settings/">settings</a>
-                            </div>
-                        </div>
-
-                        {% include 'balances/transaction_list.html' %}
-
-                    </div>
+                    {% include 'balances/balance.html' %}
                 {% endfor %}
-
             </div>
 
             <div class="col">

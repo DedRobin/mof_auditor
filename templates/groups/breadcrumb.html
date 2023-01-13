@@ -1,0 +1,8 @@
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="display-6">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Groups</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Group "{{ group.group_info.name }}"</li>
+    </ol>
+</nav>
+<a href="settings/">Settings</a>
