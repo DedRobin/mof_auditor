@@ -3,7 +3,7 @@
     <thead>
     <tr>
         <th scope="col">№</th>
-        <th scope="col">From who</th>
+        <th scope="col">To who</th>
         <th scope="col">To a group</th>
         <th scope="col">X</th>
     </tr>
@@ -14,11 +14,11 @@
         <tr>
             <th scope="row">{{ forloop.counter }}</th>
             <td>
-                {{ outgoing_invitation.from_who.profile.first_name }}
-                {{ outgoing_invitation.from_who.profile.last_name }}
-                ({{ outgoing_invitation.from_who }})
+                {{ outgoing_invitation.to_who.profile.first_name }}
+                {{ outgoing_invitation.to_who.profile.last_name }}
+                ({{ outgoing_invitation.to_who }})
             </td>
-            <td>{{ outgoing_invitation.to_a_group }}</td>
+            <td>{{ outgoing_invitation.to_a_group.group_info.name }}</td>
             <td>
                 <div class="d-flex flex-row">
                     <form method="POST">
