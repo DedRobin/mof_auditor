@@ -31,4 +31,5 @@ urlpatterns = [
     path("invitations/", include("apps.invitations.urls")),
     path("operations/", get_transactions, name="operation_list"),
     path("operations/export", export_operations, name="export_operations"),
+    path("analytics/", include("apps.analytics.urls")),
 ]
