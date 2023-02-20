@@ -4,7 +4,7 @@ from apps.groups.models import GroupInformation
 
 GROUP_TYPE = [
     ("mine", "Only mine"),
-    ("not mine", "Excluding mine"),
+    ("not mine", "Except mine"),
 ]
 
 
@@ -27,7 +27,7 @@ class EditGroupInformationForm(forms.ModelForm):
 
 
 class GroupFilterForm(forms.Form):
-    by_name = forms.CharField(required=False, max_length=255)
+    name = forms.CharField(required=False, max_length=255)
     created_at_from = forms.DateTimeField(
         required=False,
         widget=forms.DateTimeInput(
