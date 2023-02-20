@@ -10,7 +10,10 @@
 
             <div class="col-8">
                 {% include 'analytics/breadcrumb.html' %}
-                {{ var }}
+
+                <!--Div that will hold the pie chart-->
+                <div id="chart_div"></div>
+
             </div>
 
             <div class="col">
@@ -20,3 +23,6 @@
     </div>
 {% endblock %}
 
+{% block scripts %}
+    {% include 'analytics/load_ajax_api.html' %}
+{% endblock %}
