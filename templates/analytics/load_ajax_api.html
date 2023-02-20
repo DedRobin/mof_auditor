@@ -18,18 +18,16 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-            ['Mushrooms', 3],
-            ['Onions', 1],
-            ['Olives', 1],
-            ['Zucchini', 1],
-            ['Pepperoni', 2]
+            {% for t in transactions %}
+                ['{{ t.categoty.name }}', {{ t.amount }}],
+            {% endfor %}
         ]);
 
         // Set chart options
         var options = {
-            'title': 'How Much Pizza I Ate Last Night',
-            'width': 500,
-            'height': 300
+            'title': '{{ balance.name|upper }}',
+            'width': 1000,
+            'height': 1000
         };
 
         // Instantiate and draw our chart, passing in some options.
