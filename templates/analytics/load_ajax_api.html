@@ -12,26 +12,27 @@
     // instantiates the pie chart, passes in the data and
     // draws it.
     function drawChart() {
+        {% for balance in balances %}
+            // Create the data table.
+            var data_{{ balance.pub_id }} = new google.visualization.DataTable();
+            data_{{ balance.pub_id }}.addColumn('string', 'Categories');
+            data_{{ balance.pub_id }}.addColumn('number', 'Amount');
+            data_{{ balance.pub_id }}.addRows([
+                {% for t in balance.transactions.all %}
+                    ['{{ t.category.name }}', {{ t.amount }}],
+                {% endfor %}
+            ]);
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Categories');
-        data.addColumn('number', 'Amount');
-        data.addRows([
-            {% for t in transactions %}
-                ['{{ t.categoty.name }}', {{ t.amount }}],
-            {% endfor %}
-        ]);
+            // Set chart options
+            var options_{{ balance.pub_id }} = {
+                'title': '{{ balance.name|upper }}',
+                'width': 600,
+                'height': 500
+            };
 
-        // Set chart options
-        var options = {
-            'title': '{{ balance.name|upper }}',
-            'width': 600,
-            'height': 600
-        };
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+            // Instantiate and draw our chart, passing in some options.
+            var chart1 = new google.visualization.BarChart(document.getElementById('balance_{{ balance.pub_id }}'));
+            chart1.draw(data_{{ balance.pub_id }}, options_{{ balance.pub_id }});
+        {% endfor %}
     }
 </script>

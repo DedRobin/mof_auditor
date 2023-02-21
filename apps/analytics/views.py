@@ -6,10 +6,8 @@ from apps.balances.models import Balance
 
 @login_required
 def get_charts(request):
-    balance = Balance.objects.filter(owner=request.user).first()
-    transactions = balance.transactions.all()
+    balances = Balance.objects.filter(owner=request.user)
     data = {
-        "transactions": transactions,
-        "balance": balance,
+        "balances": balances,
     }
     return render(request, "analytics/charts.html", data)
