@@ -18,8 +18,8 @@
             data_{{ balance.pub_id }}.addColumn('string', 'Categories');
             data_{{ balance.pub_id }}.addColumn('number', 'Amount');
             data_{{ balance.pub_id }}.addRows([
-                {% for t in balance.transactions.all %}
-                    ['{{ t.category.name }}', {{ t.amount }}],
+                {% for category, amount in balance.get_total_by_each_category.items %}
+                    ['{{ category }}', {{ amount }}],
                 {% endfor %}
             ]);
 

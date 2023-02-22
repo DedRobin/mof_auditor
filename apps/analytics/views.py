@@ -6,7 +6,8 @@ from apps.balances.models import Balance
 
 @login_required
 def get_charts(request):
-    balances = Balance.objects.filter(owner=request.user)
+    balances = Balance.objects.filter(owner=request.user).order_by("name")
+    test = balances[0].get_total_by_each_category()
     data = {
         "balances": balances,
     }

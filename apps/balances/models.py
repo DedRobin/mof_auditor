@@ -54,3 +54,10 @@ class Balance(models.Model):
             total = sum(transactions.amount for transactions in transactions)
             return total
         return Decimal("0")
+
+    def get_total_by_each_category(self):
+        transactions = self.transactions.all()
+        total_by_each_cat = {t.category.name: Decimal("0") for t in transactions}
+        for t in transactions:
+            total_by_each_cat[t.category.name] += t.amount
+        return total_by_each_cat
