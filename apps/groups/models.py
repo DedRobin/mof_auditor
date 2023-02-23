@@ -69,7 +69,8 @@ class Group(models.Model):
         balances = self.balances.all()
         currencies = Currency.objects.filter(balances__in=balances).distinct()
         for currency in currencies:
-            result = balances.filter(currency=currency, private=False).aggregate(
+            result = balances.filter(currency=currency, private=False)
+            result = result.aggregate(
                 total=Sum("transactions__amount")
             )
             if result["total"]:
