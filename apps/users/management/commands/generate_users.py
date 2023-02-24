@@ -1,8 +1,11 @@
 from django.core.management.base import BaseCommand
+from faker import Faker
 
 from apps.users.models import User
 from apps.users.factories import UserFactory
 from apps.profiles.factories import ProfileFactory
+
+fake = Faker()
 
 
 class Command(BaseCommand):
@@ -27,6 +30,10 @@ class Command(BaseCommand):
             print("The value is incorrect.")
         else:
             for _ in range(size):
-                user = UserFactory()
+                user = User.objects.create(
+                    username=fake.user_name()
+                )
+                user.set_password(fake.md5())
+                user.save()
                 ProfileFactory(user=user)
             print(f"The {size} users has been created.")
