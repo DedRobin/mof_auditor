@@ -8,9 +8,13 @@
 
             <div class="col-8">
                 {% include 'home_page/breadcrumb.html' %}
-                {% for group in user_groups %}
-                    {% include 'home_page/group.html' %}
-                {% endfor %}
+                <div class="row row-cols-2">
+                    {% for group in user_groups %}
+                        <div class="col">
+                            {% include 'home_page/group.html' %}
+                            </div>
+                    {% endfor %}
+                </div>
             </div>
 
             <div class="col">
