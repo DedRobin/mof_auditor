@@ -215,7 +215,7 @@ def get_linked_balances(request, pub_id):
         updated_linked_balances = Balance.objects.filter(
             pub_id__in=balance_pub_ids
         ).order_by("name")
-        group.balances.set(updated_linked_balances)
+        group.balances.set(updated_linked_balances)  # !!! Check it
         linked_balances = updated_linked_balances
 
     data = {

@@ -16,10 +16,16 @@ border-primary
     {% endif %}
 
 ">
-        {{ forloop.counter }}) {{ group.group_info.name }}
-        ({{ group.group_info.owner.username }} -
-        {{ group.group_info.owner.profile.first_name }}
-        {{ group.group_info.owner.profile.last_name }})
+        <div class="d-flex justify-content-between">
+            <div>
+                {{ forloop.counter }}) {{ group.group_info.name }}
+            </div>
+            <div>
+                {{ group.group_info.owner.username }} -
+                {{ group.group_info.owner.profile.first_name }}
+                {{ group.group_info.owner.profile.last_name }}
+            </div>
+        </div>
     </div>
     <div class="card-body">
         {% include 'home_page/total.html' %}
