@@ -28,7 +28,7 @@ class Command(BaseCommand):
         try:
             size = int(
                 input(
-                    "How much would you like create invitations for each group each user?\n"
+                    "How much would you like to create invitations for each group each user?\n"
                 )
             )
             if size <= 0:

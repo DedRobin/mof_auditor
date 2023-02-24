@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
         try:
             size = int(
-                input("How much would you like create transaction for each balance?\n")
+                input("How much would you like to create transaction for each balance?\n")
             )
             if size <= 0:
                 print("Size must be greater than 0.")

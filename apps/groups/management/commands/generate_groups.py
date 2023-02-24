@@ -26,7 +26,7 @@ class Command(BaseCommand):
         users = User.objects.all()
         size = 0
         try:
-            size = int(input("How much would you like create groups for each user?\n"))
+            size = int(input("How much would you like to create groups for each user?\n"))
             if size <= 0:
                 print("Size must be greater than 0.")
                 return
