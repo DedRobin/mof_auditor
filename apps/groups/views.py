@@ -212,11 +212,13 @@ def get_linked_balances(request, pub_id):
 
     if request.method == "POST":
         balance_pub_ids = request.POST.getlist("balances")
-        updated_linked_balances = Balance.objects.filter(
-            pub_id__in=balance_pub_ids
-        ).order_by("name")
-        group.balances.set(updated_linked_balances)  # !!! Check it
-        linked_balances = updated_linked_balances
+        updated_balances = Balance.objects.filter(pub_id__in=balance_pub_ids).all()
+        for balance in balances:
+            if balance in updated_balances:
+                group.balances.add(balance)
+            else:
+                group.balances.remove(balance)
+        linked_balances = updated_balances
 
     data = {
         "pub_id": pub_id,
